@@ -1,0 +1,69 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "stadium_tickets_app",
+            "request": "launch",
+            "type": "dart",
+            "args": [
+                "--dart-define=BASE_URL=https://stadium-tickets-backend.herokuapp.com/api/v1",
+                "--dart-define=SENTRY_DSN=https://1312efcf907745b39254f319bf478547@o1009394.ingest.sentry.io/6219669",
+            ]
+        },
+        {
+            "name": "stadium_tickets_app (profile mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile",
+            "args": [
+                "--dart-define=BASE_URL=https://stadium-tickets-backend.herokuapp.com/api/v1",
+                "--dart-define=SENTRY_DSN=https://1312efcf907745b39254f319bf478547@o1009394.ingest.sentry.io/6219669",
+            ]
+        },
+        {
+            "name": "stadium_tickets_app (release mode)",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release",
+            "args": [
+                "--dart-define=BASE_URL=https://stadium-tickets-backend.herokuapp.com/api/v1",
+                "--dart-define=SENTRY_DSN=https://1312efcf907745b39254f319bf478547@o1009394.ingest.sentry.io/6219669",
+            ]
+        },
+        {
+            "name": "windows",
+            "cwd": "windows",
+            "request": "launch",
+            "type": "dart",
+            "args": [
+                "--dart-define=SENTRY_DSN=https://1312efcf907745b39254f319bf478547@o1009394.ingest.sentry.io/6219669",
+                "--dart-define=BASE_URL=https://stadium-tickets-backend.herokuapp.com/api/v1",
+            ]
+        },
+        {
+            "name": "windows (profile mode)",
+            "cwd": "windows",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile",
+            "args": [
+                "--dart-define=SENTRY_DSN=https://1312efcf907745b39254f319bf478547@o1009394.ingest.sentry.io/6219669",
+                "--dart-define=BASE_URL=https://stadium-tickets-backend.herokuapp.com/api/v1",
+            ]
+        },
+        {
+            "name": "windows (release mode)",
+            "cwd": "windows",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release",
+            "args": [
+                "--dart-define=SENTRY_DSN=https://1312efcf907745b39254f319bf478547@o1009394.ingest.sentry.io/6219669",
+                "--dart-define=BASE_URL=https://stadium-tickets-backend.herokuapp.com/api/v1",
+            ]
+        }
+    ]
+}
