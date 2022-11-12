@@ -1,8 +1,17 @@
 // Services
 // ignore_for_file: avoid_positional_boolean_parameters
 
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'key_value_storage_base.dart';
+
+part 'key_value_storage_service.codegen.g.dart';
+
+/// A provider used to access instance of this service
+@riverpod
+KeyValueStorageService keyValueStorageService(KeyValueStorageServiceRef ref) {
+  return KeyValueStorageService();
+}
 
 /// A service class for providing methods to store and retrieve key-value data
 /// from common or secure storage.

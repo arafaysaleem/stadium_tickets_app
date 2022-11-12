@@ -6,7 +6,7 @@ import './custom_exception.dart';
 
 // Services
 import './api_interface.dart';
-import './dio_service.dart';
+import 'dio_service.dart';
 
 // Helpers
 import '../../helpers/typedefs.dart';

@@ -2,31 +2,32 @@ import 'package:dio/dio.dart';
 import 'package:dio_cache_interceptor/dio_cache_interceptor.dart';
 import 'package:dio_cache_interceptor_hive_store/dio_cache_interceptor_hive_store.dart';
 import 'package:flutter/foundation.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 // Services
-import '../core/local/key_value_storage_service.dart';
-import '../core/local/path_provider_service.dart';
-import '../core/networking/api_endpoint.dart';
-import '../core/networking/api_service.dart';
-import '../core/networking/dio_service.dart';
+import '../local/path_provider_service.dart';
+import 'api_endpoint.dart';
+import 'api_service.dart';
+import 'dio_service.dart';
 
 // Interceptors
-import '../core/networking/interceptors/api_interceptor.dart';
-import '../core/networking/interceptors/logging_interceptor.dart';
+import 'interceptors/api_interceptor.dart';
+import 'interceptors/logging_interceptor.dart';
 
-final keyValueStorageServiceProvider = Provider<KeyValueStorageService>(
-  (ref) => KeyValueStorageService(),
-);
+part 'api_service_provider.codegen.g.dart';
 
-final _dioProvider = Provider<Dio>((ref) {
+/// A provider used to access instance of [Dio] service
+@riverpod
+Dio _dio(_DioRef ref) {
   final baseOptions = BaseOptions(
     baseUrl: ApiEndpoint.baseUrl,
   );
   return Dio(baseOptions);
-});
+}
 
-final _dioServiceProvider = Provider<DioService>((ref) {
+/// A provider used to access instance of [DioService] service
+@riverpod
+DioService _dioService(_DioServiceRef ref) {
   final dio = ref.watch(_dioProvider);
   final cacheOptions = CacheOptions(
     store: HiveCacheStore(PathProviderService.path),
@@ -44,9 +45,11 @@ final _dioServiceProvider = Provider<DioService>((ref) {
       if (kDebugMode) LoggingInterceptor(),
     ],
   );
-});
+}
 
-final apiServiceProvider = Provider<ApiService>((ref) {
+/// A provider used to access instance of this service
+@riverpod
+ApiService apiService(ApiServiceRef ref) {
   final dioService = ref.watch(_dioServiceProvider);
   return ApiService(dioService);
-});
+}
