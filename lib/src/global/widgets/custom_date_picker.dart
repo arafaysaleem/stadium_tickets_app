@@ -7,7 +7,6 @@ import 'package:intl/intl.dart';
 // Helpers
 import '../../helpers/constants/app_colors.dart';
 import '../../helpers/constants/app_styles.dart';
-import '../../helpers/constants/app_typography.dart';
 
 // Widgets
 import './cupertino_date_picker_dialog.dart';
@@ -112,7 +111,7 @@ class CustomDatePicker extends StatelessWidget {
           child: Text(
             pickerStyle.floatingText,
             style:
-                pickerStyle.floatingTextStyle ?? AppTypography.primary.body16,
+                pickerStyle.floatingTextStyle ?? const TextStyle(fontSize: 16),
           ),
         ),
 

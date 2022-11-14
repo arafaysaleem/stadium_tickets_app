@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 // Helpers
 import '../../helpers/constants/app_colors.dart';
 import '../../helpers/constants/app_styles.dart';
-import '../../helpers/constants/app_typography.dart';
 
 //Services
 import '../../core/networking/custom_exception.dart';
@@ -38,7 +37,6 @@ class CustomErrorWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = AppTypography.primary;
     return Center(
       child: Container(
         decoration: BoxDecoration(
@@ -50,9 +48,9 @@ class CustomErrorWidget extends StatelessWidget {
         child: Center(
           child: Column(
             children: [
-              Text(
+              const Text(
                 'Oops',
-                style: textTheme.heading34.copyWith(
+                style: TextStyle(
                   color: AppColors.primaryColor,
                   fontSize: 45,
                 ),
@@ -61,17 +59,17 @@ class CustomErrorWidget extends StatelessWidget {
               Text(
                 error.message,
                 textAlign: TextAlign.center,
-                style: textTheme.body16.copyWith(fontSize: 21),
+                style: const TextStyle(fontSize: 21),
               ),
               const Spacer(),
               CustomTextButton.gradient(
                 width: double.infinity,
                 onPressed: retryCallback,
                 gradient: AppColors.buttonGradientPrimary,
-                child: Center(
+                child: const Center(
                   child: Text(
                     'RETRY',
-                    style: textTheme.label12.copyWith(
+                    style: TextStyle(
                       color: Colors.white,
                       fontSize: 16,
                       letterSpacing: 1.1,

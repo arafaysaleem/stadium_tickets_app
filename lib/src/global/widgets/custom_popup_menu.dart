@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 // Helpers
 import '../../helpers/constants/app_colors.dart';
-import '../../helpers/constants/app_typography.dart';
 
 class CustomPopupMenu<T> extends StatelessWidget {
   final Widget child;
@@ -31,7 +30,8 @@ class CustomPopupMenu<T> extends StatelessWidget {
               value: entry.value,
               child: Text(
                 entry.key,
-                style: AppTypography.primary.subtitle13.copyWith(
+                style: const TextStyle(
+                  fontSize: 13,
                   fontWeight: FontWeight.bold,
                 ),
                 maxLines: 1,

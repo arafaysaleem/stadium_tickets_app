@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 //Helpers
 import '../../helpers/constants/app_styles.dart';
-import '../../helpers/constants/app_typography.dart';
 
 class RatingStars extends StatelessWidget {
   final double rating;
@@ -34,7 +33,7 @@ class RatingStars extends StatelessWidget {
         if (showRatingNumber) ...[
           Text(
             rating == 0 ? 'N/A' : rating.toString(),
-            style: AppTypography.primary.body14.copyWith(
+            style: const TextStyle(
               color: Colors.black,
               fontWeight: FontWeight.bold,
             ),

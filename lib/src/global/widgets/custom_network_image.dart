@@ -5,7 +5,9 @@ class CustomNetworkImage extends StatelessWidget {
   final String imageUrl;
   final double? height;
   final double width;
+  final Color? backgroundColor;
   final double radius;
+  final List<BoxShadow>? boxShadow;
   final BorderRadiusGeometry? borderRadius;
   final Border? border;
   final BoxFit? fit;
@@ -23,8 +25,10 @@ class CustomNetworkImage extends StatelessWidget {
     this.border,
     this.shape = BoxShape.rectangle,
     this.fit,
+    this.boxShadow,
     this.height,
     this.onTap,
+    this.backgroundColor,
     this.borderRadius,
     this.placeholder,
     this.errorWidget,
@@ -53,6 +57,8 @@ class CustomNetworkImage extends StatelessWidget {
           decoration: BoxDecoration(
             image: DecorationImage(image: imageProvider, fit: fit),
             shape: shape,
+            color: backgroundColor,
+            boxShadow: boxShadow,
             border: border,
             borderRadius: shape == BoxShape.circle
                 ? null

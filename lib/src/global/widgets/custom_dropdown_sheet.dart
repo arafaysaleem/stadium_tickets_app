@@ -7,7 +7,6 @@ import '../../config/routes/app_router.dart';
 
 // Helpers
 import '../../helpers/constants/app_colors.dart';
-import '../../helpers/constants/app_typography.dart';
 
 // Widgets
 import './custom_text_button.dart';
@@ -140,7 +139,8 @@ class _CustomDropdownSheetState<T> extends State<CustomDropdownSheet<T>> {
                 child: Center(
                   child: Text(
                     widget.submitButtonText,
-                    style: AppTypography.secondary.body14.copyWith(
+                    style: const TextStyle(
+                      fontSize: 14,
                       color: Colors.white,
                     ),
                   ),

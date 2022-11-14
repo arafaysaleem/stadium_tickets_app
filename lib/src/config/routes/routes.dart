@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 
 // Helpers
+import '../../features/events/events_screen.dart';
 import '../../helpers/typedefs.dart';
 
 /// A utility class that holds screen names for named navigation.
@@ -11,16 +12,13 @@ class Routes {
   const Routes._();
 
   /// The route to be loaded when app launches
-  static const String initialRoute = StartupWidgetBuilderRoute;
+  static const String initialRoute = EventsScreenRoute;
 
   /// The route to be loaded in case of unrecognized route name
   static const String fallbackRoute = NotFoundScreenRoute;
 
-  // The name for the auth widget screen
-  static const String StartupWidgetBuilderRoute = '/startup-widget-builder';
-
-  /// The name of the route for home dashboard screen
-  static const String HomeScreenRoute = '/home-screen';
+  /// The name of the route for events screen
+  static const String EventsScreenRoute = '/events-screen';
 
   /// The name of the route for data import screen
   static const String DataImportRoute = '/data-import-screen';
@@ -29,7 +27,7 @@ class Routes {
   static const String NotFoundScreenRoute = '/route-not-found-screen';
 
   static final Map<String, RouteBuilder> _routesMap = {
-    // StartupWidgetBuilderRoute: (_) => const StartupWidgetBuilder(),
+    EventsScreenRoute: (_) => const EventsScreen(),
     NotFoundScreenRoute: (_) => const SizedBox.shrink(),
   };
 

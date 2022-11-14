@@ -42,7 +42,7 @@ class AppColors {
 
   /// The darker greyish color used for background surfaces
   /// of the app like behind scrolling screens or scaffolds etc.
-  static const Color backgroundColor = Color.fromARGB(255, 39, 39, 39);
+  static const Color backgroundColor = Color.fromARGB(255, 240, 240, 240);
 
   /// The light greyish color used for container/card surfaces
   /// of the app.

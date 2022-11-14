@@ -4,13 +4,13 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 // Helpers
 import '../../../helpers/constants/app_colors.dart';
 import '../../../helpers/constants/app_styles.dart';
-import '../../../helpers/constants/app_typography.dart';
 import '../../../helpers/extensions/datetime_extension.dart';
 
 // Models
 import '../models/event_model.codegen.dart';
 
 // Widgets
+import '../../../global/widgets/custom_text.dart';
 import '../../../global/widgets/custom_network_image.dart';
 
 class EventGridItem extends ConsumerWidget {
@@ -25,59 +25,70 @@ class EventGridItem extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return InkWell(
       onTap: () {},
-      child: Container(
+      child: DecoratedBox(
         decoration: const BoxDecoration(
           borderRadius: Corners.rounded9,
           color: Colors.white,
           boxShadow: Shadows.elevated,
         ),
-        padding: const EdgeInsets.all(15),
         child: Column(
           children: [
             // Event Poster
             CustomNetworkImage(
-              height: 58,
-              width: 58,
-              shape: BoxShape.circle,
+              height: 170,
+              fit: BoxFit.fill,
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(9),
+                topRight: Radius.circular(9),
+              ),
               imageUrl: event.posterUrl,
             ),
 
             Insets.gapH10,
 
-            // Full Name
-            Text(
-              event.name,
-              textAlign: TextAlign.center,
-              maxLines: 2,
-              overflow: TextOverflow.fade,
-              style: AppTypography.primary.body14.copyWith(
-                fontWeight: FontWeight.bold,
+            // Details
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: Column(
+                  children: [
+                    // Full Name
+                    CustomText(
+                      event.name,
+                      maxLines: 2,
+                      fontSize: 14,
+                      textAlign: TextAlign.center,
+                      overflow: TextOverflow.fade,
+                      fontWeight: FontWeight.bold,
+                    ),
+            
+                    Insets.gapH3,
+            
+                    // Date
+                    CustomText(
+                      event.date.toDateString('d MMM, y'),
+                      textAlign: TextAlign.center,
+                      fontColor: AppColors.textGreyColor,
+                      fontSize: 14,
+                    ),
+            
+                    Insets.expand,
+            
+                    // Times
+                    CustomText(
+                      '${event.startTime.format(context)} - ${event.endTime.format(context)}',
+                      textAlign: TextAlign.center,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      fontSize: 13,
+                      fontColor: AppColors.textLightGreyColor,
+                    ),
+                  ],
+                ),
               ),
             ),
-
-            Insets.gapH3,
-
-            // Date
-            Text(
-              event.date.toDateString(),
-              textAlign: TextAlign.center,
-              style: AppTypography.primary.body14.copyWith(
-                color: AppColors.textLightGreyColor,
-              ),
-            ),
-
-            Insets.expand,
-
-            // Times
-            Text(
-              '${event.startTime}-${event.endTime}',
-              textAlign: TextAlign.center,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              style: AppTypography.primary.subtitle13.copyWith(
-                color: AppColors.textLightGreyColor,
-              ),
-            ),
+          
+            Insets.gapH10,
           ],
         ),
       ),

@@ -10,10 +10,15 @@ final searchFilterProvider = StateProvider.autoDispose<String>((ref) => '');
 
 /// A provider used to access list of searched events
 @riverpod
-List<EventModel> searchedEvents(SearchedEventsRef ref, List<EventModel> events) {
-  final _searchTerm = ref.watch(searchFilterProvider);
+List<EventModel> searchedEvents(
+  SearchedEventsRef ref,
+  List<EventModel> events,
+) {
+  final _searchTerm = ref.watch(searchFilterProvider).toLowerCase();
   if (_searchTerm.isEmpty) {
     return events;
   }
-  return events.where((event) => true).toList();
+  return events
+      .where((event) => event.name.toLowerCase().contains(_searchTerm))
+      .toList();
 }

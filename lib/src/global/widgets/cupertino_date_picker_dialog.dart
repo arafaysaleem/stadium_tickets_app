@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 // Helpers
 import '../../helpers/constants/app_colors.dart';
 import '../../helpers/constants/app_styles.dart';
-import '../../helpers/constants/app_typography.dart';
 
 class CupertinoDatePickerDialog extends StatefulWidget {
   /// The mode of the date picker as one of [CupertinoDatePickerMode].
@@ -112,11 +111,12 @@ class _CupertinoDatePickerDialogState extends State<CupertinoDatePickerDialog> {
                   // Cancel Link
                   GestureDetector(
                     onTap: _onCancel,
-                    child: Padding(
-                      padding: const EdgeInsets.all(15),
+                    child: const Padding(
+                      padding: EdgeInsets.all(15),
                       child: Text(
                         'Cancel',
-                        style: AppTypography.primary.body14.copyWith(
+                        style: TextStyle(
+                          fontSize: 14,
                           color: AppColors.textGreyColor,
                         ),
                       ),
@@ -126,7 +126,7 @@ class _CupertinoDatePickerDialogState extends State<CupertinoDatePickerDialog> {
                   // Help Text
                   Text(
                     widget.helpText ?? 'Select A Date',
-                    style: AppTypography.primary.body16.copyWith(
+                    style: const TextStyle(
                       fontSize: 17,
                       fontWeight: FontWeight.bold,
                     ),
@@ -135,11 +135,12 @@ class _CupertinoDatePickerDialogState extends State<CupertinoDatePickerDialog> {
                   // Done Link
                   GestureDetector(
                     onTap: _onDone,
-                    child: Padding(
-                      padding: const EdgeInsets.all(15),
+                    child: const Padding(
+                      padding: EdgeInsets.all(15),
                       child: Text(
                         'Done',
-                        style: AppTypography.primary.body14.copyWith(
+                        style: TextStyle(
+                          fontSize: 14,
                           color: AppColors.primaryColor,
                         ),
                       ),

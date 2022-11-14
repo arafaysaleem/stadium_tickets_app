@@ -29,19 +29,22 @@ Dio _dio(_DioRef ref) {
 @riverpod
 DioService _dioService(_DioServiceRef ref) {
   final dio = ref.watch(_dioProvider);
-  final cacheOptions = CacheOptions(
-    store: HiveCacheStore(PathProviderService.path),
-    policy: CachePolicy.noCache, // Bcz we force cache on-demand in repositories
-    maxStale: const Duration(days: 30), // No of days cache is valid
-    keyBuilder: (options) => options.path,
-  );
+  CacheOptions? cacheOptions;
+  if (!kIsWeb){
+    cacheOptions = CacheOptions(
+      store: HiveCacheStore(PathProviderService.path),
+      policy: CachePolicy.noCache, // Bcz we force cache on-demand in repositories
+      maxStale: const Duration(days: 30), // No of days cache is valid
+      keyBuilder: (options) => options.path,
+    );
+  }
   return DioService(
     dioClient: dio,
     globalCacheOptions: cacheOptions,
     interceptors: [
       // Order of interceptors very important
       ApiInterceptor(),
-      DioCacheInterceptor(options: cacheOptions),
+      if (!kIsWeb) DioCacheInterceptor(options: cacheOptions!),
       if (kDebugMode) LoggingInterceptor(),
     ],
   );

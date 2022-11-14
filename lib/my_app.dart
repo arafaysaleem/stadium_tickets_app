@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
@@ -18,10 +19,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const title = 'GPS Collection App';
+    const title = 'Stadium Tickets App';
     const showDebugBanner = false;
     final navigatorObservers = <NavigatorObserver>[SentryNavigatorObserver()];
-    final platformIsIOS = Platform.isIOS;
+    final platformIsIOS = !kIsWeb && Platform.isIOS;
     final app = platformIsIOS
         ? Theme(
             data: AppThemes.mainTheme,

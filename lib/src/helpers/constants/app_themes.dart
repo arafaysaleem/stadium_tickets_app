@@ -56,8 +56,8 @@ class AppThemes {
       ),
       backgroundColor: AppColors.backgroundColor,
     ),
-    fontFamily: AppTypography.primary.fontFamily,
-    textTheme: AppTypography.primary.textTheme,
+    fontFamily: AppTypography.primaryFontFamily,
+    textTheme: AppTypography.primary,
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
         padding: EdgeInsets.zero,
@@ -68,7 +68,7 @@ class AppThemes {
       centerTitle: true,
       elevation: 0,
       backgroundColor: AppColors.lightBackgroundColor,
-      titleTextStyle: AppTypography.primary.heading22,
+      titleTextStyle: AppTypography.primary.displayMedium,
       iconTheme: const IconThemeData(color: Colors.black),
     ),
     iconTheme: const IconThemeData(color: AppColors.textLightGreyColor),

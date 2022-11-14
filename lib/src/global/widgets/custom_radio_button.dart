@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 // Helpers
 import '../../helpers/constants/app_colors.dart';
 import '../../helpers/constants/app_styles.dart';
-import '../../helpers/constants/app_typography.dart';
 import '../../helpers/constants/app_utils.dart';
 
 class CustomRadioButton<T> extends StatelessWidget {
@@ -59,7 +58,8 @@ class CustomRadioButton<T> extends StatelessWidget {
                 // Label
                 Text(
                   label,
-                  style: AppTypography.primary.body14.copyWith(
+                  style: TextStyle(
+                    fontSize: 14,
                     color: isSelected ? Colors.white : AppColors.textGreyColor,
                   ),
                 ),

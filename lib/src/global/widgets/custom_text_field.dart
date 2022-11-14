@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 
 // Helpers
 import '../../helpers/constants/app_colors.dart';
-import '../../helpers/constants/app_typography.dart';
 import '../../helpers/constants/app_styles.dart';
 
 class CustomTextField extends StatefulWidget {
@@ -82,7 +81,7 @@ class CustomTextField extends StatefulWidget {
       fontSize: 16,
       color: AppColors.textGreyColor,
     ),
-    this.contentPadding = const EdgeInsets.fromLTRB(12, 13, 1, 13),
+    this.contentPadding = const EdgeInsets.fromLTRB(12, 13, 1, 16),
   });
 
   @override
@@ -167,7 +166,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
               alignment: widget.floatingAlign,
               child: Text(
                 widget.floatingText!,
-                style: widget.floatingStyle ?? AppTypography.primary.body16,
+                style: widget.floatingStyle ?? const TextStyle(fontSize: 16),
               ),
             ),
           ),
@@ -242,7 +241,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
               alignment: widget.errorAlign,
               child: Text(
                 errorText!,
-                style: AppTypography.primary.body14.copyWith(
+                style: const TextStyle(
+                  fontSize: 14,
                   color: AppColors.redColor,
                 ),
               ),

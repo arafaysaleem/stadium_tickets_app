@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 // Helpers
 import '../../helpers/constants/app_colors.dart';
 import '../../helpers/constants/app_styles.dart';
-import '../../helpers/constants/app_typography.dart';
 
 enum LabelPosition {
   start,
@@ -51,7 +50,7 @@ class LabeledWidget extends StatelessWidget {
       // Label
       Text(
         label,
-        style: useDarkerLabel ? AppTypography.primary.body16 : labelStyle,
+        style: useDarkerLabel ? const TextStyle(fontSize: 16) : labelStyle,
       ),
 
       if (labelDirection == Axis.vertical) labelGap else horizontalLabelGap,

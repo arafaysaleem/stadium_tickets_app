@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../helpers/constants/app_colors.dart';
-import '../../helpers/constants/app_typography.dart';
 
 // Helpers
 
@@ -47,7 +46,8 @@ class _CustomFilterChipState<T> extends State<CustomFilterChip<T>> {
       pressElevation: 0,
       labelPadding: const EdgeInsets.symmetric(horizontal: 11),
       showCheckmark: false,
-      labelStyle: AppTypography.primary.subtitle13.copyWith(
+      labelStyle: TextStyle(
+        fontSize: 13,
         color: _isSelected ? widget.selectedLabelColor : widget.labelColor,
       ),
       backgroundColor: widget.backgroundColor,

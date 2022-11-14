@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 // Helpers
 import '../../helpers/constants/app_colors.dart';
 import '../../helpers/constants/app_styles.dart';
-import '../../helpers/constants/app_typography.dart';
 
 //Routing
 import '../../config/routes/app_router.dart';
@@ -128,10 +127,11 @@ class CustomDialog extends StatelessWidget {
       backgroundColor: AppColors.surfaceColor,
       title: Text(title),
       content: child ?? Text(body),
-      contentTextStyle: AppTypography.primary.body14.copyWith(
+      contentTextStyle: const TextStyle(
+        fontSize: 14,
         color: AppColors.textLightGreyColor,
       ),
-      titleTextStyle: AppTypography.primary.title18,
+      titleTextStyle: const TextStyle(fontSize: 18),
       actions: <Widget>[
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
