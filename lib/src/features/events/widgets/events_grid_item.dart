@@ -13,10 +13,10 @@ import '../models/event_model.codegen.dart';
 import '../../../global/widgets/custom_text.dart';
 import '../../../global/widgets/custom_network_image.dart';
 
-class EventGridItem extends ConsumerWidget {
+class EventsGridItem extends ConsumerWidget {
   final EventModel event;
 
-  const EventGridItem({
+  const EventsGridItem({
     super.key,
     required this.event,
   });

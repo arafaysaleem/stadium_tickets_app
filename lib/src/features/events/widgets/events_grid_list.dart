@@ -14,7 +14,7 @@ import '../../../global/widgets/async_value_widget.dart';
 import '../../../global/widgets/empty_state_widget.dart';
 import '../../../global/widgets/custom_circular_loader.dart';
 import '../../../global/widgets/error_response_handler.dart';
-import 'event_grid_item.dart';
+import 'events_grid_item.dart';
 
 class EventsGridList extends ConsumerWidget {
   const EventsGridList({super.key});
@@ -98,7 +98,7 @@ class EventsGridList extends ConsumerWidget {
             crossAxisSpacing: 20,
             childAspectRatio: 4 / 4.1,
           ),
-          itemBuilder: (_, i) => EventGridItem(
+          itemBuilder: (_, i) => EventsGridItem(
             event: events[i],
           ),
         );
