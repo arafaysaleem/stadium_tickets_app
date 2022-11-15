@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 // Models
-import '../model/zone_seat_model.codegen.dart';
+import '../model/seat_model.codegen.dart';
 
 // Widgets
 import 'seat_widget.dart';
@@ -13,9 +13,9 @@ class SeatsArea extends StatelessWidget {
   final int numOfRows;
   final int maxRows;
   final int seatsPerRow;
-  final List<ZoneSeatModel> missing;
-  final List<ZoneSeatModel> blocked;
-  final List<ZoneSeatModel> booked;
+  final List<SeatModel> missing;
+  final List<SeatModel> blocked;
+  final List<SeatModel> booked;
   final ScrollController screenScrollController;
 
   const SeatsArea({
@@ -23,20 +23,20 @@ class SeatsArea extends StatelessWidget {
     required this.maxGridHeight,
     required this.seatSize,
     required this.seatGap,
-    required this.numOfRows,
-    required this.maxRows,
-    required this.seatsPerRow,
     required this.missing,
     required this.blocked,
     required this.booked,
+    required this.numOfRows,
+    required this.maxRows,
+    required this.seatsPerRow,
     required this.screenScrollController,
   });
 
-  bool isMissing(ZoneSeatModel seat) => missing.contains(seat);
+  bool isMissing(SeatModel seat) => missing.contains(seat);
 
-  bool isBlocked(ZoneSeatModel seat) => blocked.contains(seat);
+  bool isBlocked(SeatModel seat) => blocked.contains(seat);
 
-  bool isBooked(ZoneSeatModel seat) => booked.contains(seat);
+  bool isBooked(SeatModel seat) => booked.contains(seat);
 
   bool _onGlowNotification(OverscrollIndicatorNotification overScroll) {
     overScroll.disallowIndicator();
@@ -94,7 +94,7 @@ class SeatsArea extends StatelessWidget {
                     mainAxisSpacing: seatGap,
                   ),
                   itemBuilder: (ctx, i) {
-                    final seat = ZoneSeatModel(
+                    final seat = SeatModel(
                       seatRow: String.fromCharCode(i % numOfRows + 65),
                       seatNumber: i ~/ numOfRows,
                     );

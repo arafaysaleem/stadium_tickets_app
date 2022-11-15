@@ -6,10 +6,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../helpers/constants/app_colors.dart';
 
 // Models
-import '../model/zone_seat_model.codegen.dart';
+import '../model/seat_model.codegen.dart';
 
 class SeatWidget extends StatefulHookConsumerWidget {
-  final ZoneSeatModel seat;
+  final SeatModel seat;
 
   const SeatWidget({required this.seat, super.key});
 
