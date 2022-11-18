@@ -8,8 +8,10 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../helpers/constants/app_colors.dart';
 import '../../helpers/extensions/context_extensions.dart';
 
+// Providers
+import 'providers/zone_seats_provider.codegen.dart';
+
 // Models
-import '../stadium_zones/models/zone_model.codegen.dart';
 import '../stadium_zones/models/zone_seating_model.codegen.dart';
 
 // Widgets
@@ -23,17 +25,14 @@ import 'widgets/seat_color_indicators.dart';
 import 'widgets/seats_area.dart';
 
 class ZoneSeatsScreen extends HookConsumerWidget {
-  final ZoneModel zone;
-  const ZoneSeatsScreen({
-    required this.zone,
-    super.key,
-  });
+  const ZoneSeatsScreen({super.key});
 
   static const _seatSize = 28.0;
   static const _seatGap = 7.0;
+  static const _maxRows = 25;
 
   double getMaxGridHeight(int numOfRows) {
-    return _seatSize * (14) + _seatGap + 3;
+    return _seatSize * _maxRows + _seatGap + 3;
   }
 
   double getMaxScreenWidth(int seatsPerRow) {
@@ -42,6 +41,13 @@ class ZoneSeatsScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final zone = ref.watch(currentZoneProvider);
+    final minScreenWidth = context.screenWidth;
+    var screenWidth = getMaxScreenWidth(zone.seatsPerRow);
+    screenWidth = max(screenWidth, minScreenWidth);
+    final maxGridHeight = getMaxGridHeight(zone.numOfRows);
+    final screenScrollController = useScrollController();
+
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -70,20 +76,8 @@ class ZoneSeatsScreen extends HookConsumerWidget {
                       ),
                     ),
                     data: (zoneSeatingModel) {
-                      final minScreenWidth = context.screenWidth;
-                      var screenWidth = getMaxScreenWidth(zone.seatsPerRow);
-                      screenWidth = max(screenWidth, minScreenWidth);
-                      final maxGridHeight = getMaxGridHeight(zone.numOfRows);
-                      late final screenScrollController = useScrollController();
-
                       return Column(
                         children: [
-                          // Screen
-                          CurvedScreen(
-                            screenScrollController: screenScrollController,
-                            screenWidth: screenWidth,
-                          ),
-
                           const Spacer(),
 
                           // Seats Area
@@ -91,7 +85,7 @@ class ZoneSeatsScreen extends HookConsumerWidget {
                             maxGridHeight: maxGridHeight,
                             seatSize: _seatSize,
                             seatGap: _seatGap,
-                            maxRows: 25,
+                            maxRows: _maxRows,
                             numOfRows: zone.numOfRows,
                             seatsPerRow: zone.seatsPerRow,
                             missing: zoneSeatingModel.missing,
@@ -112,11 +106,13 @@ class ZoneSeatsScreen extends HookConsumerWidget {
                             padding: const EdgeInsets.fromLTRB(20, 2, 0, 22),
                             child: Consumer(
                               builder: (ctx, ref, child) {
-                                // final _theatersProvider =
-                                //     ref.watch(theatersProvider);
+                                final _selectedSeats =
+                                    ref.watch(selectedSeatsProvider);
+                                final seatNames = _selectedSeats
+                                    .map((e) => '${e.seatRow}-${e.seatNumber}')
+                                    .toList();
                                 return CustomChipsList(
-                                  // chipContents: _theatersProvider.selectedSeatNames,
-                                  chipContents: const [],
+                                  chipContents: seatNames,
                                   chipHeight: 27,
                                   chipGap: 10,
                                   fontSize: 14,

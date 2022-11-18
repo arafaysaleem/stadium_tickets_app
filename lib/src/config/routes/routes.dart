@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 // Helpers
 import '../../features/events/events_screen.dart';
+import '../../features/zone_seats/zone_seats_screen.dart';
 import '../../helpers/typedefs.dart';
 
 /// A utility class that holds screen names for named navigation.
@@ -20,14 +21,15 @@ class Routes {
   /// The name of the route for events screen
   static const String EventsScreenRoute = '/events-screen';
 
-  /// The name of the route for data import screen
-  static const String DataImportRoute = '/data-import-screen';
+  /// The name of the route for zone seats screen
+  static const String ZoneSeatsScreenRoute = '/zone-seats-screen';
 
   /// The name of the route for unrecognized route screen
   static const String NotFoundScreenRoute = '/route-not-found-screen';
 
   static final Map<String, RouteBuilder> _routesMap = {
     EventsScreenRoute: (_) => const EventsScreen(),
+    ZoneSeatsScreenRoute: (_) => const ZoneSeatsScreen(),
     NotFoundScreenRoute: (_) => const SizedBox.shrink(),
   };
 

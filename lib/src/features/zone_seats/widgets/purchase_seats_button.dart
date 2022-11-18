@@ -6,6 +6,7 @@ import '../../../helpers/constants/app_colors.dart';
 
 // Widgets
 import '../../../global/widgets/custom_text_button.dart';
+import '../providers/zone_seats_provider.codegen.dart';
 
 class PurchaseSeatsButton extends StatelessWidget {
   const PurchaseSeatsButton({super.key});
@@ -16,17 +17,16 @@ class PurchaseSeatsButton extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Consumer(
         builder: (ctx, ref, _) {
-          // final theaterSeats = ref.watch(theatersProvider).selectedSeats.length;
-          const theaterSeats = 0;
+          final seats = ref.watch(selectedSeatsProvider).length;
           return CustomTextButton.gradient(
             width: double.infinity,
             onPressed: () {},
-            disabled: theaterSeats == 0,
-            gradient: AppColors.buttonGradientPrimary,
-            child: const Center(
+            disabled: seats == 0,
+            gradient: AppColors.buttonGradientOrange,
+            child: Center(
               child: Text(
-                'PURCHASE - $theaterSeats SEATS',
-                style: TextStyle(
+                'PURCHASE - $seats SEATS',
+                style: const TextStyle(
                   color: Colors.white,
                   fontSize: 15,
                   letterSpacing: 0.7,

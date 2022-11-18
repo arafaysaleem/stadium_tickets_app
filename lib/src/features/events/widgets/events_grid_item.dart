@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // Helpers
+import '../../../config/routes/app_router.dart';
+import '../../../config/routes/routes.dart';
 import '../../../helpers/constants/app_colors.dart';
 import '../../../helpers/constants/app_styles.dart';
 import '../../../helpers/extensions/datetime_extension.dart';
@@ -24,7 +26,10 @@ class EventsGridItem extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        // ref.read(currentZoneProvider.notifier).state = event;
+        AppRouter.pushNamed(Routes.ZoneSeatsScreenRoute);
+      },
       child: DecoratedBox(
         decoration: const BoxDecoration(
           borderRadius: Corners.rounded9,

@@ -8,6 +8,9 @@ import '../../../helpers/constants/app_colors.dart';
 // Models
 import '../model/seat_model.codegen.dart';
 
+// Providers
+import '../providers/zone_seats_provider.codegen.dart';
+
 class SeatWidget extends StatefulHookConsumerWidget {
   final SeatModel seat;
 
@@ -24,8 +27,14 @@ class _SeatWidgetState extends ConsumerState<SeatWidget> {
     setState(() {
       isSelected = !isSelected;
     });
-    // final _theatersProvider = ref.read(theatersProvider);
-    // _theatersProvider.toggleSeat(seat: widget.seat, select: isSelected);
+    ref.read(selectedSeatsProvider.notifier).update((state) {
+      if (isSelected) {
+        return [...state, widget.seat];
+      } else {
+        state.remove(widget.seat);
+        return [...state];
+      }
+    });
   }
 
   @override
