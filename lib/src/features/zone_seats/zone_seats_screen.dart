@@ -1,12 +1,9 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // Helpers
+import '../../config/routes/app_router.dart';
 import '../../helpers/constants/app_colors.dart';
-import '../../helpers/extensions/context_extensions.dart';
 
 // Providers
 import 'providers/zone_seats_provider.codegen.dart';
@@ -19,36 +16,21 @@ import '../../global/widgets/async_value_widget.dart';
 import '../../global/widgets/custom_chips_list.dart';
 import '../../global/widgets/custom_circular_loader.dart';
 import '../../global/widgets/error_response_handler.dart';
-import 'widgets/curved_screen.dart';
 import 'widgets/purchase_seats_button.dart';
 import 'widgets/seat_color_indicators.dart';
 import 'widgets/seats_area.dart';
 
-class ZoneSeatsScreen extends HookConsumerWidget {
+class ZoneSeatsScreen extends ConsumerWidget {
   const ZoneSeatsScreen({super.key});
 
   static const _seatSize = 28.0;
   static const _seatGap = 7.0;
-  static const _maxRows = 25;
-
-  double getMaxGridHeight(int numOfRows) {
-    return _seatSize * _maxRows + _seatGap + 3;
-  }
-
-  double getMaxScreenWidth(int seatsPerRow) {
-    return seatsPerRow * (_seatSize + _seatGap + 3);
-  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final zone = ref.watch(currentZoneProvider);
-    final minScreenWidth = context.screenWidth;
-    var screenWidth = getMaxScreenWidth(zone.seatsPerRow);
-    screenWidth = max(screenWidth, minScreenWidth);
-    final maxGridHeight = getMaxGridHeight(zone.numOfRows);
-    final screenScrollController = useScrollController();
-
     return Scaffold(
+      backgroundColor: Colors.grey.shade300,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.only(left: 10),
@@ -60,7 +42,7 @@ class ZoneSeatsScreen extends HookConsumerWidget {
               // Icons row
               const _BackIcon(),
 
-              const SizedBox(height: 5),
+              const SizedBox(height: 20),
 
               // Zone Seating details
               Expanded(
@@ -78,32 +60,25 @@ class ZoneSeatsScreen extends HookConsumerWidget {
                     data: (zoneSeatingModel) {
                       return Column(
                         children: [
-                          const Spacer(),
-
-                          // Seats Area
-                          SeatsArea(
-                            maxGridHeight: maxGridHeight,
-                            seatSize: _seatSize,
-                            seatGap: _seatGap,
-                            maxRows: _maxRows,
-                            numOfRows: zone.numOfRows,
-                            seatsPerRow: zone.seatsPerRow,
-                            missing: zoneSeatingModel.missing,
-                            blocked: zoneSeatingModel.blocked,
-                            booked: zoneSeatingModel.booked,
-                            screenScrollController: screenScrollController,
-                          ),
-
-                          const Spacer(),
-
                           // Seat color indicators
                           const SeatColorIndicators(),
 
-                          const Spacer(),
+                          const SizedBox(height: 10),
+
+                          // Seats Area
+                          SeatsArea(
+                            seatSize: _seatSize,
+                            seatGap: _seatGap,
+                            numOfRows: zone.numOfRows,
+                            seatsPerRow: zone.seatsPerRow + 4,
+                            missing: zoneSeatingModel.missing,
+                            blocked: zoneSeatingModel.blocked,
+                            booked: zoneSeatingModel.booked,
+                          ),
 
                           // Selected Seats Chips
                           Padding(
-                            padding: const EdgeInsets.fromLTRB(20, 2, 0, 22),
+                            padding: const EdgeInsets.fromLTRB(20, 22, 0, 22),
                             child: Consumer(
                               builder: (ctx, ref, child) {
                                 final _selectedSeats =
@@ -164,12 +139,12 @@ class _BackIcon extends ConsumerWidget {
       child: InkResponse(
         radius: 25,
         onTap: () {
-          // ref.read(theatersProvider).clearSelectedSeats();
-          // AppRouter.pop();
+          ref.read(selectedSeatsProvider.notifier).state = [];
+          AppRouter.pop();
         },
         child: const DecoratedBox(
           decoration: BoxDecoration(
-            color: Colors.white30,
+            color: AppColors.surfaceColor,
             shape: BoxShape.circle,
           ),
           child: Padding(

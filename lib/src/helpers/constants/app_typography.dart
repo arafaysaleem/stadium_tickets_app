@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -8,11 +10,16 @@ import 'package:google_fonts/google_fonts.dart';
 class AppTypography {
   const AppTypography._();
 
+  /// Font shades based on platform
+  static final _typography = Typography.material2018(
+    platform: Platform.isIOS ? TargetPlatform.iOS : TargetPlatform.android,
+  );
+
   /// Base TextTheme for the Poppins Font.
-  static final _poppinsTextTheme = GoogleFonts.poppinsTextTheme();
+  static final _poppinsTextTheme = GoogleFonts.poppinsTextTheme(_typography.black);
 
   /// Base TextTheme for the Outfit Font.
-  static final _outfitTextTheme = GoogleFonts.outfitTextTheme();
+  static final _outfitTextTheme = GoogleFonts.outfitTextTheme(_typography.black);
 
   /// The main [TextTheme] used for most of typography in the app.
   static final primary = _outfitTextTheme;

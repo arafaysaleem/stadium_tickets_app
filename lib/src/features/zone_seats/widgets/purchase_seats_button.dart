@@ -4,9 +4,11 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 // Helpers
 import '../../../helpers/constants/app_colors.dart';
 
+// Providers
+import '../providers/zone_seats_provider.codegen.dart';
+
 // Widgets
 import '../../../global/widgets/custom_text_button.dart';
-import '../providers/zone_seats_provider.codegen.dart';
 
 class PurchaseSeatsButton extends StatelessWidget {
   const PurchaseSeatsButton({super.key});

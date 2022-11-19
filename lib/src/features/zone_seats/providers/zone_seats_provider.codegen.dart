@@ -6,8 +6,8 @@ import '../model/seat_model.codegen.dart';
 final mockZone = ZoneModel.fromJson(<String, dynamic>{
   'zone_id': 9,
   'name': 'NORTH',
-  'seats_per_row': 114,
-  'num_of_rows': 20,
+  'seats_per_row': 14,
+  'num_of_rows': 17,
   'color_hex_code': '#FDDF00',
   'z_type_id': 1,
   'created_at': '2022-10-15T15:00:40.352Z',

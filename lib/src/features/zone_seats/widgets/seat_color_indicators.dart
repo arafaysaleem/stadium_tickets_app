@@ -6,6 +6,9 @@ import '../../../helpers/extensions/string_extension.dart';
 // Enums
 import '../enums/seat_indicator_enum.dart';
 
+// Widgets
+import '../../../global/widgets/custom_text.dart';
+
 class SeatColorIndicators extends StatelessWidget {
   const SeatColorIndicators({super.key});
 
@@ -35,9 +38,8 @@ class SeatColorIndicators extends StatelessWidget {
                 const SizedBox(width: 10),
 
                 // Label
-                Text(
+                CustomText.subtitle(
                   indicator.name.capitalize,
-                  style: const TextStyle(color: Colors.white),
                 ),
               ],
             )

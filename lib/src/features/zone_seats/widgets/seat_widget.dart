@@ -6,6 +6,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../helpers/constants/app_colors.dart';
 
 // Models
+import '../../../helpers/constants/app_styles.dart';
 import '../model/seat_model.codegen.dart';
 
 // Providers
@@ -68,10 +69,11 @@ class _SeatWidgetState extends ConsumerState<SeatWidget> {
         ),
         child: DecoratedBox(
           decoration: BoxDecoration(
-            color: isSelected ? AppColors.redColor : Colors.white,
+            color: isSelected ? AppColors.lightPrimaryColor : AppColors.surfaceColor,
             borderRadius: const BorderRadius.all(
               Radius.circular(8),
             ),
+            boxShadow: Shadows.small,
           ),
         ),
       ),
