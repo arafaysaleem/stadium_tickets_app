@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 // Models
-import '../../../helpers/constants/app_colors.dart';
 import '../model/seat_model.codegen.dart';
 
 // Widgets
@@ -83,7 +82,10 @@ class SeatsArea extends StatelessWidget {
                       child: GridView.builder(
                         itemCount: numOfRows * seatsPerRow,
                         scrollDirection: Axis.horizontal,
-                        padding: const EdgeInsets.only(right: padding, bottom: padding),
+                        padding: const EdgeInsets.only(
+                          right: padding,
+                          bottom: padding,
+                        ),
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: numOfRows,
                           crossAxisSpacing: seatGap,

@@ -96,7 +96,7 @@ class EventsGridList extends ConsumerWidget {
             crossAxisCount: 2,
             mainAxisSpacing: 20,
             crossAxisSpacing: 20,
-            childAspectRatio: 4 / 4.1,
+            childAspectRatio: 4 / 5.5,
           ),
           itemBuilder: (_, i) => EventsGridItem(
             event: events[i],

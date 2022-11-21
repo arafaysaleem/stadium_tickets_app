@@ -8,7 +8,7 @@ class CustomText extends StatelessWidget {
   final double? fontSize;
   final bool? softWrap;
   final int? maxLines;
-  final Color? fontColor;
+  final Color? color;
   final TextStyle? style;
 
   const CustomText(
@@ -18,7 +18,7 @@ class CustomText extends StatelessWidget {
     this.overflow,
     this.fontWeight,
     this.fontSize,
-    this.fontColor,
+    this.color,
     this.style,
     this.maxLines,
     this.softWrap,
@@ -26,7 +26,7 @@ class CustomText extends StatelessWidget {
 
   factory CustomText.heading(
     String text, {
-    Color? fontColor,
+    Color? color,
     double fontSize = 34,
     FontWeight fontWeight = FontWeight.bold,
   }) {
@@ -34,13 +34,13 @@ class CustomText extends StatelessWidget {
       text,
       fontWeight: fontWeight,
       fontSize: fontSize,
-      fontColor: fontColor,
+      color: color,
     );
   }
 
   factory CustomText.title(
     String text, {
-    Color? fontColor,
+    Color? color,
     double fontSize = 22,
     FontWeight fontWeight = FontWeight.w600,
   }) {
@@ -48,13 +48,13 @@ class CustomText extends StatelessWidget {
       text,
       fontWeight: fontWeight,
       fontSize: fontSize,
-      fontColor: fontColor,
+      color: color,
     );
   }
 
   factory CustomText.body(
     String text, {
-    Color? fontColor,
+    Color? color,
     FontWeight fontWeight = FontWeight.w400,
     double fontSize = 16,
   }) {
@@ -62,13 +62,13 @@ class CustomText extends StatelessWidget {
       text,
       fontWeight: fontWeight,
       fontSize: fontSize,
-      fontColor: fontColor,
+      color: color,
     );
   }
 
   factory CustomText.subtitle(
     String text, {
-    Color? fontColor,
+    Color? color,
     FontWeight fontWeight = FontWeight.w400,
     double fontSize = 13,
   }) {
@@ -76,13 +76,13 @@ class CustomText extends StatelessWidget {
       text,
       fontWeight: fontWeight,
       fontSize: fontSize,
-      fontColor: fontColor,
+      color: color,
     );
   }
 
   factory CustomText.label(
     String text, {
-    Color? fontColor,
+    Color? color,
     FontWeight fontWeight = FontWeight.w300,
     double fontSize = 11,
   }) {
@@ -90,7 +90,7 @@ class CustomText extends StatelessWidget {
       text,
       fontWeight: fontWeight,
       fontSize: fontSize,
-      fontColor: fontColor,
+      color: color,
     );
   }
 
@@ -101,7 +101,7 @@ class CustomText extends StatelessWidget {
     double? fontSize,
     bool? softWrap,
     int? maxLines,
-    Color? fontColor,
+    Color? color,
     TextStyle? style,
   }) {
     return CustomText(
@@ -112,7 +112,7 @@ class CustomText extends StatelessWidget {
       fontSize: fontSize ?? this.fontSize,
       softWrap: softWrap ?? this.softWrap,
       maxLines: maxLines ?? this.maxLines,
-      fontColor: fontColor ?? this.fontColor,
+      color: color ?? this.color,
       style: style ?? this.style,
     );
   }
@@ -129,7 +129,7 @@ class CustomText extends StatelessWidget {
           TextStyle(
             fontSize: fontSize,
             fontWeight: fontWeight,
-            color: fontColor,
+            color: color,
           ),
     );
   }

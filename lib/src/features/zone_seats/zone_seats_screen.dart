@@ -3,9 +3,11 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // Helpers
 import '../../config/routes/app_router.dart';
+import '../../global/widgets/custom_back_icon.dart';
 import '../../helpers/constants/app_colors.dart';
 
 // Providers
+import '../stadium_zones/providers/zones_provider.dart';
 import 'providers/zone_seats_provider.codegen.dart';
 
 // Models
@@ -40,7 +42,12 @@ class ZoneSeatsScreen extends ConsumerWidget {
               const SizedBox(height: 10),
 
               // Icons row
-              const _BackIcon(),
+              CustomBackIcon(
+                onTap: () {
+                  AppRouter.pop();
+                  ref.read(selectedSeatsProvider.notifier).state = [];
+                },
+              ),
 
               const SizedBox(height: 20),
 
@@ -69,7 +76,7 @@ class ZoneSeatsScreen extends ConsumerWidget {
                           SeatsArea(
                             seatSize: _seatSize,
                             seatGap: _seatGap,
-                            numOfRows: zone.numOfRows,
+                            numOfRows: zone!.numOfRows,
                             seatsPerRow: zone.seatsPerRow + 4,
                             missing: zoneSeatingModel.missing,
                             blocked: zoneSeatingModel.blocked,
@@ -122,34 +129,6 @@ class ZoneSeatsScreen extends ConsumerWidget {
                 ),
               ),
             ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class _BackIcon extends ConsumerWidget {
-  const _BackIcon();
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    return Padding(
-      padding: const EdgeInsets.only(left: 10),
-      child: InkResponse(
-        radius: 25,
-        onTap: () {
-          ref.read(selectedSeatsProvider.notifier).state = [];
-          AppRouter.pop();
-        },
-        child: const DecoratedBox(
-          decoration: BoxDecoration(
-            color: AppColors.surfaceColor,
-            shape: BoxShape.circle,
-          ),
-          child: Padding(
-            padding: EdgeInsets.all(5),
-            child: Icon(Icons.arrow_back_rounded, size: 23),
           ),
         ),
       ),

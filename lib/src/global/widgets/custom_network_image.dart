@@ -17,9 +17,12 @@ class CustomNetworkImage extends StatelessWidget {
   final Widget? errorWidget;
   final VoidCallback? onTap;
 
+  /// The widget to display on top of the image
+  final Widget? child;
+
   const CustomNetworkImage({
-    double? width,
-    double? radius,
+    this.width = double.infinity,
+    this.radius = 20,
     super.key,
     this.margin,
     this.border,
@@ -27,14 +30,14 @@ class CustomNetworkImage extends StatelessWidget {
     this.fit,
     this.boxShadow,
     this.height,
+    this.child,
     this.onTap,
     this.backgroundColor,
     this.borderRadius,
     this.placeholder,
     this.errorWidget,
     required this.imageUrl,
-  })  : width = width ?? double.infinity,
-        radius = radius ?? 20;
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -64,6 +67,7 @@ class CustomNetworkImage extends StatelessWidget {
                 ? null
                 : borderRadius ?? BorderRadius.circular(radius),
           ),
+          child: child,
         ),
       ),
     );

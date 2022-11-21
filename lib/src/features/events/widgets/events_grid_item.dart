@@ -2,11 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // Helpers
-import '../../../config/routes/app_router.dart';
-import '../../../config/routes/routes.dart';
 import '../../../helpers/constants/app_colors.dart';
 import '../../../helpers/constants/app_styles.dart';
 import '../../../helpers/extensions/datetime_extension.dart';
+
+// Router
+import '../../../config/routes/app_router.dart';
+import '../../../config/routes/routes.dart';
+
+// Providers
+import '../providers/events_provider.dart';
 
 // Models
 import '../models/event_model.codegen.dart';
@@ -27,8 +32,8 @@ class EventsGridItem extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return InkWell(
       onTap: () {
-        // ref.read(currentZoneProvider.notifier).state = event;
-        AppRouter.pushNamed(Routes.ZoneSeatsScreenRoute);
+        ref.read(currentEventProvider.notifier).state = event;
+        AppRouter.pushNamed(Routes.StadiumZonesScreenRoute);
       },
       child: DecoratedBox(
         decoration: const BoxDecoration(
@@ -40,7 +45,7 @@ class EventsGridItem extends ConsumerWidget {
           children: [
             // Event Poster
             CustomNetworkImage(
-              height: 170,
+              height: 150,
               fit: BoxFit.fill,
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(9),
@@ -73,7 +78,7 @@ class EventsGridItem extends ConsumerWidget {
                     CustomText(
                       event.date.toDateString('d MMM, y'),
                       textAlign: TextAlign.center,
-                      fontColor: AppColors.textGreyColor,
+                      color: AppColors.textGreyColor,
                       fontSize: 14,
                     ),
             
@@ -86,7 +91,7 @@ class EventsGridItem extends ConsumerWidget {
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       fontSize: 13,
-                      fontColor: AppColors.textLightGreyColor,
+                      color: AppColors.textLightGreyColor,
                     ),
                   ],
                 ),

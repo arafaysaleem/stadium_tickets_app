@@ -55,7 +55,7 @@ class Insets {
 
   /// Returns a [SizedBox] of custom `width`
   static SizedBox gapW(double width) => SizedBox(width: width);
-  
+
   /// Returns a [SizedBox] of no size
   static const SizedBox shrink = SizedBox.shrink();
 
@@ -103,7 +103,8 @@ class Corners {
   static const BorderRadius rounded20 = BorderRadius.all(Radius.circular(20));
 
   /// [BorderRadius] rounded on all corners by `radius`
-  static BorderRadius rounded(double radius) => BorderRadius.all(Radius.circular(radius));
+  static BorderRadius rounded(double radius) =>
+      BorderRadius.all(Radius.circular(radius));
 }
 
 /// A utility class that holds all the shadows used throughout
@@ -118,6 +119,14 @@ class Shadows {
     BoxShadow(
       color: Color.fromRGBO(51, 51, 51, 0.15),
       blurRadius: 10,
+    ),
+  ];
+
+  static const List<BoxShadow> universalDark = [
+    BoxShadow(
+      color: Color.fromARGB(36, 24, 24, 24),
+      blurRadius: 10,
+      spreadRadius: 1,
     ),
   ];
 

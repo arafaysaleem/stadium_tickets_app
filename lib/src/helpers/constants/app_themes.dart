@@ -40,7 +40,7 @@ class AppThemes {
       error: AppColors.redColor,
       onError: AppColors.textWhite80Color,
     ),
-    scaffoldBackgroundColor: AppColors.backgroundColor,
+    scaffoldBackgroundColor: AppColors.lightBackgroundColor,
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       type: BottomNavigationBarType.fixed,
       selectedItemColor: Colors.white,
