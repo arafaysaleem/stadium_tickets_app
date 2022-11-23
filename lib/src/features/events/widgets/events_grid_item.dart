@@ -30,23 +30,23 @@ class EventsGridItem extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return InkWell(
+    return InkResponse(
       onTap: () {
         ref.read(currentEventProvider.notifier).state = event;
         AppRouter.pushNamed(Routes.StadiumZonesScreenRoute);
       },
-      child: DecoratedBox(
+      child: Container(
+        height: 210,
         decoration: const BoxDecoration(
           borderRadius: Corners.rounded9,
-          color: Colors.white,
-          boxShadow: Shadows.elevated,
+          color: AppColors.surfaceColor,
         ),
         child: Column(
           children: [
             // Event Poster
             CustomNetworkImage(
-              height: 150,
-              fit: BoxFit.fill,
+              height: 135,
+              fit: BoxFit.cover,
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(9),
                 topRight: Radius.circular(9),
@@ -54,50 +54,73 @@ class EventsGridItem extends ConsumerWidget {
               imageUrl: event.posterUrl,
             ),
 
-            Insets.gapH10,
+            Insets.gapH5,
 
             // Details
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    // Date
+                    Expanded(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              const Icon(
+                                Icons.calendar_month_outlined,
+                                size: 18,
+                              ),
+                              Insets.gapW(7),
+                              CustomText(
+                                event.date.toDateString('d MMM, y'),
+                                textAlign: TextAlign.center,
+                                color: AppColors.textGreyColor,
+                                fontSize: 12,
+                              ),
+                            ],
+                          ),
+
+                          // Times
+                          Row(
+                            children: [
+                              const Icon(
+                                Icons.access_time_rounded,
+                                size: 18,
+                              ),
+                              Insets.gapW(7),
+                              CustomText(
+                                '${event.startTime.format(context)} - ${event.endTime.format(context)}',
+                                textAlign: TextAlign.center,
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                fontSize: 12,
+                                color: AppColors.textGreyColor,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+
                     // Full Name
                     CustomText(
                       event.name,
                       maxLines: 2,
-                      fontSize: 14,
-                      textAlign: TextAlign.center,
+                      fontSize: 18,
                       overflow: TextOverflow.fade,
                       fontWeight: FontWeight.bold,
                     ),
-            
+
                     Insets.gapH3,
-            
-                    // Date
-                    CustomText(
-                      event.date.toDateString('d MMM, y'),
-                      textAlign: TextAlign.center,
-                      color: AppColors.textGreyColor,
-                      fontSize: 12,
-                    ),
-            
-                    Insets.expand,
-            
-                    // Times
-                    CustomText(
-                      '${event.startTime.format(context)} - ${event.endTime.format(context)}',
-                      textAlign: TextAlign.center,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      fontSize: 11,
-                      color: AppColors.textLightGreyColor,
-                    ),
                   ],
                 ),
               ),
             ),
-          
+
             Insets.gapH10,
           ],
         ),

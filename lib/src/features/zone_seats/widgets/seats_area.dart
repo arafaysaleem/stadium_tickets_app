@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+// Helpers
+import '../../../helpers/constants/app_styles.dart';
+
 // Models
 import '../model/seat_model.codegen.dart';
 
@@ -73,7 +76,7 @@ class SeatsArea extends StatelessWidget {
                     ),
                   ),
 
-                  const SizedBox(width: 10),
+                  Insets.gapW10,
 
                   // Seats
                   NotificationListener<OverscrollIndicatorNotification>(
@@ -98,7 +101,7 @@ class SeatsArea extends StatelessWidget {
                             seatNumber: i ~/ numOfRows,
                           );
                           if (isMissing(seat)) {
-                            return const SizedBox.shrink();
+                            return Insets.shrink;
                           } else if (isBlocked(seat) || isBooked(seat)) {
                             return const DecoratedBox(
                               decoration: BoxDecoration(

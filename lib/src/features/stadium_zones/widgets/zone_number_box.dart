@@ -35,8 +35,9 @@ class ZoneNumberBox extends ConsumerWidget {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: Corners.rounded4,
-          color:
-              isSelected ? AppColors.secondaryColor : const Color(0xFFCCCFDC),
+          color: isSelected
+              ? AppColors.primaryColor
+              : const Color.fromARGB(255, 126, 127, 135),
         ),
         margin: isSelected ? const EdgeInsets.all(5) : const EdgeInsets.all(6),
         height: isSelected ? 25 : 22,
@@ -44,10 +45,7 @@ class ZoneNumberBox extends ConsumerWidget {
         child: Center(
           child: CustomText.label(
             '$number',
-            color: isSelected
-                ? AppColors.textWhite80Color
-                : const Color(0xFF585A5F),
-            fontWeight: FontWeight.bold,
+            color: AppColors.textWhite80Color,
           ),
         ),
       ),

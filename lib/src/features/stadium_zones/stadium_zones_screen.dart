@@ -9,15 +9,14 @@ import '../../config/routes/app_router.dart';
 import '../../config/routes/routes.dart';
 
 // Providers
-import '../../helpers/constants/app_styles.dart';
-import '../../helpers/constants/app_utils.dart';
 import '../events/providers/events_provider.dart';
+import 'providers/zones_provider.dart';
 
 // Widgets
 import '../../global/widgets/custom_back_icon.dart';
 import '../../global/widgets/custom_text.dart';
 import '../../global/widgets/custom_text_button.dart';
-import 'providers/zones_provider.dart';
+import 'widgets/zone_info_card.dart';
 import 'widgets/stadium.dart';
 
 class StadiumZonesScreen extends ConsumerWidget {
@@ -83,35 +82,10 @@ class StadiumZonesScreen extends ConsumerWidget {
             ),
 
             // Zone Info
-            AnimatedPositioned(
-              duration: Durations.medium,
-              top: 75,
-              right: !isSelected
-                  ? 0
-                  : !slideRight
-                      ? -15
-                      : 15,
-              left: !isSelected
-                  ? 0
-                  : slideRight
-                      ? -15
-                      : 15,
-              child: AnimatedOpacity(
-                opacity: isSelected ? 1 : 0,
-                duration: Durations.fast,
-                curve: Curves.easeInCirc,
-                child: Container(
-                  height: 450,
-                  margin: const EdgeInsets.symmetric(
-                    vertical: 20,
-                    horizontal: 45,
-                  ),
-                  decoration: BoxDecoration(
-                    borderRadius: Corners.rounded(35),
-                    color: AppColors.primaryColor,
-                  ),
-                ),
-              ),
+            ZoneInfoCard(
+              top: 80,
+              isSelected: isSelected,
+              slideRight: slideRight,
             ),
 
             // Red line
@@ -126,21 +100,10 @@ class StadiumZonesScreen extends ConsumerWidget {
             ),
 
             // Stadium
-            AnimatedPositioned(
-              duration: Durations.medium,
-              curve: Curves.fastOutSlowIn,
-              top: 75,
-              left: !isSelected
-                  ? 0
-                  : !slideRight
-                      ? -185
-                      : 185,
-              right: !isSelected
-                  ? 0
-                  : slideRight
-                      ? -185
-                      : 185,
-              child: const Stadium(),
+            Stadium(
+              top: 80,
+              isSelected: isSelected,
+              slideRight: slideRight,
             ),
 
             // View Seats

@@ -66,7 +66,7 @@ class CustomTextButton extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(borderRadius),
         border: border,
-        gradient: !disabled ? gradient : null,
+        gradient: !disabled ? gradient : AppColors.buttonGradientGrey,
         color: color?.withOpacity(disabled ? 0.15 : 1),
       ),
       clipBehavior: Clip.hardEdge,

@@ -26,7 +26,7 @@ class AppThemes {
   /// * textButtonTheme: [TextButtonTheme] without the default padding,
   static final mainTheme = ThemeData(
     primaryColor: AppColors.primaryColor,
-    colorScheme: const ColorScheme.light().copyWith(
+    colorScheme: const ColorScheme.dark().copyWith(
       primary: AppColors.primaryColor,
       onPrimary: AppColors.textWhite80Color,
       secondary: AppColors.secondaryColor,
@@ -34,13 +34,13 @@ class AppThemes {
       tertiary: AppColors.tertiaryColor,
       onTertiary: AppColors.textGreyColor,
       background: AppColors.backgroundColor,
-      onBackground: AppColors.textBlackColor,
+      onBackground: AppColors.textWhite80Color,
       surface: AppColors.surfaceColor,
-      onSurface: AppColors.textBlackColor,
+      onSurface: AppColors.textWhite80Color,
       error: AppColors.redColor,
       onError: AppColors.textWhite80Color,
     ),
-    scaffoldBackgroundColor: AppColors.lightBackgroundColor,
+    scaffoldBackgroundColor: AppColors.backgroundColor,
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       type: BottomNavigationBarType.fixed,
       selectedItemColor: Colors.white,
@@ -67,10 +67,10 @@ class AppThemes {
     appBarTheme: AppBarTheme(
       centerTitle: true,
       elevation: 0,
-      backgroundColor: AppColors.lightBackgroundColor,
+      backgroundColor: AppColors.surfaceColor,
       titleTextStyle: AppTypography.primary.displayMedium,
       iconTheme: const IconThemeData(color: Colors.black),
     ),
-    iconTheme: const IconThemeData(color: AppColors.textLightGreyColor),
+    iconTheme: const IconThemeData(color: Colors.white),
   );
 }

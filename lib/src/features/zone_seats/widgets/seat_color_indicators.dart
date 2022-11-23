@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 // Helpers
+import '../../../helpers/constants/app_styles.dart';
 import '../../../helpers/extensions/string_extension.dart';
 
 // Enums
@@ -35,7 +36,7 @@ class SeatColorIndicators extends StatelessWidget {
                   ),
                 ),
 
-                const SizedBox(width: 10),
+                Insets.gapW10,
 
                 // Label
                 CustomText.subtitle(

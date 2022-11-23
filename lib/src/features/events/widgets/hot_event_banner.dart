@@ -14,11 +14,9 @@ class HotEventBanner extends StatelessWidget {
     return const Padding(
       padding: EdgeInsets.symmetric(horizontal: 15),
       child: CustomNetworkImage(
-        height: 230,
+        height: 210,
         fit: BoxFit.fill,
-        borderRadius: Corners.rounded7,
-        backgroundColor: Colors.white,
-        boxShadow: Shadows.elevated,
+        borderRadius: Corners.rounded10,
         imageUrl: 'https://thumbs.dreamstime.com/b/cricket-match-england-vs-pakistan-country-flag-shields-cricket-match-england-vs-pakistan-country-flag-139688792.jpg',
       ),
     );

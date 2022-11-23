@@ -71,7 +71,7 @@ class CustomTextField extends StatefulWidget {
     this.fillColor = AppColors.fieldFillColor,
     this.hintStyle = const TextStyle(
       fontSize: 16,
-      color: AppColors.textGreyColor,
+      color: AppColors.textWhite80Color,
     ),
     this.errorStyle = const TextStyle(
       height: 0,
@@ -79,7 +79,7 @@ class CustomTextField extends StatefulWidget {
     ),
     this.inputStyle = const TextStyle(
       fontSize: 16,
-      color: AppColors.textGreyColor,
+      color: AppColors.textWhite80Color,
     ),
     this.contentPadding = const EdgeInsets.fromLTRB(12, 13, 1, 16),
   });
@@ -195,7 +195,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
             showCursor: widget.showCursor,
             maxLengthEnforcement: MaxLengthEnforcement.enforced,
             autovalidateMode: AutovalidateMode.disabled,
-            cursorColor: AppColors.textGreyColor,
+            cursorColor: widget.inputStyle.color,
             obscureText: isPasswordField && hidePassword,
             validator: _runValidator,
             onFieldSubmitted: _runValidator,

@@ -3,10 +3,12 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 //Helpers
-import '../../../helpers/constants/app_colors.dart';
+import '../../../helpers/constants/app_styles.dart';
+
+// Enums
+import '../enums/seat_indicator_enum.dart';
 
 // Models
-import '../../../helpers/constants/app_styles.dart';
 import '../model/seat_model.codegen.dart';
 
 // Providers
@@ -69,11 +71,10 @@ class _SeatWidgetState extends ConsumerState<SeatWidget> {
         ),
         child: DecoratedBox(
           decoration: BoxDecoration(
-            color: isSelected ? AppColors.lightPrimaryColor : AppColors.surfaceColor,
-            borderRadius: const BorderRadius.all(
-              Radius.circular(8),
-            ),
-            boxShadow: Shadows.small,
+            color: isSelected
+                ? SeatIndicator.SELECTED.color
+                : SeatIndicator.AVAILABLE.color,
+            borderRadius: Corners.rounded7,
           ),
         ),
       ),

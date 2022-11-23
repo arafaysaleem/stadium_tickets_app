@@ -129,7 +129,7 @@ class CustomText extends StatelessWidget {
           TextStyle(
             fontSize: fontSize,
             fontWeight: fontWeight,
-            color: color,
+            color: color ?? Theme.of(context).colorScheme.onBackground,
           ),
     );
   }

@@ -98,7 +98,7 @@ class _CupertinoDatePickerDialogState extends State<CupertinoDatePickerDialog> {
       margin: EdgeInsets.only(
         bottom: MediaQuery.of(context).viewInsets.bottom,
       ),
-      color: widget.backgroundColor ?? AppColors.lightBackgroundColor,
+      color: widget.backgroundColor ?? AppColors.surfaceColor,
       child: SafeArea(
         top: false,
         child: Column(

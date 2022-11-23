@@ -61,7 +61,7 @@ class CustomErrorWidget extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: const TextStyle(fontSize: 21),
               ),
-              const Spacer(),
+              Insets.expand,
               CustomTextButton.gradient(
                 width: double.infinity,
                 onPressed: retryCallback,
@@ -92,7 +92,7 @@ class _CustomErrorWidgetDark extends CustomErrorWidget {
     required super.retryCallback,
     double? height,
   }) : super._(
-          backgroundColor: AppColors.scaffoldGreyColor,
+          backgroundColor: AppColors.darkSkeletonColor,
           height: height ?? double.infinity,
         );
 }
@@ -103,7 +103,7 @@ class _CustomErrorWidgetLight extends CustomErrorWidget {
     required super.retryCallback,
     double? height,
   }) : super._(
-          backgroundColor: AppColors.surfaceColor,
+          backgroundColor: AppColors.lightSkeletonColor,
           height: height ?? double.infinity,
         );
 }

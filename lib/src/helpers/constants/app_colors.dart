@@ -22,11 +22,17 @@ class AppColors {
     Color.fromARGB(255, 0, 150, 236),
   ];
 
-  /// The main purplish color used for theming the app.
-  static const Color primaryColor = Color.fromARGB(255, 0, 49, 93);
+  /// The main orange-red color used for theming the app.
+  static const Color primaryColor = Color(0xFFf03400);
+
+  /// The color value for red color in the app.
+  static const Color redColor = Color(0xFFed0000);
 
   /// The color value for orange color in the app.
-  static const Color lightPrimaryColor = Color.fromARGB(248, 39, 92, 152);
+  static const Color orangeColor = Color(0xFFf04f00);
+
+  /// The color value for orange color in the app.
+  static const Color lightPrimaryColor = Color.fromARGB(255, 242, 85, 41);
 
   /// The secondary yellowish color used for contrasting
   /// the primary purple in the app.
@@ -36,26 +42,16 @@ class AppColors {
   /// the secondary yellow in the app.
   static const Color tertiaryColor = Color.fromARGB(255, 43, 43, 43);
 
-  /// The light greyish color used for background surfaces
-  /// of the app like behind scrolling screens or scaffolds etc.
-  static const Color lightBackgroundColor = Color.fromARGB(255, 253, 253, 253);
-
   /// The darker greyish color used for background surfaces
   /// of the app like behind scrolling screens or scaffolds etc.
-  static const Color backgroundColor = Color.fromARGB(255, 240, 240, 240);
+  static const Color backgroundColor = Color(0xFF141414);
 
   /// The light greyish color used for container/card surfaces
   /// of the app.
-  static const Color surfaceColor = Color.fromARGB(255, 253, 253, 253);
+  static const Color surfaceColor = Color(0xFF2b2b2b);
 
   /// The light greyish color used for filling fields of the app.
-  static const Color fieldFillColor = Color.fromARGB(255, 235, 235, 235);
-
-  /// The color value for red color in the app.
-  static const Color redColor = Color(0xFFf03400);
-
-  /// The color value for red color in the app.
-  static const Color orangeColor = Color(0xFFf04f00);
+  static const Color fieldFillColor = surfaceColor;
 
   /// The color value for rating stars in the app.
   static const Color starsColor = Color.fromARGB(255, 247, 162, 64);
@@ -74,12 +70,12 @@ class AppColors {
 
   /// The primary [LinearGradient] for buttons in the app.
   static const Gradient buttonGradientPrimary = LinearGradient(
-    colors: [lightPrimaryColor, primaryColor],
+    colors: [primaryColor, redColor],
   );
 
   /// The orange [LinearGradient] for disabled buttons in the app.
   static const Gradient buttonGradientGrey = LinearGradient(
-    colors: [lightSkeletonColor, darkSkeletonColor],
+    colors: [textGreyColor, surfaceColor],
   );
 
   /// The orange [LinearGradient] for buttons in the app.
@@ -114,9 +110,6 @@ class AppColors {
 
   /// The color value for dark grey buttons in the app.
   static const Color buttonGreyColor = Color(0xFF1c1c1c);
-
-  /// The color value for light grey scaffold in the app.
-  static const Color scaffoldGreyColor = Color(0xFF2b2b2b);
 
   /// The color value for grey text in the app.
   static const Color textGreyColor = Color.fromARGB(255, 122, 122, 122);

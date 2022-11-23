@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 
+// Helpers
+import '../../helpers/constants/app_styles.dart';
+
 // Widgets
 import '../../global/widgets/custom_text.dart';
-import 'widgets/events_grid_list.dart';
+import 'widgets/events_list.dart';
 import 'widgets/hot_event_banner.dart';
 import 'widgets/search_bar.dart';
 
@@ -15,12 +18,12 @@ class EventsScreen extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            const SizedBox(height: 20),
+            Insets.gapH20,
 
             // Title
             CustomText.title('Upcoming Events'),
 
-            const SizedBox(height: 25),
+            Insets.gapH20,
 
             const HotEventBanner(),
 
@@ -32,7 +35,7 @@ class EventsScreen extends StatelessWidget {
             
             // Events List
             const Expanded(
-              child: EventsGridList(),
+              child: EventsList(),
             ),
           ],
         ),

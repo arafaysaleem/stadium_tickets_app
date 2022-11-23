@@ -8,7 +8,7 @@ import '../../../helpers/constants/app_colors.dart';
 enum SeatIndicator {
   AVAILABLE(AppColors.surfaceColor),
   TAKEN(Color(0xFF5A5A5A)),
-  SELECTED(AppColors.lightPrimaryColor);
+  SELECTED(AppColors.redColor);
 
   final Color color;
 

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+// Helpers
+import '../../../helpers/constants/app_styles.dart';
+
 // Models
 import '../models/event_model.codegen.dart';
 
@@ -15,8 +18,8 @@ import '../../../global/widgets/custom_circular_loader.dart';
 import '../../../global/widgets/error_response_handler.dart';
 import 'events_grid_item.dart';
 
-class EventsGridList extends ConsumerWidget {
-  const EventsGridList({super.key});
+class EventsList extends ConsumerWidget {
+  const EventsList({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -40,18 +43,13 @@ class EventsGridList extends ConsumerWidget {
       ),
       data: (filteredEvents) {
         final events = ref.watch(searchedEventsProvider(filteredEvents));
-        return GridView.builder(
+        return ListView.separated(
+          itemCount: events.length,
           physics: const BouncingScrollPhysics(
             parent: AlwaysScrollableScrollPhysics(),
           ),
           padding: const EdgeInsets.fromLTRB(16, 0, 16, 20),
-          itemCount: events.length,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            mainAxisSpacing: 20,
-            crossAxisSpacing: 20,
-            childAspectRatio: 4 / 5.8,
-          ),
+          separatorBuilder: (_, __) => Insets.gapH20,
           itemBuilder: (_, i) => EventsGridItem(
             event: events[i],
           ),

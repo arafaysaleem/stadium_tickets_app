@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // Helpers
-import '../../config/routes/app_router.dart';
-import '../../global/widgets/custom_back_icon.dart';
 import '../../helpers/constants/app_colors.dart';
+import '../../helpers/constants/app_styles.dart';
+
+// Router
+import '../../config/routes/app_router.dart';
 
 // Providers
 import '../stadium_zones/providers/zones_provider.dart';
@@ -18,6 +20,7 @@ import '../../global/widgets/async_value_widget.dart';
 import '../../global/widgets/custom_chips_list.dart';
 import '../../global/widgets/custom_circular_loader.dart';
 import '../../global/widgets/error_response_handler.dart';
+import '../../global/widgets/custom_back_icon.dart';
 import 'widgets/purchase_seats_button.dart';
 import 'widgets/seat_color_indicators.dart';
 import 'widgets/seats_area.dart';
@@ -32,14 +35,13 @@ class ZoneSeatsScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final zone = ref.watch(currentZoneProvider);
     return Scaffold(
-      backgroundColor: Colors.grey.shade300,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.only(left: 10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 10),
+              Insets.gapH10,
 
               // Icons row
               CustomBackIcon(
@@ -49,7 +51,7 @@ class ZoneSeatsScreen extends ConsumerWidget {
                 },
               ),
 
-              const SizedBox(height: 20),
+              Insets.gapH20,
 
               // Zone Seating details
               Expanded(
@@ -70,7 +72,7 @@ class ZoneSeatsScreen extends ConsumerWidget {
                           // Seat color indicators
                           const SeatColorIndicators(),
 
-                          const SizedBox(height: 10),
+                          Insets.gapH10,
 
                           // Seats Area
                           SeatsArea(
@@ -99,12 +101,11 @@ class ZoneSeatsScreen extends ConsumerWidget {
                                   chipGap: 10,
                                   fontSize: 14,
                                   chipWidth: 60,
-                                  borderColor: AppColors.lightPrimaryColor,
-                                  contentColor: AppColors.lightPrimaryColor,
+                                  borderColor: AppColors.primaryColor,
+                                  contentColor: AppColors.primaryColor,
                                   borderWidth: 1.5,
                                   fontWeight: FontWeight.bold,
-                                  backgroundColor:
-                                      Colors.blue.shade700.withOpacity(0.3),
+                                  backgroundColor: AppColors.primaryColor.withOpacity(0.3),
                                   isScrollable: true,
                                 );
                               },
@@ -114,7 +115,7 @@ class ZoneSeatsScreen extends ConsumerWidget {
                           // Purchase seats button
                           const PurchaseSeatsButton(),
 
-                          const SizedBox(height: 5),
+                          Insets.gapH10,
                         ],
                       );
                     },
