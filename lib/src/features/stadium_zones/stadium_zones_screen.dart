@@ -3,30 +3,40 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // Helpers
 import '../../helpers/constants/app_colors.dart';
-import '../../helpers/constants/app_styles.dart';
 
 // Router
 import '../../config/routes/app_router.dart';
 import '../../config/routes/routes.dart';
 
 // Providers
+import '../../helpers/constants/app_styles.dart';
+import '../../helpers/constants/app_utils.dart';
 import '../events/providers/events_provider.dart';
 
 // Widgets
 import '../../global/widgets/custom_back_icon.dart';
 import '../../global/widgets/custom_text.dart';
 import '../../global/widgets/custom_text_button.dart';
+import 'providers/zones_provider.dart';
+import 'widgets/stadium.dart';
 
 class StadiumZonesScreen extends ConsumerWidget {
   const StadiumZonesScreen({super.key});
 
+  bool isLeftZone(int? zoneNumber) {
+    return [8, 5, 9, 4].contains(zoneNumber);
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final event = ref.watch(currentEventProvider);
-    final coords = <double>[0, 1, 0, -1];
+    final selectedZoneNo = ref.watch(currentZoneNoProvider);
+    final isSelected = selectedZoneNo != null;
+    final slideRight = isLeftZone(selectedZoneNo);
     return Scaffold(
       body: SafeArea(
         child: Stack(
+          fit: StackFit.expand,
           children: [
             // Shaded background
             const SizedBox(
@@ -72,6 +82,38 @@ class StadiumZonesScreen extends ConsumerWidget {
               ),
             ),
 
+            // Zone Info
+            AnimatedPositioned(
+              duration: Durations.medium,
+              top: 75,
+              right: !isSelected
+                  ? 0
+                  : !slideRight
+                      ? -15
+                      : 15,
+              left: !isSelected
+                  ? 0
+                  : slideRight
+                      ? -15
+                      : 15,
+              child: AnimatedOpacity(
+                opacity: isSelected ? 1 : 0,
+                duration: Durations.fast,
+                curve: Curves.easeInCirc,
+                child: Container(
+                  height: 450,
+                  margin: const EdgeInsets.symmetric(
+                    vertical: 20,
+                    horizontal: 45,
+                  ),
+                  decoration: BoxDecoration(
+                    borderRadius: Corners.rounded(35),
+                    color: AppColors.primaryColor,
+                  ),
+                ),
+              ),
+            ),
+
             // Red line
             const Positioned(
               top: 250,
@@ -79,37 +121,26 @@ class StadiumZonesScreen extends ConsumerWidget {
               right: 0,
               height: 3,
               child: ColoredBox(
-                color: AppColors.primaryColor,
+                color: AppColors.redColor,
               ),
             ),
 
             // Stadium
-            Align(
-              child: _OuterGreyLayer(
-                child: _MiddleGreyLayer(
-                  child: Stack(
-                    children: [
-                      // Green ground
-                      const _InnerGreyLayer(
-                        child: _GreenGround(),
-                      ),
-
-                      // Zones Overlay
-                      for (int i = 0; i < coords.length; i++)
-                        Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: Align(
-                            alignment: Alignment(
-                              coords[i],
-                              coords[coords.length - i - 1],
-                            ),
-                            child: ZoneNumberBox(number: i),
-                          ),
-                        )
-                    ],
-                  ),
-                ),
-              ),
+            AnimatedPositioned(
+              duration: Durations.medium,
+              curve: Curves.fastOutSlowIn,
+              top: 75,
+              left: !isSelected
+                  ? 0
+                  : !slideRight
+                      ? -185
+                      : 185,
+              right: !isSelected
+                  ? 0
+                  : slideRight
+                      ? -185
+                      : 185,
+              child: const Stadium(),
             ),
 
             // View Seats
@@ -130,108 +161,6 @@ class StadiumZonesScreen extends ConsumerWidget {
               ),
             ),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class _OuterGreyLayer extends StatelessWidget {
-  final Widget child;
-
-  const _OuterGreyLayer({required this.child});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      height: 520,
-      decoration: BoxDecoration(
-        borderRadius: Corners.rounded(70),
-        color: const Color(0xFFF5F6FA),
-        boxShadow: Shadows.universalDark,
-      ),
-      padding: const EdgeInsets.all(20),
-      margin: const EdgeInsets.all(20),
-      child: child,
-    );
-  }
-}
-
-class _MiddleGreyLayer extends StatelessWidget {
-  final Widget child;
-
-  const _MiddleGreyLayer({required this.child});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: Corners.rounded(65),
-        color: const Color(0xFFEBEDF5),
-      ),
-      padding: const EdgeInsets.all(20),
-      child: child,
-    );
-  }
-}
-
-class _InnerGreyLayer extends StatelessWidget {
-  final Widget child;
-
-  const _InnerGreyLayer({required this.child});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: Corners.rounded(60),
-        color: const Color(0xFFE2E5F0),
-      ),
-      padding: const EdgeInsets.all(45),
-      child: child,
-    );
-  }
-}
-
-class _GreenGround extends StatelessWidget {
-  const _GreenGround();
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox.expand(
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          borderRadius: Corners.rounded(15),
-          color: Colors.green.shade800,
-        ),
-      ),
-    );
-  }
-}
-
-class ZoneNumberBox extends StatelessWidget {
-  final int number;
-
-  const ZoneNumberBox({
-    super.key,
-    required this.number,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        borderRadius: Corners.rounded4,
-        color: Color(0xFFCCCFDC),
-      ),
-      height: 25,
-      width: 25,
-      child: Center(
-        child: CustomText.subtitle(
-          '$number',
-          color: const Color(0xFF585A5F),
-          fontWeight: FontWeight.bold,
         ),
       ),
     );

@@ -15,3 +15,5 @@ final mockZone = ZoneModel.fromJson(<String, dynamic>{
 });
 
 final currentZoneProvider = StateProvider.autoDispose<ZoneModel?>((_) => mockZone);
+
+final currentZoneNoProvider = StateProvider.autoDispose<int?>((_) => null);

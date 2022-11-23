@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:time/time.dart';
 
 // Models
-import '../enums/event_type_enum.dart';
 import '../models/event_model.codegen.dart';
 
 // Providers
+import '../providers/events_provider.dart';
 import '../providers/filter_providers.codegen.dart';
 
 // Widgets
@@ -22,52 +21,7 @@ class EventsGridList extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return AsyncValueWidget<List<EventModel>>(
-      value: AsyncData(<EventModel>[
-        EventModel(
-          eventId: 1,
-          name: 'Pak vs England',
-          date: DateTime.now(),
-          startTime: TimeOfDay.now(),
-          endTime: TimeOfDay.fromDateTime(DateTime.now().add(5.hours)),
-          posterUrl: 'https://thumbs.dreamstime.com/b/cricket-match-england-vs-pakistan-country-flag-shields-cricket-match-england-vs-pakistan-country-flag-139688792.jpg',
-          eventType: EventType.OPEN,
-          createdAt: DateTime.now(),
-          updatedAt: DateTime.now(),
-        ),
-        EventModel(
-          eventId: 2,
-          name: 'Pak vs England',
-          date: DateTime.now(),
-          startTime: TimeOfDay.now(),
-          endTime: TimeOfDay.fromDateTime(DateTime.now().add(5.hours)),
-          posterUrl: 'https://thumbs.dreamstime.com/b/cricket-match-england-vs-pakistan-country-flag-shields-cricket-match-england-vs-pakistan-country-flag-139688792.jpg',
-          eventType: EventType.OPEN,
-          createdAt: DateTime.now(),
-          updatedAt: DateTime.now(),
-        ),
-        EventModel(
-          eventId: 3,
-          name: 'Pak vs England',
-          date: DateTime.now(),
-          startTime: TimeOfDay.now(),
-          endTime: TimeOfDay.fromDateTime(DateTime.now().add(5.hours)),
-          posterUrl: 'https://thumbs.dreamstime.com/b/cricket-match-england-vs-pakistan-country-flag-shields-cricket-match-england-vs-pakistan-country-flag-139688792.jpg',
-          eventType: EventType.OPEN,
-          createdAt: DateTime.now(),
-          updatedAt: DateTime.now(),
-        ),
-        EventModel(
-          eventId: 4,
-          name: 'Pak vs England',
-          date: DateTime.now(),
-          startTime: TimeOfDay.now(),
-          endTime: TimeOfDay.fromDateTime(DateTime.now().add(5.hours)),
-          posterUrl: 'https://thumbs.dreamstime.com/b/cricket-match-england-vs-pakistan-country-flag-shields-cricket-match-england-vs-pakistan-country-flag-139688792.jpg',
-          eventType: EventType.OPEN,
-          createdAt: DateTime.now(),
-          updatedAt: DateTime.now(),
-        )
-      ]),
+      value: ref.watch(eventsFutureProvider),
       loading: () => const Padding(
         padding: EdgeInsets.only(top: 70),
         child: CustomCircularLoader(),
@@ -90,13 +44,13 @@ class EventsGridList extends ConsumerWidget {
           physics: const BouncingScrollPhysics(
             parent: AlwaysScrollableScrollPhysics(),
           ),
-          padding: EdgeInsets.zero,
+          padding: const EdgeInsets.fromLTRB(16, 0, 16, 20),
           itemCount: events.length,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
             mainAxisSpacing: 20,
             crossAxisSpacing: 20,
-            childAspectRatio: 4 / 5.5,
+            childAspectRatio: 4 / 5.8,
           ),
           itemBuilder: (_, i) => EventsGridItem(
             event: events[i],

@@ -23,10 +23,10 @@ class AppColors {
   ];
 
   /// The main purplish color used for theming the app.
-  static const Color primaryColor = Color(0xFFf03400);
+  static const Color primaryColor = Color.fromARGB(255, 0, 49, 93);
 
   /// The color value for orange color in the app.
-  static const Color lightPrimaryColor = Color.fromARGB(248, 255, 67, 67);
+  static const Color lightPrimaryColor = Color.fromARGB(248, 39, 92, 152);
 
   /// The secondary yellowish color used for contrasting
   /// the primary purple in the app.
@@ -52,7 +52,7 @@ class AppColors {
   static const Color fieldFillColor = Color.fromARGB(255, 235, 235, 235);
 
   /// The color value for red color in the app.
-  static const Color redColor = Color(0xFFed0000);
+  static const Color redColor = Color(0xFFf03400);
 
   /// The color value for red color in the app.
   static const Color orangeColor = Color(0xFFf04f00);
@@ -72,24 +72,18 @@ class AppColors {
   /// The color value for light grey borders in the app.
   static const Color lightOutlineColor = Color.fromARGB(255, 224, 224, 224);
 
-  /// The orange [LinearGradient] for buttons in the app.
-  static const Gradient buttonGradientPrimary = buttonGradientOrange;
-
-  /// The red [LinearGradient] for danger buttons in the app.
-  static const Gradient buttonGradientDanger = buttonGradientRed;
+  /// The primary [LinearGradient] for buttons in the app.
+  static const Gradient buttonGradientPrimary = LinearGradient(
+    colors: [lightPrimaryColor, primaryColor],
+  );
 
   /// The orange [LinearGradient] for disabled buttons in the app.
   static const Gradient buttonGradientGrey = LinearGradient(
     colors: [lightSkeletonColor, darkSkeletonColor],
   );
 
-    /// The red [LinearGradient] for buttons in the app.
-  static const Gradient buttonGradientRed = LinearGradient(
-    colors: [primaryColor, redColor],
-  );
-
   /// The orange [LinearGradient] for buttons in the app.
-  static const Gradient buttonGradientOrange = LinearGradient(
+  static const Gradient buttonGradientDanger = LinearGradient(
     colors: [orangeColor, redColor],
   );
 

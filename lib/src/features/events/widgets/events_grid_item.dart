@@ -79,7 +79,7 @@ class EventsGridItem extends ConsumerWidget {
                       event.date.toDateString('d MMM, y'),
                       textAlign: TextAlign.center,
                       color: AppColors.textGreyColor,
-                      fontSize: 14,
+                      fontSize: 12,
                     ),
             
                     Insets.expand,
@@ -90,7 +90,7 @@ class EventsGridItem extends ConsumerWidget {
                       textAlign: TextAlign.center,
                       maxLines: 2,
                       overflow: TextOverflow.ellipsis,
-                      fontSize: 13,
+                      fontSize: 11,
                       color: AppColors.textLightGreyColor,
                     ),
                   ],

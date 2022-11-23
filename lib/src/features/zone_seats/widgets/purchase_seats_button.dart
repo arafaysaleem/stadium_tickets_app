@@ -24,7 +24,7 @@ class PurchaseSeatsButton extends StatelessWidget {
             width: double.infinity,
             onPressed: () {},
             disabled: seats == 0,
-            gradient: AppColors.buttonGradientOrange,
+            gradient: AppColors.buttonGradientPrimary,
             child: Center(
               child: Text(
                 'PURCHASE - $seats SEATS',

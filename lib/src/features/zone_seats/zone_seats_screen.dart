@@ -104,7 +104,7 @@ class ZoneSeatsScreen extends ConsumerWidget {
                                   borderWidth: 1.5,
                                   fontWeight: FontWeight.bold,
                                   backgroundColor:
-                                      Colors.red.shade700.withOpacity(0.3),
+                                      Colors.blue.shade700.withOpacity(0.3),
                                   isScrollable: true,
                                 );
                               },

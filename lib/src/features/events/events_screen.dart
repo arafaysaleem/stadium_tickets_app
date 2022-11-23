@@ -32,10 +32,7 @@ class EventsScreen extends StatelessWidget {
             
             // Events List
             const Expanded(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16),
-                child: EventsGridList(),
-              ),
+              child: EventsGridList(),
             ),
           ],
         ),
