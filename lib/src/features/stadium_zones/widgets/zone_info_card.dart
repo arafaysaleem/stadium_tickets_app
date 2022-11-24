@@ -4,10 +4,14 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 // Helpers
 import '../../../global/widgets/custom_back_icon.dart';
 import '../../../global/widgets/custom_text.dart';
+import '../../../global/widgets/custom_text_button.dart';
+import '../../../global/widgets/labeled_widget.dart';
+import '../../../helpers/constants/app_colors.dart';
 import '../../../helpers/constants/app_styles.dart';
 import '../../../helpers/constants/app_utils.dart';
 
 // Providers
+import '../../../helpers/extensions/string_extension.dart';
 import '../providers/zones_provider.dart';
 
 class ZoneInfoCard extends StatelessWidget {
@@ -80,6 +84,7 @@ class ZoneDetails extends ConsumerWidget {
         SizedBox(
           width: 155,
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Back
               Row(
@@ -106,6 +111,119 @@ class ZoneDetails extends ConsumerWidget {
                 textAlign: TextAlign.center,
                 fontWeight: FontWeight.bold,
               ),
+
+              Insets.gapH(40),
+
+              // Row 1
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 0, 10, 0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    // Zone Type
+                    LabeledWidget(
+                      label: 'Type',
+                      labelStyle: const TextStyle(
+                        fontSize: 13,
+                        color: AppColors.textLightGreyColor,
+                      ),
+                      child: CustomText.body(
+                        zone.type.type.capitalize,
+                        fontSize: 15,
+                      ),
+                    ),
+
+                    // Price
+                    LabeledWidget(
+                      label: 'Price',
+                      labelStyle: const TextStyle(
+                        fontSize: 13,
+                        color: AppColors.textLightGreyColor,
+                      ),
+                      child: CustomText.body(
+                        '\$${zone.type.price}',
+                        fontSize: 15,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              Insets.gapH20,
+
+              // Row 2
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 0, 10, 0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    // Zone Type
+                    LabeledWidget(
+                      label: 'Rows',
+                      labelStyle: const TextStyle(
+                        fontSize: 13,
+                        color: AppColors.textLightGreyColor,
+                      ),
+                      child: CustomText.body(
+                        '${zone.numOfRows}',
+                        fontSize: 15,
+                      ),
+                    ),
+
+                    // Price
+                    LabeledWidget(
+                      label: 'Seats/row',
+                      labelStyle: const TextStyle(
+                        fontSize: 13,
+                        color: AppColors.textLightGreyColor,
+                      ),
+                      child: CustomText.body(
+                        '${zone.seatsPerRow}',
+                        fontSize: 15,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              Insets.expand,
+
+              Padding(
+                padding: const EdgeInsets.fromLTRB(15, 0, 5, 0),
+                child: CustomTextButton.outlined(
+                  onPressed: () {},
+                  width: double.infinity,
+                  height: 44,
+                  border: Border.all(
+                    width: 2,
+                    color: AppColors.primaryColor,
+                  ),
+                  child: CustomText.body(
+                    'View Pictures',
+                    fontSize: 15,
+                    color: AppColors.textWhite80Color,
+                  ),
+                ),
+              ),
+
+              Insets.gapH15,
+
+              Padding(
+                padding: const EdgeInsets.fromLTRB(15, 0, 5, 0),
+                child: CustomTextButton.gradient(
+                  onPressed: () {},
+                  width: double.infinity,
+                  height: 44,
+                  gradient: AppColors.buttonGradientPrimary,
+                  child: CustomText.body(
+                    'View Seats',
+                    fontSize: 15,
+                    color: AppColors.textWhite80Color,
+                  ),
+                ),
+              ),
+
+              Insets.gapH10,
             ],
           ),
         ),

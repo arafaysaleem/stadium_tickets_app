@@ -18,26 +18,24 @@ class CustomTextButton extends StatelessWidget {
 
   const CustomTextButton({
     super.key,
-    double? height,
-    double? borderRadius,
+    this.height = 55,
+    this.borderRadius = 7,
     this.width,
-    bool? disabled,
+    this.disabled = false,
     this.gradient,
     this.border,
     this.color,
     this.padding,
     required this.child,
     required this.onPressed,
-  })  : borderRadius = borderRadius ?? 7,
-        height = height ?? 55,
-        disabled = disabled ?? false;
+  });
 
   const factory CustomTextButton.gradient({
     Key? key,
-    double? height,
+    double height,
     double? width,
-    double? borderRadius,
-    bool? disabled,
+    double borderRadius,
+    bool disabled,
     EdgeInsetsGeometry? padding,
     required Widget child,
     required VoidCallback onPressed,
@@ -46,10 +44,10 @@ class CustomTextButton extends StatelessWidget {
 
   const factory CustomTextButton.outlined({
     Key? key,
-    double? height,
+    double height,
     double? width,
-    bool? disabled,
-    double? borderRadius,
+    bool disabled,
+    double borderRadius,
     EdgeInsetsGeometry? padding,
     required Border border,
     required Widget child,
@@ -89,15 +87,13 @@ class _CustomTextButtonWithGradient extends CustomTextButton {
     super.key,
     super.height,
     super.width,
-    bool? disabled,
+    super.disabled,
     super.borderRadius,
     super.padding,
     required super.child,
     required super.onPressed,
     required Gradient super.gradient,
-  }) : super(
-          disabled: disabled ?? false,
-        );
+  }) : super();
 }
 
 class _CustomTextButtonOutlined extends CustomTextButton {
@@ -105,13 +101,11 @@ class _CustomTextButtonOutlined extends CustomTextButton {
     super.key,
     super.height,
     super.width,
-    bool? disabled,
+    super.disabled,
     super.borderRadius,
     super.padding,
     required Border super.border,
     required super.child,
     required super.onPressed,
-  }) : super(
-          disabled: disabled ?? false,
-        );
+  }) : super();
 }
