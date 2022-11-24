@@ -2,17 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // Helpers
+import '../../../helpers/constants/app_colors.dart';
+import '../../../helpers/constants/app_styles.dart';
+import '../../../helpers/constants/app_utils.dart';
+import '../../../helpers/extensions/string_extension.dart';
+
+// Router
+import '../../../config/routes/app_router.dart';
+import '../../../config/routes/routes.dart';
+
+// Providers
+import '../providers/zones_provider.dart';
+
+// Widgets
 import '../../../global/widgets/custom_back_icon.dart';
 import '../../../global/widgets/custom_text.dart';
 import '../../../global/widgets/custom_text_button.dart';
 import '../../../global/widgets/labeled_widget.dart';
-import '../../../helpers/constants/app_colors.dart';
-import '../../../helpers/constants/app_styles.dart';
-import '../../../helpers/constants/app_utils.dart';
-
-// Providers
-import '../../../helpers/extensions/string_extension.dart';
-import '../providers/zones_provider.dart';
 
 class ZoneInfoCard extends StatelessWidget {
   const ZoneInfoCard({
@@ -77,6 +83,8 @@ class ZoneDetails extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final zone = ref.watch(currentZoneProvider);
     if (zone == null) return Insets.shrink;
+    final padLeft = isLeft ? 10.0 : 20.0;
+    final padRight = isLeft ? 20.0 : 10.0;
     return Row(
       mainAxisAlignment:
           isLeft ? MainAxisAlignment.start : MainAxisAlignment.end,
@@ -105,18 +113,27 @@ class ZoneDetails extends ConsumerWidget {
               Insets.gapH(12),
 
               // Zone Name
-              CustomText(
-                zone.name,
-                fontSize: 30,
-                textAlign: TextAlign.center,
-                fontWeight: FontWeight.bold,
+              SizedBox(
+                height: 76,
+                width: double.infinity,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CustomText(
+                      zone.name,
+                      fontSize: 30,
+                      textAlign: TextAlign.center,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ],
+                ),
               ),
 
               Insets.gapH(40),
 
               // Row 1
               Padding(
-                padding: const EdgeInsets.fromLTRB(20, 0, 10, 0),
+                padding: EdgeInsets.fromLTRB(padLeft, 0, padRight, 0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -153,7 +170,7 @@ class ZoneDetails extends ConsumerWidget {
 
               // Row 2
               Padding(
-                padding: const EdgeInsets.fromLTRB(20, 0, 10, 0),
+                padding: EdgeInsets.fromLTRB(padLeft, 0, padRight, 0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -189,7 +206,7 @@ class ZoneDetails extends ConsumerWidget {
               Insets.expand,
 
               Padding(
-                padding: const EdgeInsets.fromLTRB(15, 0, 5, 0),
+                padding: EdgeInsets.fromLTRB(padLeft - 5, 0, padRight - 5, 0),
                 child: CustomTextButton.outlined(
                   onPressed: () {},
                   width: double.infinity,
@@ -209,9 +226,11 @@ class ZoneDetails extends ConsumerWidget {
               Insets.gapH15,
 
               Padding(
-                padding: const EdgeInsets.fromLTRB(15, 0, 5, 0),
+                padding: EdgeInsets.fromLTRB(padLeft - 5, 0, padRight - 5, 0),
                 child: CustomTextButton.gradient(
-                  onPressed: () {},
+                  onPressed: () {
+                    AppRouter.pushNamed(Routes.ZoneSeatsScreenRoute);
+                  },
                   width: double.infinity,
                   height: 44,
                   gradient: AppColors.buttonGradientPrimary,

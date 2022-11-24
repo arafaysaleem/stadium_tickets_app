@@ -16,7 +16,7 @@ import '../../../global/widgets/async_value_widget.dart';
 import '../../../global/widgets/empty_state_widget.dart';
 import '../../../global/widgets/custom_circular_loader.dart';
 import '../../../global/widgets/error_response_handler.dart';
-import 'events_grid_item.dart';
+import 'events_list_item.dart';
 
 class EventsList extends ConsumerWidget {
   const EventsList({super.key});
@@ -50,7 +50,7 @@ class EventsList extends ConsumerWidget {
           ),
           padding: const EdgeInsets.fromLTRB(16, 0, 16, 20),
           separatorBuilder: (_, __) => Insets.gapH20,
-          itemBuilder: (_, i) => EventsGridItem(
+          itemBuilder: (_, i) => EventsListItem(
             event: events[i],
           ),
         );

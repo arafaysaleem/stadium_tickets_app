@@ -44,11 +44,14 @@ class ZoneSeatsScreen extends ConsumerWidget {
               Insets.gapH10,
 
               // Icons row
-              CustomBackIcon(
-                onTap: () {
-                  AppRouter.pop();
-                  ref.read(selectedSeatsProvider.notifier).state = [];
-                },
+              Padding(
+                padding: const EdgeInsets.all(5),
+                child: CustomBackIcon(
+                  onTap: () {
+                    AppRouter.pop();
+                    ref.read(selectedSeatsProvider.notifier).state = [];
+                  },
+                ),
               ),
 
               Insets.gapH20,

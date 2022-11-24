@@ -6,7 +6,6 @@ import '../../helpers/constants/app_colors.dart';
 
 // Router
 import '../../config/routes/app_router.dart';
-import '../../config/routes/routes.dart';
 
 // Providers
 import '../events/providers/events_provider.dart';
@@ -15,7 +14,6 @@ import 'providers/zones_provider.dart';
 // Widgets
 import '../../global/widgets/custom_back_icon.dart';
 import '../../global/widgets/custom_text.dart';
-import '../../global/widgets/custom_text_button.dart';
 import 'widgets/zone_info_card.dart';
 import 'widgets/stadium.dart';
 
@@ -83,14 +81,14 @@ class StadiumZonesScreen extends ConsumerWidget {
 
             // Zone Info
             ZoneInfoCard(
-              top: 80,
+              top: 95,
               isSelected: isSelected,
               slideRight: slideRight,
             ),
 
             // Red line
             const Positioned(
-              top: 250,
+              top: 265,
               left: 0,
               right: 0,
               height: 3,
@@ -101,27 +99,9 @@ class StadiumZonesScreen extends ConsumerWidget {
 
             // Stadium
             Stadium(
-              top: 80,
+              top: 95,
               isSelected: isSelected,
               slideRight: slideRight,
-            ),
-
-            // View Seats
-            Positioned(
-              left: 20,
-              right: 20,
-              bottom: 20,
-              child: CustomTextButton.gradient(
-                onPressed: () {
-                  AppRouter.pushNamed(Routes.ZoneSeatsScreenRoute);
-                },
-                width: double.infinity,
-                gradient: AppColors.buttonGradientPrimary,
-                child: CustomText.body(
-                  'View Seats',
-                  color: AppColors.textWhite80Color,
-                ),
-              ),
             ),
           ],
         ),

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 // Helpers
@@ -31,7 +33,8 @@ class SeatsArea extends StatelessWidget {
   });
 
   double getMaxGridHeight() {
-    return numOfRows * (seatSize + seatGap) - seatGap;
+    final height = numOfRows * (seatSize + seatGap) - seatGap;
+    return max(height, 250);
   }
 
   bool isMissing(SeatModel seat) => missing.contains(seat);
@@ -100,19 +103,18 @@ class SeatsArea extends StatelessWidget {
                             seatRow: String.fromCharCode(i % numOfRows + 65),
                             seatNumber: i ~/ numOfRows,
                           );
+                          Widget? child;
                           if (isMissing(seat)) {
-                            return Insets.shrink;
+                            child = Insets.shrink;
                           } else if (isBlocked(seat) || isBooked(seat)) {
-                            return const DecoratedBox(
+                            child = const DecoratedBox(
                               decoration: BoxDecoration(
                                 color: Color(0xFF5A5A5A),
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(8),
-                                ),
+                                borderRadius: Corners.rounded7,
                               ),
                             );
                           }
-                          return SeatWidget(seat: seat);
+                          return child ?? SeatWidget(seat: seat);
                         },
                       ),
                     ),

@@ -84,6 +84,9 @@ class Insets {
 class Corners {
   const Corners._();
 
+  /// [BorderRadius] not rounded on any corner
+  static const BorderRadius none = BorderRadius.zero;
+
   /// [BorderRadius] rounded on all corners by **4**
   static const BorderRadius rounded4 = BorderRadius.all(Radius.circular(4));
 

@@ -17,7 +17,7 @@ class HotEventBanner extends StatelessWidget {
         height: 210,
         fit: BoxFit.fill,
         borderRadius: Corners.rounded10,
-        imageUrl: 'https://thumbs.dreamstime.com/b/cricket-match-england-vs-pakistan-country-flag-shields-cricket-match-england-vs-pakistan-country-flag-139688792.jpg',
+        imageUrl: 'https://img.freepik.com/free-vector/music-event-poster-template-with-colorful-shapes_1361-1591.jpg',
       ),
     );
   }

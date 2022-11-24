@@ -40,7 +40,7 @@ class Stadium extends StatelessWidget {
               : 185,
       child: Container(
         width: double.infinity,
-        height: 510,
+        height: 550,
         decoration: BoxDecoration(
           borderRadius: Corners.rounded(70),
           color: AppColors.surfaceColor,

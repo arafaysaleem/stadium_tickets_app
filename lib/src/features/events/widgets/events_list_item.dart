@@ -20,10 +20,10 @@ import '../models/event_model.codegen.dart';
 import '../../../global/widgets/custom_text.dart';
 import '../../../global/widgets/custom_network_image.dart';
 
-class EventsGridItem extends ConsumerWidget {
+class EventsListItem extends ConsumerWidget {
   final EventModel event;
 
-  const EventsGridItem({
+  const EventsListItem({
     super.key,
     required this.event,
   });
@@ -35,37 +35,34 @@ class EventsGridItem extends ConsumerWidget {
         ref.read(currentEventProvider.notifier).state = event;
         AppRouter.pushNamed(Routes.StadiumZonesScreenRoute);
       },
-      child: Container(
-        height: 210,
-        decoration: const BoxDecoration(
-          borderRadius: Corners.rounded9,
-          color: AppColors.surfaceColor,
-        ),
-        child: Column(
-          children: [
-            // Event Poster
-            CustomNetworkImage(
-              height: 135,
-              fit: BoxFit.cover,
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(9),
-                topRight: Radius.circular(9),
+      child: ClipRRect(
+        borderRadius: Corners.rounded9,
+        child: SizedBox(
+          height: 210,
+          child: Stack(
+            children: [
+              // Event Poster
+              Positioned.fill(
+                child: CustomNetworkImage(
+                  fit: BoxFit.cover,
+                  borderRadius: Corners.none,
+                  imageUrl: event.posterUrl,
+                ),
               ),
-              imageUrl: event.posterUrl,
-            ),
-
-            Insets.gapH5,
-
-            // Details
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 15),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // Date
-                    Expanded(
-                      child: Row(
+      
+              // Details
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Container(
+                  height: 70,
+                  color: AppColors.barrierColor,
+                  padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      // Date
+                      Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Row(
@@ -83,7 +80,7 @@ class EventsGridItem extends ConsumerWidget {
                               ),
                             ],
                           ),
-
+      
                           // Times
                           Row(
                             children: [
@@ -104,25 +101,21 @@ class EventsGridItem extends ConsumerWidget {
                           ),
                         ],
                       ),
-                    ),
-
-                    // Full Name
-                    CustomText(
-                      event.name,
-                      maxLines: 2,
-                      fontSize: 18,
-                      overflow: TextOverflow.fade,
-                      fontWeight: FontWeight.bold,
-                    ),
-
-                    Insets.gapH3,
-                  ],
+      
+                      // Full Name
+                      CustomText(
+                        event.name,
+                        maxLines: 2,
+                        fontSize: 18,
+                        overflow: TextOverflow.fade,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-
-            Insets.gapH10,
-          ],
+            ],
+          ),
         ),
       ),
     );
