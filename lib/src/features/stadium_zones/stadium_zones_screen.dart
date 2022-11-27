@@ -47,7 +47,7 @@ class StadiumZonesScreen extends ConsumerWidget {
                   CustomBackIcon(
                     onTap: () {
                       AppRouter.pop();
-                      ref.read(currentEventProvider.notifier).state = null;
+                      ref.invalidate(currentEventProvider);
                     },
                   ),
 

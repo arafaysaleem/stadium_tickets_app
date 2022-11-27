@@ -51,7 +51,7 @@ class ZoneDetails extends ConsumerWidget {
                     quarterTurns: isLeft ? 2 : 0,
                     child: CustomBackIcon(
                       onTap: () {
-                        ref.read(currentZoneNoProvider.notifier).state = null;
+                        ref.invalidate(currentZoneNoProvider);
                       },
                     ),
                   ),
@@ -70,6 +70,7 @@ class ZoneDetails extends ConsumerWidget {
                     CustomText(
                       zone.name,
                       fontSize: 30,
+                      maxLines: 2,
                       textAlign: TextAlign.center,
                       fontWeight: FontWeight.bold,
                     ),

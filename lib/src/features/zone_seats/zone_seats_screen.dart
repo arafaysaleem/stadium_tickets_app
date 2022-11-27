@@ -18,6 +18,7 @@ import '../stadium_zones/models/zone_seating_model.codegen.dart';
 // Widgets
 import '../../global/widgets/async_value_widget.dart';
 import '../../global/widgets/custom_chips_list.dart';
+import '../../global/widgets/custom_text.dart';
 import '../../global/widgets/custom_circular_loader.dart';
 import '../../global/widgets/error_response_handler.dart';
 import '../../global/widgets/custom_back_icon.dart';
@@ -33,7 +34,7 @@ class ZoneSeatsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final zone = ref.watch(currentZoneProvider);
+    final zone = ref.watch(currentZoneProvider)!;
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -41,14 +42,30 @@ class ZoneSeatsScreen extends ConsumerWidget {
           children: [
             Insets.gapH10,
 
-            // Icons row
+            // Icon and title row
             Padding(
               padding: const EdgeInsets.fromLTRB(10, 5, 5, 5),
-              child: CustomBackIcon(
-                onTap: () {
-                  AppRouter.pop();
-                  ref.read(selectedSeatsProvider.notifier).state = [];
-                },
+              child: Row(
+                children: [
+                  CustomBackIcon(
+                    onTap: () {
+                      AppRouter.pop();
+                      ref.read(selectedSeatsProvider.notifier).state = [];
+                    },
+                  ),
+
+                  // Zone Name
+                  Expanded(
+                    child: CustomText(
+                      zone.name,
+                      fontSize: 22,
+                      textAlign: TextAlign.center,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+
+                  const SizedBox(width: 30),
+                ],
               ),
             ),
 
@@ -68,7 +85,7 @@ class ZoneSeatsScreen extends ConsumerWidget {
                     ),
                   ),
                   data: (zoneSeatingModel) {
-                    final extendBottom = zone!.numOfRows > 12;
+                    final extendBottom = zone.numOfRows > 12;
                     final extendRight = zone.seatsPerRow > 8;
                     return Column(
                       children: [

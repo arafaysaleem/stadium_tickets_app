@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class CustomText extends StatelessWidget {
   final String text;
   final TextAlign? textAlign;
-  final TextOverflow? overflow;
+  final TextOverflow overflow;
   final FontWeight? fontWeight;
   final double? fontSize;
   final bool? softWrap;
@@ -15,7 +15,7 @@ class CustomText extends StatelessWidget {
     this.text, {
     super.key,
     this.textAlign,
-    this.overflow,
+    this.overflow = TextOverflow.ellipsis,
     this.fontWeight,
     this.fontSize,
     this.color,

@@ -30,7 +30,7 @@ class ZoneNumberBox extends ConsumerWidget {
         if (!isSelected) {
           ref.read(currentZoneNoProvider.notifier).state = number;
         } else {
-          ref.read(currentZoneNoProvider.notifier).state = null;
+          ref.invalidate(currentZoneNoProvider);
         }
       },
       child: Container(

@@ -103,7 +103,6 @@ class EventsListItem extends ConsumerWidget {
                                 '${event.startTime.format(context)} - ${event.endTime.format(context)}',
                                 textAlign: TextAlign.center,
                                 maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
                                 fontSize: 12,
                               ),
                             ],
