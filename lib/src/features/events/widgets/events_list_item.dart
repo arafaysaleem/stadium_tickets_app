@@ -11,7 +11,7 @@ import '../../../config/routes/app_router.dart';
 import '../../../config/routes/routes.dart';
 
 // Providers
-import '../providers/events_provider.dart';
+import '../providers/events_provider.codegen.dart';
 
 // Models
 import '../models/event_model.codegen.dart';
@@ -38,7 +38,7 @@ class EventsListItem extends ConsumerWidget {
       child: ClipRRect(
         borderRadius: Corners.rounded9,
         child: SizedBox(
-          height: 210,
+          height: 220,
           child: Stack(
             children: [
               // Event Poster
@@ -49,22 +49,34 @@ class EventsListItem extends ConsumerWidget {
                   imageUrl: event.posterUrl,
                 ),
               ),
-      
+
               // Details
               Align(
                 alignment: Alignment.bottomCenter,
                 child: Container(
-                  height: 70,
-                  color: AppColors.barrierColor,
+                  height: 100,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: FractionalOffset.bottomCenter,
+                      end: FractionalOffset.topCenter,
+                      colors: [
+                        Colors.black.withOpacity(0.99),
+                        Colors.black.withOpacity(0.78),
+                        Colors.transparent,
+                      ],
+                      stops: const [0.0, 0.6, 1],
+                    ),
+                  ),
                   padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      // Date
+                      // Datetime
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
+                          // Date
                           Row(
                             children: [
                               const Icon(
@@ -75,12 +87,11 @@ class EventsListItem extends ConsumerWidget {
                               CustomText(
                                 event.date.toDateString('d MMM, y'),
                                 textAlign: TextAlign.center,
-                                color: AppColors.textGreyColor,
                                 fontSize: 12,
                               ),
                             ],
                           ),
-      
+
                           // Times
                           Row(
                             children: [
@@ -95,13 +106,14 @@ class EventsListItem extends ConsumerWidget {
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
                                 fontSize: 12,
-                                color: AppColors.textGreyColor,
                               ),
                             ],
                           ),
                         ],
                       ),
-      
+
+                      Insets.gapH10,
+
                       // Full Name
                       CustomText(
                         event.name,

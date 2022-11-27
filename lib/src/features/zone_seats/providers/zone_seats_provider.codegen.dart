@@ -1,5 +1,25 @@
-import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+// Models
 import '../model/seat_model.codegen.dart';
 
-final selectedSeatsProvider = StateProvider.autoDispose<List<SeatModel>>((_) => []);
+part 'zone_seats_provider.codegen.g.dart';
+
+@riverpod
+class SelectedSeats extends _$SelectedSeats {
+  @override
+  List<SeatModel> build() => [];
+
+  void toggleSeat({required bool isSelected, required SeatModel seat}) {
+    isSelected ? _selectSeat(seat) : _removeSeat(seat);
+  }
+
+  void _selectSeat(SeatModel seat) {
+    state = [...state, seat];
+  }
+
+  void _removeSeat(SeatModel seat) {
+    state.remove(seat);
+    state = [...state];
+  }
+}

@@ -8,7 +8,7 @@ import '../../helpers/constants/app_colors.dart';
 import '../../config/routes/app_router.dart';
 
 // Providers
-import '../events/providers/events_provider.dart';
+import '../events/providers/events_provider.codegen.dart';
 import 'providers/zones_provider.dart';
 
 // Widgets

@@ -30,14 +30,9 @@ class _SeatWidgetState extends ConsumerState<SeatWidget> {
     setState(() {
       isSelected = !isSelected;
     });
-    ref.read(selectedSeatsProvider.notifier).update((state) {
-      if (isSelected) {
-        return [...state, widget.seat];
-      } else {
-        state.remove(widget.seat);
-        return [...state];
-      }
-    });
+    ref
+        .read(selectedSeatsProvider.notifier)
+        .toggleSeat(isSelected: isSelected, seat: widget.seat);
   }
 
   @override

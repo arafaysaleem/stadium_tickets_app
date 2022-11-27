@@ -1,8 +1,10 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
 // Helpers
+import '../../../helpers/constants/app_colors.dart';
 import '../../../helpers/constants/app_styles.dart';
 
 // Models
@@ -12,10 +14,12 @@ import '../model/seat_model.codegen.dart';
 import '../../../global/widgets/custom_text.dart';
 import 'seat_widget.dart';
 
-class SeatsArea extends StatelessWidget {
+class SeatsArea extends HookWidget {
   final double seatSize;
   final double seatGap;
   final int numOfRows;
+  final bool extendBottom;
+  final bool extendRight;
   final int seatsPerRow;
   final List<SeatModel> missing;
   final List<SeatModel> blocked;
@@ -24,6 +28,8 @@ class SeatsArea extends StatelessWidget {
   const SeatsArea({
     super.key,
     required this.seatSize,
+    required this.extendBottom,
+    required this.extendRight,
     required this.seatGap,
     required this.missing,
     required this.blocked,
@@ -33,7 +39,7 @@ class SeatsArea extends StatelessWidget {
   });
 
   double getMaxGridHeight() {
-    final height = numOfRows * (seatSize + seatGap) - seatGap;
+    final height = numOfRows * (seatSize + seatGap) - seatGap + 12;
     return max(height, 250);
   }
 
@@ -50,123 +56,103 @@ class SeatsArea extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const padding = 20.0;
+    final gridController = useScrollController();
     return Expanded(
-      child: Stack(
-        children: [
-          SingleChildScrollView(
-            child: SizedBox(
-              height: getMaxGridHeight(),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Seat letters' column
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: padding),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        for (var i = 0; i < numOfRows; i++)
-                          SizedBox(
-                            height: 26.5,
-                            child: Center(
-                              child: CustomText.body(
-                                String.fromCharCode(i + 65),
+      flex: extendBottom ? 1 : 0,
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: extendRight
+              ? const BorderRadius.only(
+                  topLeft: Radius.circular(15),
+                  bottomLeft: Radius.circular(15),
+                )
+              : Corners.rounded15,
+          color: AppColors.surfaceColor,
+        ),
+        padding: const EdgeInsets.fromLTRB(10, 10, 7, 10),
+        margin: EdgeInsets.only(left: 10, right: extendRight ? 0 : 10),
+        child: Scrollbar(
+          thumbVisibility: true,
+          radius: const Radius.circular(20),
+          child: NotificationListener<OverscrollIndicatorNotification>(
+            onNotification: _onGlowNotification,
+            child: SingleChildScrollView(
+              child: SizedBox(
+                height: getMaxGridHeight(),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Seat letters' column
+                    Padding(
+                      padding: const EdgeInsets.only(top: 10),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          for (var i = 0; i < numOfRows; i++)
+                            SizedBox(
+                              height: seatSize - 1.5,
+                              child: Center(
+                                child: CustomText.body(
+                                  String.fromCharCode(i + 65),
+                                ),
                               ),
-                            ),
-                          )
-                      ],
-                    ),
-                  ),
-
-                  Insets.gapW10,
-
-                  // Seats
-                  NotificationListener<OverscrollIndicatorNotification>(
-                    onNotification: _onGlowNotification,
-                    child: Flexible(
-                      child: GridView.builder(
-                        itemCount: numOfRows * seatsPerRow,
-                        scrollDirection: Axis.horizontal,
-                        padding: const EdgeInsets.only(
-                          right: padding,
-                          bottom: padding,
-                        ),
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: numOfRows,
-                          crossAxisSpacing: seatGap,
-                          mainAxisExtent: seatSize,
-                          mainAxisSpacing: seatGap,
-                        ),
-                        itemBuilder: (ctx, i) {
-                          final seat = SeatModel(
-                            seatRow: String.fromCharCode(i % numOfRows + 65),
-                            seatNumber: i ~/ numOfRows,
-                          );
-                          Widget? child;
-                          if (isMissing(seat)) {
-                            child = Insets.shrink;
-                          } else if (isBlocked(seat) || isBooked(seat)) {
-                            child = const DecoratedBox(
-                              decoration: BoxDecoration(
-                                color: Color(0xFF5A5A5A),
-                                borderRadius: Corners.rounded7,
-                              ),
-                            );
-                          }
-                          return child ?? SeatWidget(seat: seat);
-                        },
+                            )
+                        ],
                       ),
                     ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-
-          // Bottom White text fade
-          const Positioned(
-            bottom: 0,
-            right: 0,
-            left: 0,
-            height: padding,
-            child: DecoratedBox(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.bottomCenter,
-                  end: Alignment.topCenter,
-                  stops: [0.1, 0.3, 1],
-                  colors: [
-                    Color.fromRGBO(0, 0, 0, 0.3),
-                    Color.fromRGBO(0, 0, 0, 0.2),
-                    Colors.transparent,
+    
+                    Insets.gapW10,
+    
+                    // Seats
+                    NotificationListener<OverscrollIndicatorNotification>(
+                      onNotification: _onGlowNotification,
+                      child: Flexible(
+                        child: Scrollbar(
+                          controller: gridController,
+                          scrollbarOrientation: ScrollbarOrientation.top,
+                          thumbVisibility: true,
+                          radius: const Radius.circular(20),
+                          child: GridView.builder(
+                            padding: const EdgeInsets.only(top: 12),
+                            controller: gridController,
+                            itemCount: numOfRows * seatsPerRow,
+                            scrollDirection: Axis.horizontal,
+                            gridDelegate:
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: numOfRows,
+                              crossAxisSpacing: seatGap,
+                              mainAxisExtent: seatSize,
+                              mainAxisSpacing: seatGap,
+                            ),
+                            itemBuilder: (ctx, i) {
+                              final seat = SeatModel(
+                                seatRow:
+                                    String.fromCharCode(i % numOfRows + 65),
+                                seatNumber: i ~/ numOfRows,
+                              );
+                              Widget? child;
+                              if (isMissing(seat)) {
+                                child = Insets.shrink;
+                              } else if (isBlocked(seat) || isBooked(seat)) {
+                                child = const DecoratedBox(
+                                  decoration: BoxDecoration(
+                                    color: Color(0xFF5A5A5A),
+                                    borderRadius: Corners.rounded7,
+                                  ),
+                                );
+                              }
+                              return child ?? SeatWidget(seat: seat);
+                            },
+                          ),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
             ),
           ),
-
-          const Positioned(
-            right: 0,
-            top: 0,
-            bottom: 0,
-            width: padding,
-            child: DecoratedBox(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.centerRight,
-                  end: Alignment.centerLeft,
-                  stops: [0.1, 0.3, 1],
-                  colors: [
-                    Color.fromRGBO(0, 0, 0, 0.3),
-                    Color.fromRGBO(0, 0, 0, 0.2),
-                    Colors.transparent,
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }

@@ -8,7 +8,7 @@ import '../../../helpers/constants/app_styles.dart';
 import '../models/event_model.codegen.dart';
 
 // Providers
-import '../providers/events_provider.dart';
+import '../providers/events_provider.codegen.dart';
 import '../providers/filter_providers.codegen.dart';
 
 // Widgets
@@ -41,17 +41,17 @@ class EventsList extends ConsumerWidget {
         title: 'No Events found',
         subtitle: 'Try changing the search term or check back later',
       ),
-      data: (filteredEvents) {
-        final events = ref.watch(searchedEventsProvider(filteredEvents));
+      data: (events) {
+        final filteredEvents = ref.watch(searchedEventsProvider(events));
         return ListView.separated(
-          itemCount: events.length,
+          itemCount: filteredEvents.length,
           physics: const BouncingScrollPhysics(
             parent: AlwaysScrollableScrollPhysics(),
           ),
           padding: const EdgeInsets.fromLTRB(16, 0, 16, 20),
           separatorBuilder: (_, __) => Insets.gapH20,
           itemBuilder: (_, i) => EventsListItem(
-            event: events[i],
+            event: filteredEvents[i],
           ),
         );
       },

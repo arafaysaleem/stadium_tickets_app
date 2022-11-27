@@ -36,104 +36,108 @@ class ZoneSeatsScreen extends ConsumerWidget {
     final zone = ref.watch(currentZoneProvider);
     return Scaffold(
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.only(left: 10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Insets.gapH10,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Insets.gapH10,
 
-              // Icons row
-              Padding(
-                padding: const EdgeInsets.all(5),
-                child: CustomBackIcon(
-                  onTap: () {
-                    AppRouter.pop();
-                    ref.read(selectedSeatsProvider.notifier).state = [];
-                  },
-                ),
+            // Icons row
+            Padding(
+              padding: const EdgeInsets.fromLTRB(10, 5, 5, 5),
+              child: CustomBackIcon(
+                onTap: () {
+                  AppRouter.pop();
+                  ref.read(selectedSeatsProvider.notifier).state = [];
+                },
               ),
+            ),
 
-              Insets.gapH20,
+            Insets.gapH15,
 
-              // Zone Seating details
-              Expanded(
-                child: AnimatedSwitcher(
-                  duration: const Duration(milliseconds: 550),
-                  switchOutCurve: Curves.easeInBack,
-                  child: AsyncValueWidget<ZoneSeatingModel>(
-                    value: const AsyncData(
-                      ZoneSeatingModel(
-                        missing: [],
-                        blocked: [],
-                        booked: [],
-                      ),
+            // Zone Seating details
+            Expanded(
+              child: AnimatedSwitcher(
+                duration: const Duration(milliseconds: 550),
+                switchOutCurve: Curves.easeInBack,
+                child: AsyncValueWidget<ZoneSeatingModel>(
+                  value: const AsyncData(
+                    ZoneSeatingModel(
+                      missing: [],
+                      blocked: [],
+                      booked: [],
                     ),
-                    data: (zoneSeatingModel) {
-                      return Column(
-                        children: [
-                          // Seat color indicators
-                          const SeatColorIndicators(),
+                  ),
+                  data: (zoneSeatingModel) {
+                    final extendBottom = zone!.numOfRows > 12;
+                    final extendRight = zone.seatsPerRow > 8;
+                    return Column(
+                      children: [
+                        // Seat color indicators
+                        const SeatColorIndicators(),
 
-                          Insets.gapH10,
+                        Insets.gapH15,
 
-                          // Seats Area
-                          SeatsArea(
-                            seatSize: _seatSize,
-                            seatGap: _seatGap,
-                            numOfRows: zone!.numOfRows,
-                            seatsPerRow: zone.seatsPerRow + 4,
-                            missing: zoneSeatingModel.missing,
-                            blocked: zoneSeatingModel.blocked,
-                            booked: zoneSeatingModel.booked,
+                        // Seats Area
+                        SeatsArea(
+                          seatSize: _seatSize,
+                          seatGap: _seatGap,
+                          extendRight: extendRight,
+                          extendBottom: extendBottom,
+                          numOfRows: zone.numOfRows,
+                          seatsPerRow: zone.seatsPerRow,
+                          missing: zoneSeatingModel.missing,
+                          blocked: zoneSeatingModel.blocked,
+                          booked: zoneSeatingModel.booked,
+                        ),
+
+                        if (!extendBottom) Insets.expand,
+
+                        // Selected Seats Chips
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(20, 22, 0, 22),
+                          child: Consumer(
+                            builder: (ctx, ref, child) {
+                              final _selectedSeats =
+                                  ref.watch(selectedSeatsProvider);
+                              final seatNames = _selectedSeats
+                                  .map((e) => '${e.seatRow}-${e.seatNumber}')
+                                  .toList();
+                              return CustomChipsList(
+                                chipContents: seatNames,
+                                chipHeight: 27,
+                                chipGap: 10,
+                                fontSize: 14,
+                                chipWidth: 60,
+                                borderColor: AppColors.primaryColor,
+                                contentColor: AppColors.primaryColor,
+                                borderWidth: 1.5,
+                                fontWeight: FontWeight.bold,
+                                backgroundColor:
+                                    AppColors.primaryColor.withOpacity(0.3),
+                                isScrollable: true,
+                              );
+                            },
                           ),
+                        ),
 
-                          // Selected Seats Chips
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(20, 22, 0, 22),
-                            child: Consumer(
-                              builder: (ctx, ref, child) {
-                                final _selectedSeats =
-                                    ref.watch(selectedSeatsProvider);
-                                final seatNames = _selectedSeats
-                                    .map((e) => '${e.seatRow}-${e.seatNumber}')
-                                    .toList();
-                                return CustomChipsList(
-                                  chipContents: seatNames,
-                                  chipHeight: 27,
-                                  chipGap: 10,
-                                  fontSize: 14,
-                                  chipWidth: 60,
-                                  borderColor: AppColors.primaryColor,
-                                  contentColor: AppColors.primaryColor,
-                                  borderWidth: 1.5,
-                                  fontWeight: FontWeight.bold,
-                                  backgroundColor: AppColors.primaryColor.withOpacity(0.3),
-                                  isScrollable: true,
-                                );
-                              },
-                            ),
-                          ),
+                        // Purchase seats button
+                        const PurchaseSeatsButton(),
 
-                          // Purchase seats button
-                          const PurchaseSeatsButton(),
-
-                          Insets.gapH10,
-                        ],
-                      );
-                    },
-                    loading: () => const CustomCircularLoader(),
-                    error: (error, st) => ErrorResponseHandler(
-                      error: error,
-                      // retryCallback: () => ref.refresh(showSeatingFuture),
-                      retryCallback: () {},
-                      stackTrace: st,
-                    ),
+                        Insets.gapH10,
+                      ],
+                    );
+                  },
+                  loading: () => const CustomCircularLoader(),
+                  error: (error, st) => ErrorResponseHandler(
+                    error: error,
+                    // retryCallback: () => ref.refresh(showSeatingFuture),
+                    retryCallback: () {},
+                    stackTrace: st,
                   ),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

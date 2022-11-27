@@ -24,6 +24,7 @@ class ZoneNumberBox extends ConsumerWidget {
     final isSelected = ref.watch(
       currentZoneNoProvider.select((value) => value == number),
     );
+    final size = isSelected ? 26.0 : 24.0;
     return InkWell(
       onTap: () {
         if (!isSelected) {
@@ -40,8 +41,8 @@ class ZoneNumberBox extends ConsumerWidget {
               : const Color.fromARGB(255, 126, 127, 135),
         ),
         margin: isSelected ? const EdgeInsets.all(5) : const EdgeInsets.all(6),
-        height: isSelected ? 25 : 22,
-        width: isSelected ? 25 : 22,
+        height: size,
+        width: size,
         child: Center(
           child: CustomText.label(
             '$number',

@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import '../../../helpers/constants/app_colors.dart';
 
 enum SeatIndicator {
-  AVAILABLE(AppColors.surfaceColor),
-  TAKEN(Color(0xFF5A5A5A)),
+  AVAILABLE(Color(0xFF5A5A5A)),
+  TAKEN(Color.fromARGB(255, 57, 57, 57)),
   SELECTED(AppColors.redColor);
 
   final Color color;

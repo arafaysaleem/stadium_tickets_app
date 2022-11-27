@@ -19,12 +19,10 @@ dependencies:
   dio: ^4.0.6
   dio_cache_interceptor: ^3.3.1
   dio_cache_interceptor_hive_store: ^3.2.0
-  firebase_core: ^2.1.1
-  firebase_storage: ^11.0.4
   flutter:
     sdk: flutter
   flutter_hooks: ^0.18.5+1
-  flutter_secure_storage: ^6.0.0
+  flutter_secure_storage: ^6.1.0
   flutter_spinkit: ^5.1.0
   freezed_annotation: ^2.2.0
   google_fonts: ^3.0.1
