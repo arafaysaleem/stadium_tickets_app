@@ -8,7 +8,7 @@ import 'key_value_storage_base.dart';
 part 'key_value_storage_service.codegen.g.dart';
 
 /// A provider used to access instance of this service
-@riverpod
+@Riverpod(keepAlive: true)
 KeyValueStorageService keyValueStorageService(KeyValueStorageServiceRef ref) {
   return KeyValueStorageService();
 }

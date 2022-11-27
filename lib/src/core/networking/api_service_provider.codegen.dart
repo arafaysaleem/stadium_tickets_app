@@ -17,7 +17,7 @@ import 'interceptors/logging_interceptor.dart';
 part 'api_service_provider.codegen.g.dart';
 
 /// A provider used to access instance of [Dio] service
-@riverpod
+@Riverpod(keepAlive: true)
 Dio _dio(_DioRef ref) {
   final baseOptions = BaseOptions(
     baseUrl: ApiEndpoint.baseUrl,
@@ -26,7 +26,7 @@ Dio _dio(_DioRef ref) {
 }
 
 /// A provider used to access instance of [DioService] service
-@riverpod
+@Riverpod(keepAlive: true)
 DioService _dioService(_DioServiceRef ref) {
   final dio = ref.watch(_dioProvider);
   CacheOptions? cacheOptions;
@@ -51,7 +51,7 @@ DioService _dioService(_DioServiceRef ref) {
 }
 
 /// A provider used to access instance of this service
-@riverpod
+@Riverpod(keepAlive: true)
 ApiService apiService(ApiServiceRef ref) {
   final dioService = ref.watch(_dioServiceProvider);
   return ApiService(dioService);
