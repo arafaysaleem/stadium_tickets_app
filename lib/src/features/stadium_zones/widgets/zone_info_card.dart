@@ -12,18 +12,20 @@ class ZoneInfoCard extends StatelessWidget {
     super.key,
     required this.isSelected,
     required this.slideRight,
-    required this.top,
+    required this.offset,
+    required this.height,
   });
 
   final bool isSelected;
   final bool slideRight;
-  final double top;
+  final double offset;
+  final double height;
 
   @override
   Widget build(BuildContext context) {
     return AnimatedPositioned(
       duration: Durations.medium,
-      top: top,
+      bottom: offset,
       right: !isSelected
           ? 0
           : !slideRight
@@ -39,7 +41,7 @@ class ZoneInfoCard extends StatelessWidget {
         duration: Durations.fast,
         curve: Curves.easeInCirc,
         child: Container(
-          height: 450,
+          height: height,
           margin: const EdgeInsets.symmetric(
             vertical: 20,
             horizontal: 45,

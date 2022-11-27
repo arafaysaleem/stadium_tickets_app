@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 
 // Helpers
+import '../../features/zone_resources/zone_resources_screen.dart';
 import '../../helpers/typedefs.dart';
 
 // Screens
@@ -27,6 +28,9 @@ class Routes {
   /// The name of the route for zone seats screen
   static const String ZoneSeatsScreenRoute = '/zone-seats-screen';
 
+  /// The name of the route for zone resources screen
+  static const String ZoneResourcesScreenRoute = '/zone-resources-screen';
+
   /// The name of the route for stadium zones screen
   static const String StadiumZonesScreenRoute = '/stadium-zones-screen';
 
@@ -36,6 +40,7 @@ class Routes {
   static final Map<String, RouteBuilder> _routesMap = {
     EventsScreenRoute: (_) => const EventsScreen(),
     StadiumZonesScreenRoute: (_) => const StadiumZonesScreen(),
+    ZoneResourcesScreenRoute: (_) => const ZoneResourcesScreen(),
     ZoneSeatsScreenRoute: (_) => const ZoneSeatsScreen(),
     NotFoundScreenRoute: (_) => const SizedBox.shrink(),
   };

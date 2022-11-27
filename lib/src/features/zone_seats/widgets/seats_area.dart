@@ -56,7 +56,7 @@ class SeatsArea extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final gridController = useScrollController();
+    final vertScrollController = useScrollController();
     return Expanded(
       flex: extendBottom ? 1 : 0,
       child: Container(
@@ -73,10 +73,12 @@ class SeatsArea extends HookWidget {
         margin: EdgeInsets.only(left: 10, right: extendRight ? 0 : 10),
         child: Scrollbar(
           thumbVisibility: true,
+          controller: vertScrollController,
           radius: const Radius.circular(20),
           child: NotificationListener<OverscrollIndicatorNotification>(
             onNotification: _onGlowNotification,
             child: SingleChildScrollView(
+              controller: vertScrollController,
               child: SizedBox(
                 height: getMaxGridHeight(),
                 child: Row(
@@ -100,22 +102,21 @@ class SeatsArea extends HookWidget {
                         ],
                       ),
                     ),
-    
+
                     Insets.gapW10,
-    
+
                     // Seats
                     NotificationListener<OverscrollIndicatorNotification>(
                       onNotification: _onGlowNotification,
                       child: Flexible(
                         child: Scrollbar(
-                          controller: gridController,
                           scrollbarOrientation: ScrollbarOrientation.top,
                           thumbVisibility: true,
                           radius: const Radius.circular(20),
                           child: GridView.builder(
                             padding: const EdgeInsets.only(top: 12),
-                            controller: gridController,
                             itemCount: numOfRows * seatsPerRow,
+                            primary: true,
                             scrollDirection: Axis.horizontal,
                             gridDelegate:
                                 SliverGridDelegateWithFixedCrossAxisCount(

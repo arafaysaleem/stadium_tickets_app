@@ -53,17 +53,17 @@ class EventsListItem extends ConsumerWidget {
               Align(
                 alignment: Alignment.bottomCenter,
                 child: Container(
-                  height: 100,
+                  height: 107,
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       begin: FractionalOffset.bottomCenter,
                       end: FractionalOffset.topCenter,
                       colors: [
-                        Colors.black.withOpacity(0.99),
-                        Colors.black.withOpacity(0.78),
+                        Colors.black.withOpacity(0.97),
+                        Colors.black.withOpacity(0.7),
                         Colors.transparent,
                       ],
-                      stops: const [0.0, 0.6, 1],
+                      stops: const [0.35, 0.67, 1],
                     ),
                   ),
                   padding: const EdgeInsets.fromLTRB(15, 10, 15, 10),

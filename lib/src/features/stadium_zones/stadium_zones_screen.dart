@@ -30,24 +30,19 @@ class StadiumZonesScreen extends ConsumerWidget {
     final selectedZoneNo = ref.watch(currentZoneNoProvider);
     final isSelected = selectedZoneNo != null;
     final slideRight = isLeftZone(selectedZoneNo);
+    const stadiumOffset = 20.0;
+    const stadiumHeight = 550.0;
     return Scaffold(
       body: SafeArea(
         child: Stack(
-          fit: StackFit.expand,
           children: [
-            // Shaded background
-            const SizedBox(
-              height: 250,
-              width: double.infinity,
-              child: ColoredBox(color: AppColors.backgroundColor),
-            ),
-
             // Back Icon And Title
             Positioned(
               top: 15,
               left: 20,
               right: 20,
               child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   CustomBackIcon(
                     onTap: () {
@@ -56,19 +51,23 @@ class StadiumZonesScreen extends ConsumerWidget {
                     },
                   ),
 
-                  const Spacer(flex: 3),
-
                   // Event Name
-                  CustomText.title(event?.name ?? ''),
-
-                  const Spacer(flex: 4)
+                  Expanded(
+                    child: CustomText(
+                      event?.name ?? '',
+                      fontSize: 19,
+                      textAlign: TextAlign.center,
+                      fontWeight: FontWeight.bold,
+                      maxLines: 2,
+                    ),
+                  ),
                 ],
               ),
             ),
 
             // Select zone message
             Positioned(
-              top: 60,
+              bottom: stadiumOffset + stadiumHeight + 30,
               left: 0,
               right: 0,
               child: Row(
@@ -81,14 +80,15 @@ class StadiumZonesScreen extends ConsumerWidget {
 
             // Zone Info
             ZoneInfoCard(
-              top: 95,
+              offset: stadiumOffset + stadiumHeight - 450,
+              height: 450,
               isSelected: isSelected,
               slideRight: slideRight,
             ),
 
             // Red line
             const Positioned(
-              top: 265,
+              bottom: 435,
               left: 0,
               right: 0,
               height: 3,
@@ -99,7 +99,8 @@ class StadiumZonesScreen extends ConsumerWidget {
 
             // Stadium
             Stadium(
-              top: 95,
+              offset: stadiumOffset,
+              height: stadiumHeight,
               isSelected: isSelected,
               slideRight: slideRight,
             ),

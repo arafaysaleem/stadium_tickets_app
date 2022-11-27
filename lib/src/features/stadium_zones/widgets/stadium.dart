@@ -15,19 +15,21 @@ class Stadium extends StatelessWidget {
     super.key,
     required this.isSelected,
     required this.slideRight,
-    required this.top,
+    required this.offset,
+    required this.height,
   });
 
   final bool isSelected;
   final bool slideRight;
-  final double top;
+  final double offset;
+  final double height;
 
   @override
   Widget build(BuildContext context) {
     return AnimatedPositioned(
       duration: Durations.medium,
       curve: Curves.fastOutSlowIn,
-      top: top,
+      bottom: offset,
       left: !isSelected
           ? 0
           : !slideRight
@@ -40,7 +42,7 @@ class Stadium extends StatelessWidget {
               : 185,
       child: Container(
         width: double.infinity,
-        height: 550,
+        height: height,
         decoration: BoxDecoration(
           borderRadius: Corners.rounded(70),
           color: AppColors.surfaceColor,

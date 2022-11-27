@@ -16,12 +16,11 @@ final currentEventProvider = StateProvider<EventModel?>((_) => null);
 final mockEventsList = <EventModel>[
   EventModel(
     eventId: 1,
-    name: 'November Music Festival',
+    name: 'NBA 2022 Finale - Lakers vs Warriors',
     date: DateTime.now(),
     startTime: TimeOfDay.now(),
     endTime: TimeOfDay.fromDateTime(DateTime.now().add(5.hours)),
-    posterUrl:
-        'https://img.freepik.com/free-vector/music-event-banner-template-with-photo_52683-12627.jpg',
+    posterUrl: 'https://wallpapercave.com/wp/wp1713760.jpg',
     eventType: EventType.OPEN,
     createdAt: DateTime.now(),
     updatedAt: DateTime.now(),
@@ -52,12 +51,11 @@ final mockEventsList = <EventModel>[
   ),
   EventModel(
     eventId: 4,
-    name: "New Year's Music Party",
+    name: 'La Liga Semi - PSG vs Man City',
     date: DateTime.now(),
     startTime: TimeOfDay.now(),
     endTime: TimeOfDay.fromDateTime(DateTime.now().add(5.hours)),
-    posterUrl:
-        'https://img.freepik.com/free-vector/music-event-poster-template-with-abstract-shapes_1361-1316.jpg',
+    posterUrl: 'https://i.ytimg.com/vi/7J4315BBr2E/maxresdefault.jpg',
     eventType: EventType.OPEN,
     createdAt: DateTime.now(),
     updatedAt: DateTime.now(),

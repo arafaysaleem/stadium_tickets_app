@@ -156,7 +156,9 @@ class ZoneDetails extends ConsumerWidget {
               Padding(
                 padding: EdgeInsets.fromLTRB(padLeft - 5, 0, padRight - 5, 0),
                 child: CustomTextButton.outlined(
-                  onPressed: () {},
+                  onPressed: () {
+                    AppRouter.pushNamed(Routes.ZoneResourcesScreenRoute);
+                  },
                   width: double.infinity,
                   height: 44,
                   border: Border.all(

@@ -2,16 +2,16 @@
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-/// A collection of types that an event can be.
+/// A collection of types that a zone resource can be.
 @JsonEnum()
-enum EventType {
-  @JsonValue('open')
-  OPEN,
-  @JsonValue('closed')
-  CLOSED
+enum ResourceType {
+  @JsonValue('image')
+  IMAGE,
+  @JsonValue('video')
+  VIDEO
 }
 
 /// A utility with extensions for enum name and serialized value.
-extension ExtEventType on EventType {
+extension ExtResourceType on ResourceType {
   String get toJson => name.toLowerCase();
 }
