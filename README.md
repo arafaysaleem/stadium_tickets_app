@@ -4,13 +4,21 @@ A new Flutter project.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+This project is a starting point for a Flutter application. A few steps to follow before you get started
 
-A few resources to get you started if this is your first Flutter project:
+### Debugging
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Run the following before launching the debug process:
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```
+flutter pub get
+flutter pub run build_runner build --delete-conflicting-outputs
+```
+
+### Release APK
+
+To generate the release apk run
+
+```
+flutter build apk --release --split-per-abi --dart-define=SENTRY_DSN=https://5b4b469222f742d7bf75b291c071c0ca@o1009394.ingest.sentry.io/4504156975857664 --dart-define=BASE_URL=https://stadium-tickets-backend.herokuapp.com/api/v1
+```
