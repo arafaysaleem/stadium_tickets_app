@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 
 /// Routing
-import '../../config/routes/app_router.dart';
+import '../../config/routing/app_router.dart';
 
 // Helpers
 import '../../helpers/constants/app_colors.dart';

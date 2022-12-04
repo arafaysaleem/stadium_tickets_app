@@ -6,8 +6,8 @@ import '../../../helpers/constants/app_styles.dart';
 import '../../../helpers/extensions/datetime_extension.dart';
 
 // Router
-import '../../../config/routes/app_router.dart';
-import '../../../config/routes/routes.dart';
+import '../../../config/routing/app_router.dart';
+import '../../../config/routing/routes.dart';
 
 // Providers
 import '../providers/events_provider.codegen.dart';

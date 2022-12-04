@@ -2,22 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // Helpers
-import '../../../helpers/constants/app_colors.dart';
-import '../../../helpers/constants/app_styles.dart';
-import '../../../helpers/extensions/string_extension.dart';
+import '../../../helpers/constants/constants.dart';
+import '../../../helpers/extensions/extensions.dart';
 
 // Router
-import '../../../config/routes/app_router.dart';
-import '../../../config/routes/routes.dart';
+import '../../../config/routing/routing.dart';
 
 // Providers
 import '../providers/zones_provider.dart';
 
 // Widgets
-import '../../../global/widgets/custom_back_icon.dart';
-import '../../../global/widgets/custom_text.dart';
-import '../../../global/widgets/custom_text_button.dart';
-import '../../../global/widgets/labeled_widget.dart';
+import '../../../global/widgets/widgets.dart';
 
 class ZoneDetails extends ConsumerWidget {
   final bool isLeft;

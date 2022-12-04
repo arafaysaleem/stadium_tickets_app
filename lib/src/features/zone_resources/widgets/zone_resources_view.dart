@@ -11,10 +11,7 @@ import '../enums/resource_type_enum.dart';
 import '../providers/zone_resources_provider.codegen.dart';
 
 // Widgets
-import '../../../global/widgets/async_value_widget.dart';
-import '../../../global/widgets/custom_circular_loader.dart';
-import '../../../global/widgets/empty_state_widget.dart';
-import '../../../global/widgets/error_response_handler.dart';
+import '../../../global/widgets/widgets.dart';
 import 'resource_type_slider.dart';
 import 'zone_images_list.dart';
 import 'zone_videos_list.dart';

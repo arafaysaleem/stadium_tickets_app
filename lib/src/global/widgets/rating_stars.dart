@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 
-//Helpers
-import '../../helpers/constants/app_styles.dart';
-
 class RatingStars extends StatelessWidget {
   final double rating;
   final Color activeStarColor;
@@ -38,7 +35,7 @@ class RatingStars extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-          Insets.gapW10,
+          const SizedBox(width: 10),
         ],
 
         // Rating stars

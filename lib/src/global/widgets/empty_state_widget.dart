@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
 // Helpers
-import '../../helpers/constants/app_colors.dart';
-import '../../helpers/constants/app_styles.dart';
 import '../../helpers/constants/lottie_assets.dart';
 
 class EmptyStateWidget extends StatelessWidget {
@@ -59,7 +57,7 @@ class EmptyStateWidget extends StatelessWidget {
                     ),
                   ),
 
-                  Insets.gapH5,
+                  const SizedBox(height: 5),
 
                   // Subtitle
                   Text(
@@ -67,9 +65,9 @@ class EmptyStateWidget extends StatelessWidget {
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
                     maxLines: 3,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 16,
-                      color: AppColors.textGreyColor,
+                      color: Theme.of(context).colorScheme.onTertiary,
                     ),
                   ),
                 ],

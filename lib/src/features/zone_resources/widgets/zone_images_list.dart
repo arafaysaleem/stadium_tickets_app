@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 // Helpers
-import '../../../helpers/constants/app_styles.dart';
+import '../../../helpers/constants/constants.dart';
 
 // Widgets
-import '../../../global/widgets/custom_network_image.dart';
+import '../../../global/widgets/widgets.dart';
 
 class ZoneImagesList extends StatelessWidget {
   final List<String> imageUrls;

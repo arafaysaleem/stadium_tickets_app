@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 
-// Helpers
-import '../../helpers/constants/app_colors.dart';
-import '../../helpers/constants/app_styles.dart';
-
 enum LabelPosition {
   start,
   end;
@@ -30,17 +26,17 @@ class LabeledWidget extends StatelessWidget {
     super.key,
     required this.child,
     required this.label,
-    this.labelGap = Insets.gapH5,
+    this.labelGap = const SizedBox(height: 5),
     this.labelPosition = LabelPosition.start,
     this.expand = false,
-    this.horizontalLabelGap = Insets.gapW10,
+    this.horizontalLabelGap = const SizedBox(width: 10),
     this.crossAxisAlignment,
     this.mainAxisAlignment,
     this.labelDirection = Axis.vertical,
     this.useDarkerLabel = false,
     this.labelStyle = const TextStyle(
       fontSize: 14,
-      color: AppColors.textLightGreyColor,
+      color: Color.fromRGBO(171, 180, 185, 1),
     ),
   });
 

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
 // Helpers
-import '../../../helpers/constants/app_styles.dart';
-import '../../../helpers/constants/app_utils.dart';
+import '../../../helpers/constants/constants.dart';
 
 // Widgets
 import 'zone_details.dart';

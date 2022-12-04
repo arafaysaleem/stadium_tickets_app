@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 
-// Helpers
-import '../../helpers/constants/app_colors.dart';
-
 class CustomBackIcon extends StatelessWidget {
   final VoidCallback onTap;
 
@@ -13,15 +10,16 @@ class CustomBackIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return InkResponse(
       radius: 25,
       onTap: onTap,
-      child: const DecoratedBox(
+      child: DecoratedBox(
         decoration: BoxDecoration(
-          color: AppColors.surfaceColor,
+          color: colorScheme.surface,
           shape: BoxShape.circle,
         ),
-        child: Padding(
+        child: const Padding(
           padding: EdgeInsets.all(5),
           child: Icon(Icons.arrow_back_rounded, size: 23),
         ),

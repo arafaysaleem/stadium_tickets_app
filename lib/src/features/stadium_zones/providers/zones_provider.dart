@@ -1,6 +1,6 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../stadium_zones/models/zone_model.codegen.dart';
+import '../models/zone_model.codegen.dart';
 
 final mockZones = [
   ZoneModel.fromJson(<String, dynamic>{

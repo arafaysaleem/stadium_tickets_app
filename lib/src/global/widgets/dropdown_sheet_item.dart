@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 
-// Helpers
-import '../../helpers/constants/app_colors.dart';
-import '../../helpers/constants/app_styles.dart';
-
 class DropdownSheetItem extends StatelessWidget {
   final String label;
   final EdgeInsets padding;
@@ -18,12 +14,13 @@ class DropdownSheetItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context).inputDecorationTheme;
     return Padding(
       padding: padding,
       child: ListTile(
-        tileColor: AppColors.fieldFillColor,
+        tileColor: theme.fillColor,
         shape: const RoundedRectangleBorder(
-          borderRadius: Corners.rounded10,
+          borderRadius: BorderRadius.all(Radius.circular(10)),
         ),
         title: Text(label),
       ),

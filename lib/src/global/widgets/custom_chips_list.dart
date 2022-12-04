@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 
-// Helpers
-import '../../helpers/constants/app_colors.dart';
-import '../../helpers/constants/app_styles.dart';
-
 class CustomChipsList extends StatelessWidget {
   final List<String> chipContents;
   final double chipHeight;
@@ -25,9 +21,9 @@ class CustomChipsList extends StatelessWidget {
     this.fontSize = 12,
     this.borderWidth = 1.0,
     this.isScrollable = false,
-    this.borderColor = AppColors.textGreyColor,
+    this.borderColor = const Color.fromRGBO(122, 122, 122, 1),
     this.backgroundColor = Colors.white,
-    this.contentColor = AppColors.textGreyColor,
+    this.contentColor = const Color.fromRGBO(122, 122, 122, 1),
     required this.chipContents,
     required this.chipHeight,
   });
@@ -63,7 +59,7 @@ class CustomChipsList extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
       decoration: BoxDecoration(
         color: backgroundColor,
-        borderRadius: Corners.rounded20,
+        borderRadius: const BorderRadius.all(Radius.circular(20)),
         border: Border.all(color: borderColor, width: borderWidth),
       ),
       child: Center(

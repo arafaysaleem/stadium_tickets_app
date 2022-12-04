@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 
 // Helpers
 import '../../helpers/constants/app_colors.dart';
-import '../../helpers/constants/app_styles.dart';
-import '../../helpers/constants/app_utils.dart';
 
 class CustomRadioButton<T> extends StatelessWidget {
   final bool isSelected;
@@ -19,7 +17,7 @@ class CustomRadioButton<T> extends StatelessWidget {
     super.key,
     this.width = 106,
     this.height = 46,
-    this.borderRadius = Corners.rounded7,
+    this.borderRadius = const BorderRadius.all(Radius.circular(7)),
     required this.value,
     required this.isSelected,
     required this.onTap,
@@ -36,7 +34,7 @@ class CustomRadioButton<T> extends StatelessWidget {
         height: height,
         child: AnimatedContainer(
           curve: Curves.ease,
-          duration: Durations.normal,
+          duration: const Duration(milliseconds: 300),
           decoration: BoxDecoration(
             borderRadius: borderRadius,
             gradient: isSelected ? AppColors.buttonGradientPrimary : null,
@@ -53,7 +51,7 @@ class CustomRadioButton<T> extends StatelessWidget {
                   color: isSelected ? Colors.white : AppColors.textGreyColor,
                 ),
 
-                Insets.gapW3,
+                const SizedBox(width: 3),
 
                 // Label
                 Text(

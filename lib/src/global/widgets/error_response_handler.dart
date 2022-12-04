@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 
-//Helpers
-import '../../helpers/extensions/context_extensions.dart';
-
 //Services
 import '../../core/networking/custom_exception.dart';
 
@@ -37,7 +34,7 @@ class ErrorResponseHandler extends StatelessWidget {
       return CustomErrorWidget.light(
         error: error as CustomException,
         retryCallback: retryCallback!,
-        height: context.screenHeight * 0.5,
+        height: MediaQuery.of(context).size.height * 0.5,
       );
     }
     onError?.call();

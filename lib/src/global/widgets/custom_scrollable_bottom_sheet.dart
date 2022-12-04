@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 
-// Helpers
-import '../../helpers/constants/app_colors.dart';
-import '../../helpers/constants/app_styles.dart';
-
 /// A scrollable rounded bottom sheet with a pre-designed header
 class CustomScrollableBottomSheet extends StatelessWidget {
   /// This gives the bottom sheet title.
@@ -68,15 +64,15 @@ class CustomScrollableBottomSheet extends StatelessWidget {
                   height: 5,
                   child: DecoratedBox(
                     decoration: BoxDecoration(
-                      color: AppColors.greyOutlineColor,
-                      borderRadius: Corners.rounded4,
+                      color: Color.fromRGBO(207, 207, 207, 1),
+                      borderRadius: BorderRadius.all(Radius.circular(4)),
                     ),
                   ),
                 ),
               ),
             ),
         
-            Insets.gapH5,
+            const SizedBox(height: 5),
         
             // Header
             Padding(

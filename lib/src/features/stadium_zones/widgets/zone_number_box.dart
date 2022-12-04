@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // Helpers
-import '../../../helpers/constants/app_colors.dart';
-import '../../../helpers/constants/app_styles.dart';
+import '../../../helpers/constants/constants.dart';
 
 // Providers
 import '../providers/zones_provider.dart';
 
 // Widgets
-import '../../../global/widgets/custom_text.dart';
+import '../../../global/widgets/widgets.dart';
 
 class ZoneNumberBox extends ConsumerWidget {
   final int number;

@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // Helpers
-import '../../../helpers/constants/app_colors.dart';
+import '../../../helpers/constants/constants.dart';
 
 final resourceTypeProvider = StateProvider.autoDispose((ref) => 0);
 

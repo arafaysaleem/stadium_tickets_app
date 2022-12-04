@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 
-// Helpers
-import '../../helpers/constants/app_colors.dart';
-
 class CustomPopupMenu<T> extends StatelessWidget {
   final Widget child;
   final Map<String, T> items;
@@ -19,11 +16,12 @@ class CustomPopupMenu<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return PopupMenuButton<T>(
       initialValue: initialValue,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       elevation: 0,
-      color: AppColors.surfaceColor,
+      color: colorScheme.surface,
       itemBuilder: (_) => items.entries
           .map(
             (entry) => PopupMenuItem(

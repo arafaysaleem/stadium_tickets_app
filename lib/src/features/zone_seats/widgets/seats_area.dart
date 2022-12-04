@@ -4,14 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 // Helpers
-import '../../../helpers/constants/app_colors.dart';
-import '../../../helpers/constants/app_styles.dart';
+import '../../../helpers/constants/constants.dart';
 
 // Models
 import '../model/seat_model.codegen.dart';
 
 // Widgets
-import '../../../global/widgets/custom_text.dart';
+import '../../../global/widgets/widgets.dart';
 import 'seat_widget.dart';
 
 class SeatsArea extends HookWidget {

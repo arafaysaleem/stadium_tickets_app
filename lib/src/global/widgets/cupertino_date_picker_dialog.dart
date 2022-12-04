@@ -1,10 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-// Helpers
-import '../../helpers/constants/app_colors.dart';
-import '../../helpers/constants/app_styles.dart';
-
 class CupertinoDatePickerDialog extends StatefulWidget {
   /// The mode of the date picker as one of [CupertinoDatePickerMode].
   /// Defaults to [CupertinoDatePickerMode.dateAndTime]. Cannot be null and
@@ -93,12 +89,13 @@ class _CupertinoDatePickerDialogState extends State<CupertinoDatePickerDialog> {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return Container(
       height: 250,
       margin: EdgeInsets.only(
         bottom: MediaQuery.of(context).viewInsets.bottom,
       ),
-      color: widget.backgroundColor ?? AppColors.surfaceColor,
+      color: widget.backgroundColor ?? colorScheme.surface,
       child: SafeArea(
         top: false,
         child: Column(
@@ -111,13 +108,13 @@ class _CupertinoDatePickerDialogState extends State<CupertinoDatePickerDialog> {
                   // Cancel Link
                   GestureDetector(
                     onTap: _onCancel,
-                    child: const Padding(
-                      padding: EdgeInsets.all(15),
+                    child: Padding(
+                      padding: const EdgeInsets.all(15),
                       child: Text(
                         'Cancel',
                         style: TextStyle(
                           fontSize: 14,
-                          color: AppColors.textGreyColor,
+                          color: colorScheme.onTertiary,
                         ),
                       ),
                     ),
@@ -135,13 +132,13 @@ class _CupertinoDatePickerDialogState extends State<CupertinoDatePickerDialog> {
                   // Done Link
                   GestureDetector(
                     onTap: _onDone,
-                    child: const Padding(
-                      padding: EdgeInsets.all(15),
+                    child: Padding(
+                      padding: const EdgeInsets.all(15),
                       child: Text(
                         'Done',
                         style: TextStyle(
                           fontSize: 14,
-                          color: AppColors.primaryColor,
+                          color: colorScheme.primary,
                         ),
                       ),
                     ),
@@ -156,7 +153,7 @@ class _CupertinoDatePickerDialogState extends State<CupertinoDatePickerDialog> {
               color: Color(0xFFE0E0E0),
             ),
 
-            Insets.gapH5,
+            const SizedBox(height: 5),
 
             Expanded(
               child: CupertinoDatePicker(

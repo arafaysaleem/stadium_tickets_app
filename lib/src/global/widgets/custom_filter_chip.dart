@@ -1,25 +1,21 @@
 import 'package:flutter/material.dart';
 
-import '../../helpers/constants/app_colors.dart';
-
-// Helpers
-
 class CustomFilterChip<T> extends StatefulWidget {
   final bool isSelected;
   final bool Function(bool, T value)? onChanged;
   final Widget label;
   final T value;
-  final Color labelColor;
-  final Color selectedLabelColor;
-  final Color backgroundColor;
-  final Color selectedColor;
+  final Color? labelColor;
+  final Color? selectedLabelColor;
+  final Color? backgroundColor;
+  final Color? selectedColor;
 
   const CustomFilterChip({
     super.key,
-    this.labelColor = AppColors.textBlackColor,
-    this.selectedLabelColor = AppColors.textWhite80Color,
-    this.backgroundColor = AppColors.fieldFillColor,
-    this.selectedColor = AppColors.primaryColor,
+    this.labelColor,
+    this.selectedLabelColor,
+    this.backgroundColor,
+    this.selectedColor,
     this.isSelected = false,
     this.onChanged,
     required this.label,
@@ -41,6 +37,7 @@ class _CustomFilterChipState<T> extends State<CustomFilterChip<T>> {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return FilterChip(
       label: widget.label,
       pressElevation: 0,
@@ -48,7 +45,9 @@ class _CustomFilterChipState<T> extends State<CustomFilterChip<T>> {
       showCheckmark: false,
       labelStyle: TextStyle(
         fontSize: 13,
-        color: _isSelected ? widget.selectedLabelColor : widget.labelColor,
+        color: _isSelected
+            ? (widget.selectedLabelColor ?? colorScheme.onPrimary)
+            : widget.labelColor,
       ),
       backgroundColor: widget.backgroundColor,
       selectedColor: widget.selectedColor,

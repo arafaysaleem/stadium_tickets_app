@@ -7,7 +7,7 @@ import '../../helpers/constants/app_colors.dart';
 import '../../helpers/constants/app_styles.dart';
 
 //Routing
-import '../../config/routes/app_router.dart';
+import '../../config/routing/app_router.dart';
 
 //Widgets
 import 'custom_text_button.dart';

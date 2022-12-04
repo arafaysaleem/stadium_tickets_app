@@ -64,6 +64,17 @@ class AppThemes {
         tapTargetSize: MaterialTapTargetSize.shrinkWrap,
       ),
     ),
+    inputDecorationTheme: const InputDecorationTheme(
+      fillColor: AppColors.fieldFillColor,
+    ),
+    chipTheme: const ChipThemeData(
+      backgroundColor: AppColors.fieldFillColor,
+      selectedColor: AppColors.primaryColor,
+      labelStyle: TextStyle(
+        fontSize: 13,
+        color: AppColors.textBlackColor,
+      ),
+    ),
     appBarTheme: AppBarTheme(
       centerTitle: true,
       elevation: 0,

@@ -3,8 +3,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
 // Routers
-import 'src/config/routes/app_router.dart';
-import 'src/config/routes/routes.dart';
+import 'src/config/routing/app_router.dart';
+import 'src/config/routing/routes.dart';
 
 // Helpers
 import 'src/helpers/constants/app_colors.dart';

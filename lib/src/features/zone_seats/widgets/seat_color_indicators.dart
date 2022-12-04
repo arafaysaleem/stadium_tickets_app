@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
 // Helpers
-import '../../../helpers/constants/app_styles.dart';
-import '../../../helpers/extensions/string_extension.dart';
+import '../../../helpers/constants/constants.dart';
+import '../../../helpers/extensions/extensions.dart';
 
 // Enums
 import '../enums/seat_indicator_enum.dart';
 
 // Widgets
-import '../../../global/widgets/custom_text.dart';
+import '../../../global/widgets/widgets.dart';
 
 class SeatColorIndicators extends StatelessWidget {
   const SeatColorIndicators({super.key});

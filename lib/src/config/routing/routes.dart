@@ -2,13 +2,13 @@
 import 'package:flutter/material.dart';
 
 // Helpers
-import '../../features/zone_resources/zone_resources_screen.dart';
 import '../../helpers/typedefs.dart';
 
 // Screens
-import '../../features/events/events_screen.dart';
-import '../../features/stadium_zones/stadium_zones_screen.dart';
-import '../../features/zone_seats/zone_seats_screen.dart';
+import '../../features/events/events.dart';
+import '../../features/stadium_zones/stadium_zones.dart';
+import '../../features/zone_resources/zone_resources.dart';
+import '../../features/zone_seats/zone_seats.dart';
 
 /// A utility class that holds screen names for named navigation.
 /// This class has no constructor and all variables are `static`.

@@ -1,30 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+// Features
+import '../../stadium_zones/stadium_zones.dart';
+
 // Helpers
-import '../../helpers/constants/app_colors.dart';
-import '../../helpers/constants/app_styles.dart';
+import '../../../helpers/constants/constants.dart';
 
 // Router
-import '../../config/routes/app_router.dart';
+import '../../../config/routing/routing.dart';
 
 // Providers
-import '../stadium_zones/providers/zones_provider.dart';
-import 'providers/zone_seats_provider.codegen.dart';
-
-// Models
-import '../stadium_zones/models/zone_seating_model.codegen.dart';
+import '../providers/zone_seats_provider.codegen.dart';
 
 // Widgets
-import '../../global/widgets/async_value_widget.dart';
-import '../../global/widgets/custom_chips_list.dart';
-import '../../global/widgets/custom_text.dart';
-import '../../global/widgets/custom_circular_loader.dart';
-import '../../global/widgets/error_response_handler.dart';
-import '../../global/widgets/custom_back_icon.dart';
-import 'widgets/purchase_seats_button.dart';
-import 'widgets/seat_color_indicators.dart';
-import 'widgets/seats_area.dart';
+import '../../../global/widgets/widgets.dart';
+import '../widgets/purchase_seats_button.dart';
+import '../widgets/seat_color_indicators.dart';
+import '../widgets/seats_area.dart';
 
 class ZoneSeatsScreen extends ConsumerWidget {
   const ZoneSeatsScreen({super.key});

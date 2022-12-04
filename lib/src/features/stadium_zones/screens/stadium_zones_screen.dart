@@ -2,20 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // Helpers
-import '../../helpers/constants/app_colors.dart';
+import '../../../helpers/constants/constants.dart';
 
 // Router
-import '../../config/routes/app_router.dart';
+import '../../../config/routing/routing.dart';
 
 // Providers
-import '../events/providers/events_provider.codegen.dart';
-import 'providers/zones_provider.dart';
+import '../../events/events.dart';
+import '../providers/zones_provider.dart';
 
 // Widgets
-import '../../global/widgets/custom_back_icon.dart';
-import '../../global/widgets/custom_text.dart';
-import 'widgets/zone_info_card.dart';
-import 'widgets/stadium.dart';
+import '../../../global/widgets/widgets.dart';
+import '../widgets/zone_info_card.dart';
+import '../widgets/stadium.dart';
 
 class StadiumZonesScreen extends ConsumerWidget {
   const StadiumZonesScreen({super.key});

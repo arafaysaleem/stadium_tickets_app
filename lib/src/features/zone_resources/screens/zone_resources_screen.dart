@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
 // Helpers
-import '../../helpers/constants/app_styles.dart';
+import '../../../helpers/constants/constants.dart';
 
 // Router
-import '../../config/routes/app_router.dart';
+import '../../../config/routing/routing.dart';
 
 // Widgets
-import '../../global/widgets/custom_back_icon.dart';
-import 'widgets/resource_type_slider.dart';
-import 'widgets/zone_resources_view.dart';
+import '../../../global/widgets/widgets.dart';
+import '../widgets/resource_type_slider.dart';
+import '../widgets/zone_resources_view.dart';
 
 class ZoneResourcesScreen extends StatelessWidget {
   const ZoneResourcesScreen({super.key});

@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 
 // Helpers
-import '../../../helpers/constants/app_colors.dart';
+import '../../../helpers/constants/constants.dart';
 
 enum SeatIndicator {
   AVAILABLE(Color(0xFF5A5A5A)),
