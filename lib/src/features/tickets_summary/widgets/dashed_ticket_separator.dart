@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+// Helper
+import '../../../helpers/constants/constants.dart';
+
 class DashedTicketSeparator extends StatelessWidget {
   const DashedTicketSeparator({super.key});
 
@@ -16,7 +19,7 @@ class DashedTicketSeparator extends StatelessWidget {
             painter: _DashedLinePainter(
               thickness: 1.5,
               spacing: 4,
-              color: Colors.black,
+              color: AppColors.backgroundColor,
               dashLength: 6,
             ),
           ),
@@ -30,7 +33,7 @@ class DashedTicketSeparator extends StatelessWidget {
               child: DecoratedBox(
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Colors.black,
+                  color: AppColors.backgroundColor,
                 ),
               ),
             ),
@@ -45,7 +48,7 @@ class DashedTicketSeparator extends StatelessWidget {
               child: DecoratedBox(
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: Colors.black,
+                  color: AppColors.backgroundColor,
                 ),
               ),
             ),

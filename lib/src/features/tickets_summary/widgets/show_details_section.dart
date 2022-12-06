@@ -21,37 +21,47 @@ class ShowDetailsSection extends ConsumerWidget {
     final zoneName =
         ref.watch(currentZoneProvider.select((value) => value!.name));
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 15),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Date
-          LabeledWidget(
-            label: 'Date',
-            labelStyle: const TextStyle(
-              fontSize: 13,
-              color: AppColors.textGreyColor,
-            ),
-            child: CustomText(
-              selectedEvent.date.toDateString('E, d MMMM y'),
-              fontSize: 15,
-              fontWeight: FontWeight.bold,
-            ),
+          // Event datetime
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              // Date
+              LabeledWidget(
+                label: 'Date',
+                labelStyle: const TextStyle(
+                  fontSize: 13,
+                  color: AppColors.textGreyColor,
+                ),
+                child: CustomText(
+                  selectedEvent.date.toDateString('E, d MMMM y'),
+                  color: AppColors.textBlackColor,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                ),
+              ),
+
+              // Time
+              LabeledWidget(
+                label: 'Time',
+                labelStyle: const TextStyle(
+                  fontSize: 13,
+                  color: AppColors.textGreyColor,
+                ),
+                child: CustomText(
+                  selectedEvent.startTime.format(context),
+                  color: AppColors.textBlackColor,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                ),
+              ),
+            ],
           ),
 
-          // Time
-          LabeledWidget(
-            label: 'Time',
-            labelStyle: const TextStyle(
-              fontSize: 13,
-              color: AppColors.textGreyColor,
-            ),
-            child: CustomText(
-              selectedEvent.startTime.format(context),
-              fontSize: 15,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+          Insets.gapH10,
 
           // Zone
           LabeledWidget(
@@ -62,8 +72,9 @@ class ShowDetailsSection extends ConsumerWidget {
             ),
             child: CustomText(
               zoneName,
-              fontSize: 15,
+              color: AppColors.textBlackColor,
               fontWeight: FontWeight.bold,
+              fontSize: 14,
             ),
           ),
         ],

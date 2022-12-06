@@ -23,54 +23,59 @@ class TicketDetailsList extends ConsumerWidget {
     final ticketPrice = ref.watch(
       currentZoneProvider.select((value) => value!.type.price),
     );
-    return ListView.separated(
-      itemCount: selectedSeatNames.length,
-      separatorBuilder: (_, i) => const DashedTicketSeparator(),
-      itemBuilder: (_, i) => Container(
-        padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
-        decoration: const BoxDecoration(
-          borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(10),
-            bottomRight: Radius.circular(10),
+    return ScrollConfiguration(
+      behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
+      child: ListView.separated(
+        itemCount: selectedSeatNames.length,
+        separatorBuilder: (_, i) => const DashedTicketSeparator(),
+        itemBuilder: (_, i) => Container(
+          padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 8),
+          decoration: const BoxDecoration(
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(10),
+              bottomRight: Radius.circular(10),
+            ),
           ),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            // Seat icon
-            const Icon(
-              Icons.event_seat_sharp,
-              color: AppColors.primaryColor,
-            ),
-
-            // Seat
-            LabeledWidget(
-              label: 'Seat',
-              labelStyle: const TextStyle(
-                fontSize: 13,
-                color: AppColors.textGreyColor,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              // Seat icon
+              const Icon(
+                Icons.event_seat_sharp,
+                color: AppColors.primaryColor,
               ),
-              child: CustomText(
-                selectedSeatNames[i],
-                fontSize: 15,
-                fontWeight: FontWeight.bold,
+    
+              // Seat
+              LabeledWidget(
+                label: 'Seat',
+                labelStyle: const TextStyle(
+                  fontSize: 13,
+                  color: AppColors.textGreyColor,
+                ),
+                child: CustomText(
+                  selectedSeatNames[i],
+                  fontSize: 15,
+                  color: AppColors.textBlackColor,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
-
-            // Price
-            LabeledWidget(
-              label: 'Price',
-              labelStyle: const TextStyle(
-                fontSize: 13,
-                color: AppColors.textGreyColor,
+    
+              // Price
+              LabeledWidget(
+                label: 'Price',
+                labelStyle: const TextStyle(
+                  fontSize: 13,
+                  color: AppColors.textGreyColor,
+                ),
+                child: CustomText(
+                  'Rs. $ticketPrice',
+                  fontSize: 15,
+                  color: AppColors.textBlackColor,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-              child: CustomText(
-                'Rs. $ticketPrice',
-                fontSize: 15,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 // Helpers
+import '../../../helpers/constants/app_colors.dart';
 import '../../../helpers/constants/app_styles.dart';
 
 // Routing
@@ -52,10 +53,23 @@ class TicketSummaryScreen extends StatelessWidget {
             // Tickets Box
             const TicketsSummaryBox(),
 
+            Insets.expand,
+
+            // Parking Extra
+            InkResponse(
+              onTap: () {
+                AppRouter.pushNamed(Routes.ParkingFloorsScreenRoute);
+              },
+              child: CustomText.body(
+                'Want to book a parking spot? Click here.',
+                color: AppColors.primaryColor,
+              ),
+            ),
+
             // Confirm Button
             const ConfirmBookingsButton(),
 
-            Insets.gapH5,
+            Insets.gapH15,
           ],
         ),
       ),

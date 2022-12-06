@@ -23,7 +23,7 @@ class TicketsSummaryBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: context.screenHeight * 0.72,
+      height: context.screenHeight * 0.69,
       child: Container(
         decoration: const BoxDecoration(
           color: Colors.white,
@@ -40,7 +40,7 @@ class TicketsSummaryBox extends StatelessWidget {
                 );
                 return CustomNetworkImage(
                   imageUrl: selectedEventPoster,
-                  height: 255,
+                  height: 180,
                   fit: BoxFit.cover,
                   borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(10),
