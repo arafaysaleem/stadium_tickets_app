@@ -4,6 +4,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 // Helpers
 import '../../../helpers/constants/constants.dart';
 
+// Routing
+import '../../../config/routing/routing.dart';
+
 // Providers
 import '../providers/zone_seats_provider.codegen.dart';
 
@@ -22,12 +25,14 @@ class PurchaseSeatsButton extends StatelessWidget {
           final seats = ref.watch(selectedSeatsProvider).length;
           return CustomTextButton.gradient(
             width: double.infinity,
-            onPressed: () {},
+            onPressed: () {
+              AppRouter.pushNamed(Routes.TicketsSummaryScreenRoute);
+            },
             disabled: seats == 0,
             gradient: AppColors.buttonGradientPrimary,
             child: Center(
               child: Text(
-                'PURCHASE - $seats SEATS',
+                'Select - $seats SEATS',
                 style: const TextStyle(
                   color: Colors.white,
                   fontSize: 15,

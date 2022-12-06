@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../../helpers/typedefs.dart';
 
 // Screens
+import '../../features/tickets_summary/tickets_summary.dart';
 import '../../features/events/events.dart';
 import '../../features/stadium_zones/stadium_zones.dart';
 import '../../features/zone_resources/zone_resources.dart';
@@ -37,11 +38,27 @@ class Routes {
   /// The name of the route for unrecognized route screen
   static const String NotFoundScreenRoute = '/route-not-found-screen';
 
+  /// The name of the route for tickets summary screen
+  static const String TicketsSummaryScreenRoute = '/tickets-summary-screen';
+
+  /// The name of the route for checkout screen
+  static const String CheckoutScreenRoute = '/checkout-screen';
+
+  /// The name of the route for parking floor screen
+  static const String ParkingFloorsScreenRoute = '/parking-floors-screen';
+
+  /// The name of the route for parking spaces screen
+  static const String ParkingSpacesScreenRoute = '/parking-spaces-screen';
+
   static final Map<String, RouteBuilder> _routesMap = {
     EventsScreenRoute: (_) => const EventsScreen(),
     StadiumZonesScreenRoute: (_) => const StadiumZonesScreen(),
     ZoneResourcesScreenRoute: (_) => const ZoneResourcesScreen(),
     ZoneSeatsScreenRoute: (_) => const ZoneSeatsScreen(),
+    ParkingFloorsScreenRoute: (_) => const SizedBox.shrink(),
+    ParkingSpacesScreenRoute: (_) => const SizedBox.shrink(),
+    CheckoutScreenRoute: (_) => const SizedBox.shrink(),
+    TicketsSummaryScreenRoute: (_) => const TicketSummaryScreen(),
     NotFoundScreenRoute: (_) => const SizedBox.shrink(),
   };
 

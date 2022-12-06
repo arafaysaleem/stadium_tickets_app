@@ -22,4 +22,7 @@ class SelectedSeats extends _$SelectedSeats {
     state.remove(seat);
     state = [...state];
   }
+
+  List<String> get seatNames =>
+      state.map((e) => '${e.seatRow}-${e.seatNumber}').toList();
 }

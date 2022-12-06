@@ -15,7 +15,7 @@ import '../providers/zone_seats_provider.codegen.dart';
 
 // Widgets
 import '../../../global/widgets/widgets.dart';
-import '../widgets/purchase_seats_button.dart';
+import '../widgets/select_seats_button.dart';
 import '../widgets/seat_color_indicators.dart';
 import '../widgets/seats_area.dart';
 
