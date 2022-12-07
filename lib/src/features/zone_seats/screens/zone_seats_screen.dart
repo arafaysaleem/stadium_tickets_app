@@ -43,7 +43,7 @@ class ZoneSeatsScreen extends ConsumerWidget {
                   CustomBackIcon(
                     onTap: () {
                       AppRouter.pop();
-                      ref.read(selectedSeatsProvider.notifier).state = [];
+                      ref.read(selectedSeatsProvider.notifier).clear();
                     },
                   ),
 
@@ -131,7 +131,7 @@ class ZoneSeatsScreen extends ConsumerWidget {
                         ),
 
                         // Purchase seats button
-                        const PurchaseSeatsButton(),
+                        const SelectSeatsButton(),
 
                         Insets.gapH10,
                       ],

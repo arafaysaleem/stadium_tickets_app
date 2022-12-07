@@ -7,46 +7,48 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import '../../../helpers/constants/constants.dart';
 
 // Models
-import '../models/seat_model.codegen.dart';
+import '../models/space_model.codegen.dart';
 
 // Widgets
 import '../../../global/widgets/widgets.dart';
-import 'seat_widget.dart';
+import 'space_widget.dart';
 
-class SeatsArea extends HookWidget {
-  final double seatSize;
-  final double seatGap;
+class ParkingSpacesGrid extends HookWidget {
+  final double spaceWidth;
+  final double spaceGap;
   final int numOfRows;
   final bool extendBottom;
   final bool extendRight;
-  final int seatsPerRow;
-  final List<SeatModel> missing;
-  final List<SeatModel> blocked;
-  final List<SeatModel> booked;
+  final int spacesPerRow;
+  final List<SpaceModel> missing;
+  final List<SpaceModel> blocked;
+  final List<SpaceModel> booked;
 
-  const SeatsArea({
+  static const _spaceHeight = 38;
+
+  const ParkingSpacesGrid({
     super.key,
-    required this.seatSize,
+    required this.spaceWidth,
     required this.extendBottom,
     required this.extendRight,
-    required this.seatGap,
+    required this.spaceGap,
     required this.missing,
     required this.blocked,
     required this.booked,
     required this.numOfRows,
-    required this.seatsPerRow,
+    required this.spacesPerRow,
   });
 
   double getMaxGridHeight() {
-    final height = numOfRows * (seatSize + seatGap) - seatGap + 12;
-    return max(height, 250);
+    final height = numOfRows * (_spaceHeight + spaceGap) - spaceGap + 12;
+    return max(height, 350);
   }
 
-  bool isMissing(SeatModel seat) => missing.contains(seat);
+  bool isMissing(SpaceModel space) => missing.contains(space);
 
-  bool isBlocked(SeatModel seat) => blocked.contains(seat);
+  bool isBlocked(SpaceModel space) => blocked.contains(space);
 
-  bool isBooked(SeatModel seat) => booked.contains(seat);
+  bool isBooked(SpaceModel space) => booked.contains(space);
 
   bool _onGlowNotification(OverscrollIndicatorNotification overScroll) {
     overScroll.disallowIndicator();
@@ -83,7 +85,7 @@ class SeatsArea extends HookWidget {
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Seat letters' column
+                    // Space letters' column
                     Padding(
                       padding: const EdgeInsets.only(top: 10),
                       child: Column(
@@ -91,7 +93,7 @@ class SeatsArea extends HookWidget {
                         children: [
                           for (var i = 0; i < numOfRows; i++)
                             SizedBox(
-                              height: seatSize - 1.5,
+                              height: spaceWidth - 1.5,
                               child: Center(
                                 child: CustomText.body(
                                   String.fromCharCode(i + 65),
@@ -104,7 +106,7 @@ class SeatsArea extends HookWidget {
 
                     Insets.gapW10,
 
-                    // Seats
+                    // Spaces
                     NotificationListener<OverscrollIndicatorNotification>(
                       onNotification: _onGlowNotification,
                       child: Flexible(
@@ -114,26 +116,26 @@ class SeatsArea extends HookWidget {
                           radius: const Radius.circular(20),
                           child: GridView.builder(
                             padding: const EdgeInsets.only(top: 12),
-                            itemCount: numOfRows * seatsPerRow,
+                            itemCount: numOfRows * spacesPerRow,
                             primary: true,
                             scrollDirection: Axis.horizontal,
                             gridDelegate:
                                 SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: numOfRows,
-                              crossAxisSpacing: seatGap,
-                              mainAxisExtent: seatSize,
-                              mainAxisSpacing: seatGap,
+                              crossAxisSpacing: spaceGap,
+                              mainAxisExtent: spaceWidth,
+                              mainAxisSpacing: spaceGap,
                             ),
                             itemBuilder: (ctx, i) {
-                              final seat = SeatModel(
-                                seatRow:
+                              final space = SpaceModel(
+                                spaceRow:
                                     String.fromCharCode(i % numOfRows + 65),
-                                seatNumber: i ~/ numOfRows,
+                                spaceNumber: i ~/ numOfRows,
                               );
                               Widget? child;
-                              if (isMissing(seat)) {
+                              if (isMissing(space)) {
                                 child = Insets.shrink;
-                              } else if (isBlocked(seat) || isBooked(seat)) {
+                              } else if (isBlocked(space) || isBooked(space)) {
                                 child = const DecoratedBox(
                                   decoration: BoxDecoration(
                                     color: Color(0xFF5A5A5A),
@@ -141,7 +143,7 @@ class SeatsArea extends HookWidget {
                                   ),
                                 );
                               }
-                              return child ?? SeatWidget(seat: seat);
+                              return child ?? SpaceWidget(space: space);
                             },
                           ),
                         ),

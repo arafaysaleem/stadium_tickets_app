@@ -38,12 +38,12 @@ final mockZones = [
   }),
 ];
 
-final currentZoneNoProvider = StateProvider.autoDispose<int?>((_) => null);
+final currentZoneIdProvider = StateProvider.autoDispose<int?>((_) => null);
 
 final currentZoneProvider = StateProvider.autoDispose<ZoneModel?>(
   (ref) {
-    final zoneNo = ref.watch(currentZoneNoProvider);
-    if (zoneNo == null) return null;
-    return mockZones.firstWhere((z) => z.zoneId == zoneNo || z.zoneId == 1);
+    final zoneId = ref.watch(currentZoneIdProvider);
+    if (zoneId == null) return null;
+    return mockZones.firstWhere((z) => z.zoneId == zoneId || z.zoneId == 1);
   },
 );

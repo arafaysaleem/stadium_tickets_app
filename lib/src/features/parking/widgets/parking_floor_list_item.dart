@@ -5,15 +5,15 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../helpers/constants/constants.dart';
 
 // Providers
-import '../providers/zones_provider.dart';
+import '../providers/parking_provider.codegen.dart';
 
 // Widgets
 import '../../../global/widgets/widgets.dart';
 
-class ZoneNumberBox extends ConsumerWidget {
+class ParkingFloorListItem extends ConsumerWidget {
   final int number;
 
-  const ZoneNumberBox({
+  const ParkingFloorListItem({
     super.key,
     required this.number,
   });
@@ -21,31 +21,30 @@ class ZoneNumberBox extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isSelected = ref.watch(
-      currentZoneIdProvider.select((value) => value == number),
+      currentPFloorNoProvider.select((value) => value == number),
     );
-    final size = isSelected ? 26.0 : 24.0;
     return InkWell(
       onTap: () {
         if (!isSelected) {
-          ref.read(currentZoneIdProvider.notifier).state = number;
+          ref.read(currentPFloorNoProvider.notifier).state = number;
         } else {
-          ref.invalidate(currentZoneIdProvider);
+          ref.invalidate(currentPFloorNoProvider);
         }
       },
       child: Container(
         decoration: BoxDecoration(
-          borderRadius: Corners.rounded4,
+          borderRadius: Corners.rounded15,
           color: isSelected
               ? AppColors.primaryColor
-              : const Color.fromARGB(255, 126, 127, 135),
+              : AppColors.surfaceColor,
         ),
-        margin: isSelected ? const EdgeInsets.all(5) : const EdgeInsets.all(6),
-        height: size,
-        width: size,
+        padding: const EdgeInsets.all(10),
         child: Center(
           child: CustomText.label(
-            '$number',
-            color: AppColors.textWhite80Color,
+            'Level $number',
+            color: isSelected
+              ? AppColors.textWhite80Color
+              : AppColors.textGreyColor,
           ),
         ),
       ),

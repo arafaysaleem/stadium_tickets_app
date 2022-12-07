@@ -2,28 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-//Helpers
+// Helpers
 import '../../../helpers/constants/constants.dart';
 
 // Enums
-import '../enums/seat_indicator_enum.dart';
+import '../enums/space_indicator_enum.dart';
 
 // Models
-import '../models/seat_model.codegen.dart';
+import '../models/space_model.codegen.dart';
 
 // Providers
-import '../providers/zone_seats_provider.codegen.dart';
+import '../providers/parking_spaces_provider.codegen.dart';
 
-class SeatWidget extends StatefulHookConsumerWidget {
-  final SeatModel seat;
+class SpaceWidget extends StatefulHookConsumerWidget {
+  final SpaceModel space;
 
-  const SeatWidget({required this.seat, super.key});
+  const SpaceWidget({required this.space, super.key});
 
   @override
-  _SeatWidgetState createState() => _SeatWidgetState();
+  _SpaceWidgetState createState() => _SpaceWidgetState();
 }
 
-class _SeatWidgetState extends ConsumerState<SeatWidget> {
+class _SpaceWidgetState extends ConsumerState<SpaceWidget> {
   bool isSelected = false;
 
   void _onTap() {
@@ -31,8 +31,8 @@ class _SeatWidgetState extends ConsumerState<SeatWidget> {
       isSelected = !isSelected;
     });
     ref
-        .read(selectedSeatsProvider.notifier)
-        .toggleSeat(isSelected: isSelected, seat: widget.seat);
+        .read(selectedSpacesProvider.notifier)
+        .toggleSpace(isSelected: isSelected, space: widget.space);
   }
 
   @override
@@ -67,8 +67,8 @@ class _SeatWidgetState extends ConsumerState<SeatWidget> {
         child: DecoratedBox(
           decoration: BoxDecoration(
             color: isSelected
-                ? SeatIndicator.SELECTED.color
-                : SeatIndicator.AVAILABLE.color,
+                ? SpaceIndicator.SELECTED.color
+                : SpaceIndicator.AVAILABLE.color,
             borderRadius: Corners.rounded7,
           ),
         ),

@@ -26,7 +26,7 @@ class StadiumZonesScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final event = ref.watch(currentEventProvider);
-    final selectedZoneNo = ref.watch(currentZoneNoProvider);
+    final selectedZoneNo = ref.watch(currentZoneIdProvider);
     final isSelected = selectedZoneNo != null;
     final slideRight = isLeftZone(selectedZoneNo);
     const stadiumOffset = 20.0;

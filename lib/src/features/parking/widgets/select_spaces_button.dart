@@ -8,13 +8,13 @@ import '../../../helpers/constants/constants.dart';
 import '../../../config/routing/routing.dart';
 
 // Providers
-import '../providers/zone_seats_provider.codegen.dart';
+import '../providers/parking_spaces_provider.codegen.dart';
 
 // Widgets
 import '../../../global/widgets/widgets.dart';
 
-class SelectSeatsButton extends StatelessWidget {
-  const SelectSeatsButton({super.key});
+class SelectSpacesButton extends StatelessWidget {
+  const SelectSpacesButton({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class SelectSeatsButton extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Consumer(
         builder: (ctx, ref, _) {
-          final seats = ref.watch(selectedSeatsProvider).length;
+          final seats = ref.watch(selectedSpacesProvider).length;
           return CustomTextButton.gradient(
             width: double.infinity,
             onPressed: () {
@@ -32,7 +32,7 @@ class SelectSeatsButton extends StatelessWidget {
             gradient: AppColors.buttonGradientPrimary,
             child: Center(
               child: Text(
-                'Select - $seats SEATS',
+                'Select - $seats SPOTS',
                 style: const TextStyle(
                   color: Colors.white,
                   fontSize: 15,

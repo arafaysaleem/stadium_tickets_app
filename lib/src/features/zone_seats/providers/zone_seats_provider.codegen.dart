@@ -1,7 +1,7 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 // Models
-import '../model/seat_model.codegen.dart';
+import '../models/seat_model.codegen.dart';
 
 part 'zone_seats_provider.codegen.g.dart';
 
@@ -21,6 +21,10 @@ class SelectedSeats extends _$SelectedSeats {
   void _removeSeat(SeatModel seat) {
     state.remove(seat);
     state = [...state];
+  }
+
+  void clear() {
+    state = [];
   }
 
   List<String> get seatNames =>

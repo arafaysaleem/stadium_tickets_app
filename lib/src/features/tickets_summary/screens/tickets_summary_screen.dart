@@ -58,7 +58,7 @@ class TicketSummaryScreen extends StatelessWidget {
             // Parking Extra
             InkResponse(
               onTap: () {
-                AppRouter.pushNamed(Routes.ParkingFloorsScreenRoute);
+                AppRouter.pushNamed(Routes.ParkingsScreenRoute);
               },
               child: CustomText.body(
                 'Want to book a parking spot? Click here.',

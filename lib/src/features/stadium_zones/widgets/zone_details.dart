@@ -46,7 +46,7 @@ class ZoneDetails extends ConsumerWidget {
                     quarterTurns: isLeft ? 2 : 0,
                     child: CustomBackIcon(
                       onTap: () {
-                        ref.invalidate(currentZoneNoProvider);
+                        ref.invalidate(currentZoneIdProvider);
                       },
                     ),
                   ),
