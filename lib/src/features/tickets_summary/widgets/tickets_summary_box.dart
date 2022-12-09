@@ -22,61 +22,58 @@ class TicketsSummaryBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: context.screenHeight * 0.69,
-      child: Container(
-        decoration: const BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.all(Radius.circular(10)),
-        ),
-        margin: const EdgeInsets.symmetric(horizontal: 20),
-        child: Column(
-          children: [
-            // Event Picture
-            Consumer(
-              builder: (ctx, ref, _) {
-                final selectedEventPoster = ref.watch(
-                  currentEventProvider.select((value) => value!.posterUrl),
-                );
-                return CustomNetworkImage(
-                  imageUrl: selectedEventPoster,
-                  height: 180,
-                  fit: BoxFit.cover,
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(10),
-                    topRight: Radius.circular(10),
-                  ),
-                  placeholder: const MoviePosterPlaceholder(),
-                  errorWidget: const MoviePosterPlaceholder(),
-                );
-              },
-            ),
-
-            // Event details
-            const ShowDetailsSection(),
-
-            // Separator
-            const DashedTicketSeparator(),
-
-            // Ticket details
-            const Expanded(
-              child: TicketDetailsList(),
-            ),
-
-            // Expand icon
-            Container(
-              width: double.infinity,
-              decoration: const BoxDecoration(
-                color: AppColors.primaryColor,
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(10),
-                  bottomRight: Radius.circular(10),
+    return Container(
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+      ),
+      margin: const EdgeInsets.symmetric(horizontal: 20),
+      child: Column(
+        children: [
+          // Event Picture
+          Consumer(
+            builder: (ctx, ref, _) {
+              final selectedEventPoster = ref.watch(
+                currentEventProvider.select((value) => value!.posterUrl),
+              );
+              return CustomNetworkImage(
+                imageUrl: selectedEventPoster,
+                height: 180,
+                fit: BoxFit.cover,
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(10),
+                  topRight: Radius.circular(10),
                 ),
+                placeholder: const MoviePosterPlaceholder(),
+                errorWidget: const MoviePosterPlaceholder(),
+              );
+            },
+          ),
+
+          // Event details
+          const ShowDetailsSection(),
+
+          // Separator
+          const DashedTicketSeparator(),
+
+          // Ticket details
+          const Expanded(
+            child: TicketDetailsList(),
+          ),
+
+          // Expand icon
+          Container(
+            width: double.infinity,
+            decoration: const BoxDecoration(
+              color: AppColors.primaryColor,
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(10),
+                bottomRight: Radius.circular(10),
               ),
-              child: const Icon(Icons.expand_more_sharp, color: Colors.white),
             ),
-          ],
-        ),
+            child: const Icon(Icons.expand_more_sharp, color: Colors.white),
+          ),
+        ],
       ),
     );
   }
