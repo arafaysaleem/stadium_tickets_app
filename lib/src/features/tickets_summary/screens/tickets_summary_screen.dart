@@ -9,7 +9,6 @@ import '../../../config/routing/routing.dart';
 
 // Widgets
 import '../../../global/widgets/widgets.dart';
-import '../../../helpers/extensions/extensions.dart';
 import '../widgets/confirm_bookings_button.dart';
 import '../widgets/tickets_summary_box.dart';
 

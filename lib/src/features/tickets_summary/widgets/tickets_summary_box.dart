@@ -3,7 +3,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // Helpers
 import '../../../helpers/constants/constants.dart';
-import '../../../helpers/extensions/extensions.dart';
 
 // Widgets
 import '../../../global/widgets/widgets.dart';
