@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // Helpers
-import '../../../helpers/constants/app_colors.dart';
-import '../../../helpers/constants/app_styles.dart';
+import '../../../helpers/constants/constants.dart';
 
 // Routing
 import '../../../config/routing/routing.dart';
@@ -11,6 +11,9 @@ import '../../../config/routing/routing.dart';
 import '../../../global/widgets/widgets.dart';
 import '../widgets/confirm_bookings_button.dart';
 import '../widgets/tickets_summary_box.dart';
+
+// Features
+import '../../parking/parking.dart';
 
 class TicketSummaryScreen extends StatelessWidget {
   const TicketSummaryScreen({super.key});
@@ -60,9 +63,17 @@ class TicketSummaryScreen extends StatelessWidget {
               onTap: () {
                 AppRouter.pushNamed(Routes.ParkingsScreenRoute);
               },
-              child: CustomText.body(
-                'Want to book a parking spot? Click here.',
-                color: AppColors.primaryColor,
+              child: Consumer(
+                builder: (_, ref, __) {
+                  final hasParking =
+                      ref.watch(parkingSpacesProvider).isNotEmpty;
+                  return CustomText.body(
+                    hasParking
+                        ? 'Edit parking spaces'
+                        : 'Want to book a parking spot? Click here.',
+                    color: AppColors.primaryColor,
+                  );
+                },
               ),
             ),
 

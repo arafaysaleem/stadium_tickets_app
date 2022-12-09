@@ -23,7 +23,7 @@ class ParkingFloorListItem extends ConsumerWidget {
     final isSelected = ref.watch(
       currentPFloorNoProvider.select((value) => value == number),
     );
-    return InkWell(
+    return GestureDetector(
       onTap: () {
         if (!isSelected) {
           ref.read(currentPFloorNoProvider.notifier).state = number;
@@ -31,21 +31,21 @@ class ParkingFloorListItem extends ConsumerWidget {
           ref.invalidate(currentPFloorNoProvider);
         }
       },
-      child: Container(
+      child: AnimatedContainer(
+        duration: Durations.medium,
+        curve: Curves.fastOutSlowIn,
+        width: 67,
         decoration: BoxDecoration(
-          borderRadius: Corners.rounded15,
-          color: isSelected
-              ? AppColors.primaryColor
-              : AppColors.surfaceColor,
+          gradient: isSelected ? AppColors.buttonGradientPrimary : null,
+          border: isSelected
+              ? null
+              : Border.all(
+                  color: AppColors.primaryColor,
+                ),
+          borderRadius: Corners.rounded10,
         ),
-        padding: const EdgeInsets.all(10),
         child: Center(
-          child: CustomText.label(
-            'Level $number',
-            color: isSelected
-              ? AppColors.textWhite80Color
-              : AppColors.textGreyColor,
-          ),
+          child: CustomText.subtitle('Level $number'),
         ),
       ),
     );

@@ -6,11 +6,13 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 // Helpers
 import '../../../helpers/constants/constants.dart';
 
+// Enums
+import '../../zone_seats/enums/seat_indicator_enum.dart';
+
 // Models
 import '../models/space_model.codegen.dart';
 
 // Widgets
-import '../../../global/widgets/widgets.dart';
 import 'space_widget.dart';
 
 class ParkingSpacesGrid extends HookWidget {
@@ -55,104 +57,124 @@ class ParkingSpacesGrid extends HookWidget {
     return true;
   }
 
+  Shader getShader(Rect bounds) {
+    return LinearGradient(
+      begin: Alignment.center,
+      end: Alignment.bottomCenter,
+      stops: const [0.93, 1],
+      colors: [Colors.transparent, AppColors.backgroundColor.withOpacity(0.98)],
+    ).createShader(bounds);
+  }
+
   @override
   Widget build(BuildContext context) {
     final vertScrollController = useScrollController();
     return Expanded(
       flex: extendBottom ? 1 : 0,
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: extendRight
-              ? const BorderRadius.only(
-                  topLeft: Radius.circular(15),
-                  bottomLeft: Radius.circular(15),
-                )
-              : Corners.rounded15,
-          color: AppColors.surfaceColor,
-        ),
-        padding: const EdgeInsets.fromLTRB(10, 10, 7, 10),
-        margin: EdgeInsets.only(left: 10, right: extendRight ? 0 : 10),
-        child: Scrollbar(
-          thumbVisibility: true,
-          controller: vertScrollController,
-          radius: const Radius.circular(20),
-          child: NotificationListener<OverscrollIndicatorNotification>(
-            onNotification: _onGlowNotification,
+      child: Scrollbar(
+        thumbVisibility: true,
+        controller: vertScrollController,
+        scrollbarOrientation: ScrollbarOrientation.left,
+        radius: const Radius.circular(20),
+        child: NotificationListener<OverscrollIndicatorNotification>(
+          onNotification: _onGlowNotification,
+          child: ShaderMask(
+            shaderCallback: getShader,
+            blendMode: BlendMode.dstOut,
             child: SingleChildScrollView(
               controller: vertScrollController,
               child: SizedBox(
                 height: getMaxGridHeight(),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // Space letters' column
-                    Padding(
-                      padding: const EdgeInsets.only(top: 10),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          for (var i = 0; i < numOfRows; i++)
-                            SizedBox(
-                              height: spaceWidth - 1.5,
-                              child: Center(
-                                child: CustomText.body(
-                                  String.fromCharCode(i + 65),
-                                ),
-                              ),
-                            )
-                        ],
-                      ),
+                child: NotificationListener<OverscrollIndicatorNotification>(
+                  onNotification: _onGlowNotification,
+                  child: GridView.builder(
+                    padding: const EdgeInsets.fromLTRB(20, 0, 15, 15),
+                    itemCount: numOfRows * spacesPerRow,
+                    scrollDirection: Axis.horizontal,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: numOfRows,
+                      crossAxisSpacing: spaceGap,
+                      mainAxisExtent: spaceWidth,
+                      mainAxisSpacing: spaceGap,
                     ),
-
-                    Insets.gapW10,
-
-                    // Spaces
-                    NotificationListener<OverscrollIndicatorNotification>(
-                      onNotification: _onGlowNotification,
-                      child: Flexible(
-                        child: Scrollbar(
-                          scrollbarOrientation: ScrollbarOrientation.top,
-                          thumbVisibility: true,
-                          radius: const Radius.circular(20),
-                          child: GridView.builder(
-                            padding: const EdgeInsets.only(top: 12),
-                            itemCount: numOfRows * spacesPerRow,
-                            primary: true,
-                            scrollDirection: Axis.horizontal,
-                            gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: numOfRows,
-                              crossAxisSpacing: spaceGap,
-                              mainAxisExtent: spaceWidth,
-                              mainAxisSpacing: spaceGap,
-                            ),
-                            itemBuilder: (ctx, i) {
-                              final space = SpaceModel(
-                                spaceRow:
-                                    String.fromCharCode(i % numOfRows + 65),
-                                spaceNumber: i ~/ numOfRows,
-                              );
-                              Widget? child;
-                              if (isMissing(space)) {
-                                child = Insets.shrink;
-                              } else if (isBlocked(space) || isBooked(space)) {
-                                child = const DecoratedBox(
-                                  decoration: BoxDecoration(
-                                    color: Color(0xFF5A5A5A),
-                                    borderRadius: Corners.rounded7,
-                                  ),
-                                );
-                              }
-                              return child ?? SpaceWidget(space: space);
-                            },
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
+                    itemBuilder: (ctx, i) {
+                      final space = SpaceModel(
+                        spaceRow: String.fromCharCode(i % numOfRows + 65),
+                        spaceNumber: i ~/ numOfRows,
+                      );
+                      Widget? child;
+                      if (isMissing(space)) {
+                        child = Insets.shrink;
+                      } else if (isBooked(space)) {
+                        child = const _BookedSpace();
+                      } else if (isBlocked(space)) {
+                        child = const BlockedSpace();
+                      }
+                      return child ??
+                          SpaceWidget(
+                            key: UniqueKey(),
+                            space: space,
+                          );
+                    },
+                  ),
                 ),
               ),
             ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class BlockedSpace extends StatelessWidget {
+  const BlockedSpace({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return DecoratedBox(
+      decoration: const BoxDecoration(
+        color: AppColors.surfaceColor,
+        borderRadius: Corners.rounded10,
+      ),
+      child: Center(
+        child: Container(
+          padding: const EdgeInsets.all(5),
+          height: 20,
+          width: 20,
+          decoration: const BoxDecoration(
+            color: Color.fromARGB(255, 67, 67, 67),
+            borderRadius: Corners.rounded4,
+          ),
+          child: Center(
+            child: Image.asset(
+              AppAssets.lockIcon,
+              color: AppColors.textWhite80Color,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _BookedSpace extends StatelessWidget {
+  const _BookedSpace();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(6),
+      decoration: const BoxDecoration(
+        color: AppColors.surfaceColor,
+        borderRadius: Corners.rounded10,
+      ),
+      child: Center(
+        child: RotatedBox(
+          quarterTurns: 1,
+          child: Image.asset(
+            AppAssets.carIcon,
+            color: SeatIndicator.TAKEN.color,
           ),
         ),
       ),

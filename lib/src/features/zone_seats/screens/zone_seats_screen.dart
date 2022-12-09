@@ -107,11 +107,10 @@ class ZoneSeatsScreen extends ConsumerWidget {
                           padding: const EdgeInsets.fromLTRB(20, 22, 0, 22),
                           child: Consumer(
                             builder: (ctx, ref, child) {
-                              final _selectedSeats =
-                                  ref.watch(selectedSeatsProvider);
-                              final seatNames = _selectedSeats
-                                  .map((e) => '${e.seatRow}-${e.seatNumber}')
-                                  .toList();
+                              ref.watch(selectedSeatsProvider);
+                              final seatNames = ref
+                                  .watch(selectedSeatsProvider.notifier)
+                                  .seatNames;
                               return CustomChipsList(
                                 chipContents: seatNames,
                                 chipHeight: 27,

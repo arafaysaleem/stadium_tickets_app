@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import '../../../helpers/constants/constants.dart';
 
 enum SpaceIndicator {
-  AVAILABLE(Color(0xFF5A5A5A)),
+  AVAILABLE(Color.fromARGB(255, 76, 76, 76)),
   TAKEN(Color.fromARGB(255, 57, 57, 57)),
   SELECTED(AppColors.redColor);
 

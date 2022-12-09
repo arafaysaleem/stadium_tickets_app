@@ -1,3 +1,6 @@
+export 'models/parking_ticket_model.dart';
+export 'models/tickets_summary_model.codegen.dart';
+export 'providers/tickets_summary_provider.dart';
 export 'screens/tickets_summary_screen.dart';
 export 'skeletons/movie_poster_placeholder.dart';
 export 'widgets/book_parking_button.dart';

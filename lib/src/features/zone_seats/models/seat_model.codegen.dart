@@ -11,6 +11,10 @@ class SeatModel with _$SeatModel {
     required String seatRow,
     required int seatNumber,
   }) = _SeatModel;
+  
+  const SeatModel._();
 
   factory SeatModel.fromJson(JSON json) => _$SeatModelFromJson(json);
+
+  String get name => '$seatRow-$seatNumber';
 }

@@ -14,6 +14,7 @@ import '../providers/parking_spaces_provider.codegen.dart';
 import '../../../global/widgets/widgets.dart';
 import '../widgets/parking_floors_list.dart';
 import '../widgets/parking_spaces_area.dart';
+import '../widgets/select_spaces_button.dart';
 
 class ParkingsScreen extends ConsumerWidget {
   const ParkingsScreen({super.key});
@@ -34,7 +35,9 @@ class ParkingsScreen extends ConsumerWidget {
                   CustomBackIcon(
                     onTap: () {
                       AppRouter.pop();
-                      ref.read(selectedSpacesProvider.notifier).clear();
+                      ref
+                        ..invalidate(parkingSpacesFutureProvider)
+                        ..invalidate(parkingSpacesProvider);
                     },
                   ),
 
@@ -53,17 +56,22 @@ class ParkingsScreen extends ConsumerWidget {
               ),
             ),
 
-            Insets.gapH15,
+            Insets.gapH20,
 
             // Floors List
             const ParkingFloorsList(),
 
-            Insets.gapH15,
+            Insets.gapH25,
 
             // Spots
             const Expanded(
               child: ParkingSpacesArea(),
             ),
+
+            // Purchase spaces button
+            const SelectSpacesButton(),
+
+            Insets.gapH20,
           ],
         ),
       ),

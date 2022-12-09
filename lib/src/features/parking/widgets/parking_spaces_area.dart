@@ -14,13 +14,12 @@ import '../providers/parking_spaces_provider.codegen.dart';
 // Widgets
 import '../../../global/widgets/widgets.dart';
 import 'parking_spaces_grid.dart';
-import 'select_spaces_button.dart';
 
 class ParkingSpacesArea extends ConsumerWidget {
   const ParkingSpacesArea({super.key});
 
-  static const _spaceWidth = 48.0;
-  static const _spaceGap = 9.0;
+  static const _spaceWidth = 68.0;
+  static const _spaceGap = 11.0;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -29,13 +28,7 @@ class ParkingSpacesArea extends ConsumerWidget {
       duration: const Duration(milliseconds: 550),
       switchOutCurve: Curves.easeInBack,
       child: AsyncValueWidget<ParkingFloorSpacesModel>(
-        value: const AsyncData(
-          ParkingFloorSpacesModel(
-            missing: [],
-            blocked: [],
-            booked: [],
-          ),
-        ),
+        value: ref.watch(parkingSpacesFutureProvider(floor.pFloorId)),
         data: (parkingSpacesModel) {
           final extendBottom = floor.numOfRows > 11;
           final extendRight = floor.spacesPerRow > 7;
@@ -61,10 +54,11 @@ class ParkingSpacesArea extends ConsumerWidget {
                 padding: const EdgeInsets.fromLTRB(20, 22, 0, 22),
                 child: Consumer(
                   builder: (ctx, ref, child) {
-                    final _selectedSpaces = ref.watch(selectedSpacesProvider);
-                    final spaceNames = _selectedSpaces
-                        .map((e) => '${e.spaceRow}-${e.spaceNumber}')
-                        .toList();
+                    final spaceNames = ref.watch(
+                      currentFloorSelectedSpacesProvider.select(
+                        (value) => value.map((e) => e.toName()).toList(),
+                      ),
+                    );
                     return CustomChipsList(
                       chipContents: spaceNames,
                       chipHeight: 27,
@@ -81,11 +75,6 @@ class ParkingSpacesArea extends ConsumerWidget {
                   },
                 ),
               ),
-
-              // Purchase spaces button
-              const SelectSpacesButton(),
-
-              Insets.gapH10,
             ],
           );
         },

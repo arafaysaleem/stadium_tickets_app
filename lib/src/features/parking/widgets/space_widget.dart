@@ -14,6 +14,9 @@ import '../models/space_model.codegen.dart';
 // Providers
 import '../providers/parking_spaces_provider.codegen.dart';
 
+// Widgets
+import '../../../global/widgets/widgets.dart';
+
 class SpaceWidget extends StatefulHookConsumerWidget {
   final SpaceModel space;
 
@@ -30,9 +33,20 @@ class _SpaceWidgetState extends ConsumerState<SpaceWidget> {
     setState(() {
       isSelected = !isSelected;
     });
-    ref
-        .read(selectedSpacesProvider.notifier)
-        .toggleSpace(isSelected: isSelected, space: widget.space);
+    final prov = ref.read(parkingSpacesProvider.notifier);
+
+    if (isSelected) {
+      prov.selectSpace(widget.space);
+    } else {
+      prov.removeSpace(widget.space);
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    isSelected =
+        ref.read(currentFloorSelectedSpacesProvider).contains(widget.space);
   }
 
   @override
@@ -69,7 +83,12 @@ class _SpaceWidgetState extends ConsumerState<SpaceWidget> {
             color: isSelected
                 ? SpaceIndicator.SELECTED.color
                 : SpaceIndicator.AVAILABLE.color,
-            borderRadius: Corners.rounded7,
+            borderRadius: Corners.rounded10,
+          ),
+          child: Center(
+            child: CustomText.subtitle(
+              widget.space.toName(),
+            ),
           ),
         ),
       ),

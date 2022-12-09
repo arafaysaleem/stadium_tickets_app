@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../helpers/constants/app_colors.dart';
+
 /// A scrollable rounded bottom sheet with a pre-designed header
 class CustomScrollableBottomSheet extends StatelessWidget {
   /// This gives the bottom sheet title.
@@ -37,7 +39,7 @@ class CustomScrollableBottomSheet extends StatelessWidget {
     this.expand = false,
     this.snap = true,
     this.snapSizes = const [0.7, 1],
-  })  : assert(
+  }) : assert(
           titleText == null || title == null,
           'Cannot specify both sheetTitle and title widget',
         );
@@ -71,9 +73,9 @@ class CustomScrollableBottomSheet extends StatelessWidget {
                 ),
               ),
             ),
-        
+
             const SizedBox(height: 5),
-        
+
             // Header
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -84,23 +86,23 @@ class CustomScrollableBottomSheet extends StatelessWidget {
                 children: [
                   // Leading
                   if (leading != null) leading!,
-        
+
                   // Title
                   title ??
                       Text(
                         titleText ?? 'Title',
                         style: const TextStyle(
-                          fontWeight: FontWeight.bold,
                           fontSize: 20,
+                          color: AppColors.textWhite80Color,
                         ),
                       ),
-        
+
                   // Trailing
                   if (trailing != null) trailing!,
                 ],
               ),
             ),
-        
+
             const Padding(
               padding: EdgeInsets.symmetric(vertical: 15),
               child: Divider(
@@ -109,7 +111,7 @@ class CustomScrollableBottomSheet extends StatelessWidget {
                 color: Color(0xFFE0E0E0),
               ),
             ),
-        
+
             // Child builder
             Expanded(
               child: builder(context, scrollController),

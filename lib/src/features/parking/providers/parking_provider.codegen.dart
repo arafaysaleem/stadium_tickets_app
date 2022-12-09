@@ -36,13 +36,12 @@ final mockParkingFloors = [
   }),
 ];
 
-final currentPFloorNoProvider = StateProvider.autoDispose<int?>((_) => null);
+final currentPFloorNoProvider = StateProvider.autoDispose<int>((_) => 1);
 
 final currentParkingFloorProvider = StateProvider.autoDispose<ParkingFloorModel?>(
   (ref) {
     final floorNumber = ref.watch(currentPFloorNoProvider);
-    if (floorNumber == null) return null;
-    return mockParkingFloors.firstWhere((z) => z.floorNumber == floorNumber || z.floorNumber == 1);
+    return mockParkingFloors.firstWhere((z) => z.floorNumber == floorNumber);
   },
 );
 

@@ -13,6 +13,15 @@ import '../parking.dart';
 class ParkingFloorsList extends ConsumerWidget {
   const ParkingFloorsList({super.key});
 
+  Shader getShader(Rect bounds) {
+    return const LinearGradient(
+      begin: Alignment.centerRight,
+      end: Alignment.centerLeft,
+      stops: [0.95, 1],
+      colors: [Colors.transparent, Colors.black87],
+    ).createShader(bounds);
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return AsyncValueWidget<List<ParkingFloorModel>>(
@@ -34,15 +43,34 @@ class ParkingFloorsList extends ConsumerWidget {
         subtitle: 'Try checking back later',
       ),
       data: (floors) {
-        return ListView.separated(
-          itemCount: floors.length,
-          physics: const BouncingScrollPhysics(
-            parent: AlwaysScrollableScrollPhysics(),
+        return Container(
+          decoration: const BoxDecoration(
+            color: AppColors.surfaceColor,
+            borderRadius: BorderRadius.only(
+              topRight: Radius.circular(20),
+              bottomRight: Radius.circular(20),
+            ),
           ),
-          scrollDirection: Axis.horizontal,
-          padding: const EdgeInsets.fromLTRB(16, 0, 16, 20),
-          separatorBuilder: (_, __) => Insets.gapW20,
-          itemBuilder: (_, i) => ParkingFloorListItem(number: i),
+          height: 60,
+          margin: const EdgeInsets.only(right: 15),
+          padding: const EdgeInsets.fromLTRB(0, 15, 15, 15),
+          child: ShaderMask(
+            shaderCallback: getShader,
+            blendMode: BlendMode.dstOut,
+            child: ListView.separated(
+              physics: const BouncingScrollPhysics(
+                parent: AlwaysScrollableScrollPhysics(),
+              ),
+              reverse: true,
+              padding: const EdgeInsets.only(left: 15),
+              scrollDirection: Axis.horizontal,
+              itemCount: floors.length,
+              separatorBuilder: (_, __) => Insets.gapW15,
+              itemBuilder: (ctx, i) => ParkingFloorListItem(
+                number: floors[i].floorNumber,
+              ),
+            ),
+          ),
         );
       },
     );

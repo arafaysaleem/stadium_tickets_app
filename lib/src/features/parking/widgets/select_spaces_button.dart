@@ -13,36 +13,40 @@ import '../providers/parking_spaces_provider.codegen.dart';
 // Widgets
 import '../../../global/widgets/widgets.dart';
 
-class SelectSpacesButton extends StatelessWidget {
+class SelectSpacesButton extends ConsumerWidget {
   const SelectSpacesButton({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final seats = ref.watch(
+      parkingSpacesProvider.select(
+        (value) =>
+            value.values.fold(0, (prev, element) => prev + element.length),
+      ),
+    );
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: Consumer(
-        builder: (ctx, ref, _) {
-          final seats = ref.watch(selectedSpacesProvider).length;
-          return CustomTextButton.gradient(
-            width: double.infinity,
-            onPressed: () {
-              AppRouter.pushNamed(Routes.TicketsSummaryScreenRoute);
-            },
-            disabled: seats == 0,
-            gradient: AppColors.buttonGradientPrimary,
-            child: Center(
-              child: Text(
-                'Select - $seats SPOTS',
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 15,
-                  letterSpacing: 0.7,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ),
-          );
+      child: CustomTextButton.gradient(
+        width: double.infinity,
+        onPressed: () {
+          ref.read(confirmedParkingSpacesProvider.notifier).state = {
+            ...ref.read(parkingSpacesProvider)
+          };
+          AppRouter.pop();
         },
+        disabled: seats == 0,
+        gradient: AppColors.buttonGradientPrimary,
+        child: Center(
+          child: Text(
+            'Select - $seats SPOTS',
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 15,
+              letterSpacing: 0.7,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ),
       ),
     );
   }
