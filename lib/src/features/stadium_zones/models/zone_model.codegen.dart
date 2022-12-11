@@ -11,6 +11,7 @@ part 'zone_model.codegen.g.dart';
 class ZoneModel with _$ZoneModel {
   const factory ZoneModel({
     required int zoneId,
+    required int number,
     required String name,
     required int numOfRows,
     required int seatsPerRow,

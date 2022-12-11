@@ -5,8 +5,8 @@ import 'package:flutter/foundation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 // Services
+import '../../config/config.dart';
 import '../local/path_provider_service.dart';
-import 'api_endpoint.dart';
 import 'api_service.dart';
 import 'dio_service.dart';
 
@@ -20,7 +20,7 @@ part 'api_service_provider.codegen.g.dart';
 @Riverpod(keepAlive: true)
 Dio _dio(_DioRef ref) {
   final baseOptions = BaseOptions(
-    baseUrl: ApiEndpoint.baseUrl,
+    baseUrl: Config.baseUrl,
   );
   return Dio(baseOptions);
 }

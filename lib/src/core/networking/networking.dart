@@ -1,4 +1,3 @@
-export 'api_endpoint.dart';
 export 'api_interface.dart';
 export 'api_service.dart';
 export 'api_service_provider.codegen.dart';

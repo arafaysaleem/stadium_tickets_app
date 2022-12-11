@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // Helpers
 import '../../../helpers/constants/constants.dart';
 
+// Models
+import '../models/zone_model.codegen.dart';
+
+// Providers
+import '../providers/zones_provider.codegen.dart';
+
 // Widgets
+import '../../../global/widgets/widgets.dart';
 import 'zone_number_box.dart';
 
-class Stadium extends StatelessWidget {
+class Stadium extends ConsumerWidget {
   static const _coords = <double>[0, 1, 0, -1];
 
   const Stadium({
@@ -23,56 +31,71 @@ class Stadium extends StatelessWidget {
   final double height;
 
   @override
-  Widget build(BuildContext context) {
-    return AnimatedPositioned(
-      duration: Durations.medium,
-      curve: Curves.fastOutSlowIn,
-      bottom: offset,
-      left: !isSelected
-          ? 0
-          : !slideRight
-              ? -185
-              : 185,
-      right: !isSelected
-          ? 0
-          : slideRight
-              ? -185
-              : 185,
-      child: Container(
-        width: double.infinity,
-        height: height,
-        decoration: BoxDecoration(
-          borderRadius: Corners.rounded(70),
-          color: AppColors.surfaceColor,
-          boxShadow: Shadows.universalDark,
-        ),
-        margin: const EdgeInsets.all(20),
-        child: Stack(
-          alignment: AlignmentDirectional.topCenter,
-          children: [
-            const Padding(
-              padding: EdgeInsets.all(35),
-              child: _MiddleGreyLayer(),
+  Widget build(BuildContext context, WidgetRef ref) {
+    return AsyncValueWidget<Map<int, ZoneModel>>(
+      value: ref.watch(zonesFutureProvider),
+      data: (zones) {
+        return AnimatedPositioned(
+          duration: Durations.medium,
+          curve: Curves.fastOutSlowIn,
+          bottom: offset,
+          left: !isSelected
+              ? 0
+              : !slideRight
+                  ? -185
+                  : 185,
+          right: !isSelected
+              ? 0
+              : slideRight
+                  ? -185
+                  : 185,
+          child: Container(
+            width: double.infinity,
+            height: height,
+            decoration: BoxDecoration(
+              borderRadius: Corners.rounded(70),
+              color: AppColors.surfaceColor,
+              boxShadow: Shadows.universalDark,
             ),
-
-            // Zones Overlay
-            for (int i = 0; i < _coords.length; i++)
-              Align(
-                alignment: Alignment(
-                  _coords[i],
-                  _coords[_coords.length - i - 1],
+            margin: const EdgeInsets.all(20),
+            child: Stack(
+              alignment: AlignmentDirectional.topCenter,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(35),
+                  child: _MiddleGreyLayer(zonesMap: zones),
                 ),
-                child: ZoneNumberBox(number: i + 1),
-              )
-          ],
-        ),
+
+                // Zones Overlay
+                for (int i = 0; i < _coords.length; i++)
+                  Align(
+                    alignment: Alignment(
+                      _coords[i],
+                      _coords[_coords.length - i - 1],
+                    ),
+                    child: ZoneNumberBox(
+                      zone: zones[i + 1],
+                    ),
+                  )
+              ],
+            ),
+          ),
+        );
+      },
+      loading: () => const CustomCircularLoader(),
+      error: (error, st) => ErrorResponseHandler(
+        error: error,
+        retryCallback: () => ref.refresh(zonesFutureProvider),
+        stackTrace: st,
       ),
     );
   }
 }
 
 class _MiddleGreyLayer extends StatelessWidget {
-  const _MiddleGreyLayer();
+  final Map<int, ZoneModel> zonesMap;
+
+  const _MiddleGreyLayer({required this.zonesMap});
 
   @override
   Widget build(BuildContext context) {
@@ -83,35 +106,46 @@ class _MiddleGreyLayer extends StatelessWidget {
       ),
       child: Stack(
         alignment: AlignmentDirectional.topCenter,
-        children: const [
+        children: [
           Padding(
-            padding: EdgeInsets.all(35),
-            child: _InnerGreyLayer(),
+            padding: const EdgeInsets.all(35),
+            child: _InnerGreyLayer(zonesMap: zonesMap),
           ),
 
-          // Zones Overlay
+          // Zone 5
           Positioned(
             top: 27,
             left: 12,
-            child: ZoneNumberBox(number: 5),
+            child: ZoneNumberBox(
+              zone: zonesMap[5],
+            ),
           ),
 
+          // Zone 6
           Positioned(
             top: 27,
             right: 12,
-            child: ZoneNumberBox(number: 6),
+            child: ZoneNumberBox(
+              zone: zonesMap[6],
+            ),
           ),
 
+          // Zone 7
           Positioned(
             bottom: 27,
             right: 12,
-            child: ZoneNumberBox(number: 7),
+            child: ZoneNumberBox(
+              zone: zonesMap[7],
+            ),
           ),
 
+          // Zone 8
           Positioned(
             bottom: 27,
             left: 12,
-            child: ZoneNumberBox(number: 8),
+            child: ZoneNumberBox(
+              zone: zonesMap[8],
+            ),
           ),
         ],
       ),
@@ -122,7 +156,9 @@ class _MiddleGreyLayer extends StatelessWidget {
 class _InnerGreyLayer extends StatelessWidget {
   static const _coords = <double>[-1, 0, 1, 0];
 
-  const _InnerGreyLayer();
+  final Map<int, ZoneModel> zonesMap;
+
+  const _InnerGreyLayer({required this.zonesMap});
 
   @override
   Widget build(BuildContext context) {
@@ -145,7 +181,7 @@ class _InnerGreyLayer extends StatelessWidget {
                 _coords[i],
                 -1 * _coords[_coords.length - i - 1],
               ),
-              child: ZoneNumberBox(number: i + 9),
+              child: ZoneNumberBox(zone: zonesMap[i + 9]),
             )
         ],
       ),

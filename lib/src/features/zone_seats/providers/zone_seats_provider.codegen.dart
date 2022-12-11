@@ -3,7 +3,16 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 // Models
 import '../models/seat_model.codegen.dart';
 
+// Features
+import '../../stadium_zones/stadium_zones.dart';
+
 part 'zone_seats_provider.codegen.g.dart';
+
+@riverpod
+Future<ZoneSeatingModel> zoneSeatsFuture(ZoneSeatsFutureRef ref) {
+  final zoneId = ref.watch(currentZoneProvider)!.zoneId;
+  return ref.watch(zonesControllerProvider).getAllZoneSeats(zoneId);
+}
 
 @riverpod
 class SelectedSeats extends _$SelectedSeats {

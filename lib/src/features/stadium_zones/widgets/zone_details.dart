@@ -9,7 +9,7 @@ import '../../../helpers/extensions/extensions.dart';
 import '../../../config/routing/routing.dart';
 
 // Providers
-import '../providers/zones_provider.dart';
+import '../providers/zones_provider.codegen.dart';
 
 // Widgets
 import '../../../global/widgets/widgets.dart';
@@ -46,7 +46,7 @@ class ZoneDetails extends ConsumerWidget {
                     quarterTurns: isLeft ? 2 : 0,
                     child: CustomBackIcon(
                       onTap: () {
-                        ref.invalidate(currentZoneIdProvider);
+                        ref.invalidate(currentZoneProvider);
                       },
                     ),
                   ),

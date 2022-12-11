@@ -70,13 +70,7 @@ class ZoneSeatsScreen extends ConsumerWidget {
                 duration: const Duration(milliseconds: 550),
                 switchOutCurve: Curves.easeInBack,
                 child: AsyncValueWidget<ZoneSeatingModel>(
-                  value: const AsyncData(
-                    ZoneSeatingModel(
-                      missing: [],
-                      blocked: [],
-                      booked: [],
-                    ),
-                  ),
+                  value: ref.watch(zoneSeatsFutureProvider),
                   data: (zoneSeatingModel) {
                     final extendBottom = zone.numOfRows > 12;
                     final extendRight = zone.seatsPerRow > 8;
@@ -139,8 +133,7 @@ class ZoneSeatsScreen extends ConsumerWidget {
                   loading: () => const CustomCircularLoader(),
                   error: (error, st) => ErrorResponseHandler(
                     error: error,
-                    // retryCallback: () => ref.refresh(showSeatingFuture),
-                    retryCallback: () {},
+                    retryCallback: () => ref.refresh(zoneSeatsFutureProvider),
                     stackTrace: st,
                   ),
                 ),

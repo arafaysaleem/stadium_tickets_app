@@ -8,13 +8,15 @@ import '../../../helpers/constants/constants.dart';
 import '../../../config/routing/routing.dart';
 
 // Providers
-import '../../events/events.dart';
-import '../providers/zones_provider.dart';
+import '../providers/zones_provider.codegen.dart';
 
 // Widgets
 import '../../../global/widgets/widgets.dart';
 import '../widgets/zone_info_card.dart';
 import '../widgets/stadium.dart';
+
+// Features
+import '../../events/events.dart';
 
 class StadiumZonesScreen extends ConsumerWidget {
   const StadiumZonesScreen({super.key});
@@ -26,7 +28,9 @@ class StadiumZonesScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final event = ref.watch(currentEventProvider);
-    final selectedZoneNo = ref.watch(currentZoneIdProvider);
+    final selectedZoneNo = ref.watch(
+      currentZoneProvider.select((value) => value?.number),
+    );
     final isSelected = selectedZoneNo != null;
     final slideRight = isLeftZone(selectedZoneNo);
     const stadiumOffset = 20.0;

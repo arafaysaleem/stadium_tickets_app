@@ -4,32 +4,36 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 // Helpers
 import '../../../helpers/constants/constants.dart';
 
+// Models
+import '../models/zone_model.codegen.dart';
+
 // Providers
-import '../providers/zones_provider.dart';
+import '../providers/zones_provider.codegen.dart';
 
 // Widgets
 import '../../../global/widgets/widgets.dart';
 
 class ZoneNumberBox extends ConsumerWidget {
-  final int number;
+  final ZoneModel? zone;
 
   const ZoneNumberBox({
     super.key,
-    required this.number,
+    required this.zone,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    if (zone == null) return Insets.shrink;
     final isSelected = ref.watch(
-      currentZoneIdProvider.select((value) => value == number),
+      currentZoneProvider.select((value) => value == zone),
     );
     final size = isSelected ? 26.0 : 24.0;
     return InkWell(
       onTap: () {
         if (!isSelected) {
-          ref.read(currentZoneIdProvider.notifier).state = number;
+          ref.read(currentZoneProvider.notifier).state = zone;
         } else {
-          ref.invalidate(currentZoneIdProvider);
+          ref.invalidate(currentZoneProvider);
         }
       },
       child: Container(
@@ -44,7 +48,7 @@ class ZoneNumberBox extends ConsumerWidget {
         width: size,
         child: Center(
           child: CustomText.label(
-            '$number',
+            '${zone!.number}',
             color: AppColors.textWhite80Color,
           ),
         ),

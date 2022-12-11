@@ -5,7 +5,14 @@ targets:
         options:
           explicit_to_json: true
           field_rename: snake
-      freezed:freezed:
+        generate_for:
+          include:
+            - lib/**.codegen.dart
+      freezed:
+        generate_for:
+          include:
+            - lib/**.codegen.dart
+      riverpod_generator:
         generate_for:
           include:
             - lib/**.codegen.dart
