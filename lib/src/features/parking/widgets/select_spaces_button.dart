@@ -24,6 +24,12 @@ class SelectSpacesButton extends ConsumerWidget {
             value.values.fold(0, (prev, element) => prev + element.length),
       ),
     );
+    final confirmedSeats = ref.watch(
+      confirmedParkingSpacesProvider.select(
+        (value) =>
+            value.values.fold(0, (prev, element) => prev + element.length),
+      ),
+    );
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: CustomTextButton.gradient(
@@ -34,7 +40,7 @@ class SelectSpacesButton extends ConsumerWidget {
           };
           AppRouter.pop();
         },
-        disabled: seats == 0,
+        disabled: seats == 0 && confirmedSeats == 0,
         gradient: AppColors.buttonGradientPrimary,
         child: Center(
           child: Text(
