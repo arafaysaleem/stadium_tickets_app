@@ -67,7 +67,7 @@ class ParkingFloorsList extends ConsumerWidget {
               itemCount: floors.length,
               separatorBuilder: (_, __) => Insets.gapW15,
               itemBuilder: (ctx, i) => ParkingFloorListItem(
-                number: floors[i].floorNumber,
+                parking: floors[i],
               ),
             ),
           ),

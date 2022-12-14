@@ -4,6 +4,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 // Helpers
 import '../../../helpers/constants/constants.dart';
 
+// Models
+import '../models/parking_floor_model.codegen.dart';
+
 // Providers
 import '../providers/parking_provider.codegen.dart';
 
@@ -11,24 +14,22 @@ import '../providers/parking_provider.codegen.dart';
 import '../../../global/widgets/widgets.dart';
 
 class ParkingFloorListItem extends ConsumerWidget {
-  final int number;
+  final ParkingFloorModel parking;
 
   const ParkingFloorListItem({
     super.key,
-    required this.number,
+    required this.parking,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final isSelected = ref.watch(
-      currentPFloorNoProvider.select((value) => value == number),
+      currentParkingFloorProvider.select((value) => value == parking),
     );
     return GestureDetector(
       onTap: () {
         if (!isSelected) {
-          ref.read(currentPFloorNoProvider.notifier).state = number;
-        } else {
-          ref.invalidate(currentPFloorNoProvider);
+          ref.read(currentParkingFloorProvider.notifier).state = parking;
         }
       },
       child: AnimatedContainer(
@@ -45,7 +46,7 @@ class ParkingFloorListItem extends ConsumerWidget {
           borderRadius: Corners.rounded10,
         ),
         child: Center(
-          child: CustomText.subtitle('Level $number'),
+          child: CustomText.subtitle('Level $parking'),
         ),
       ),
     );
