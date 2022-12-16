@@ -11,10 +11,11 @@ import 'parking_provider.codegen.dart';
 part 'parking_spaces_provider.codegen.g.dart';
 
 @Riverpod(keepAlive: true)
-Future<ParkingFloorSpacesModel> parkingSpacesFuture(
+Future<ParkingFloorSpacesModel?> parkingSpacesFuture(
   ParkingSpacesFutureRef ref,
-  int pFloorId,
+  int? pFloorId,
 ) {
+  if (pFloorId == null) return Future.value();
   return ref.watch(parkingProvider).getAllParkingFloorSpaces(pFloorId);
 }
 

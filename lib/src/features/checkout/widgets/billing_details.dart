@@ -7,6 +7,9 @@ import '../../../helpers/constants/constants.dart';
 // Widgets
 import '../../../global/widgets/widgets.dart';
 
+// Providers
+import '../providers/checkout_provider.dart';
+
 // Features
 import '../../events/events.dart';
 import '../../stadium_zones/stadium_zones.dart';
@@ -21,146 +24,180 @@ class BillingDetails extends ConsumerWidget {
       currentZoneProvider.select((value) => value!.type.price),
     );
     final event = ref.watch(currentEventProvider)!;
+    final totalAmount = ref.watch(totalAmountProvider);
     final ticketsSummary = ref.watch(ticketsSummaryProvider);
     final selectedSeats = ticketsSummary.seatTickets;
     final selectedSpaces = ticketsSummary.parkingTickets;
-    final totalAmount = selectedSeats.length * ticketPrice +
-        selectedSpaces.length * ticketPrice;
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Billing Details Label
-          const Text(
-            'Billing Details',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 23),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // Billing Details Label
+        CustomText.body(
+          'Billing Details',
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+          color: AppColors.textBlackColor,
+        ),
+
+        Insets.gapH10,
+
+        // Event Details
+        DecoratedBox(
+          decoration: const BoxDecoration(
+            color: AppColors.surfaceColor,
+            borderRadius: Corners.rounded10,
           ),
-
-          Insets.gapH15,
-
-          // Billing Summary Labels
-          Row(
-            children: const [
-              Text(
-                'Ticket Type',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          child: Row(
+            children: [
+              // Event Picture
+              CustomNetworkImage(
+                imageUrl: event.posterUrl,
+                width: 90,
+                height: 90,
+                fit: BoxFit.cover,
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(7),
+                  bottomLeft: Radius.circular(7),
+                ),
+                placeholder: const MoviePosterPlaceholder(),
+                errorWidget: const MoviePosterPlaceholder(),
               ),
-              Insets.gapW10,
-              SizedBox(
-                width: 40,
-                child: Text(
-                  'Qty',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
+
+              // Event Title
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(15),
+                  child: CustomText(
+                    event.name,
                     fontSize: 16,
+                    maxLines: 3,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
-              Insets.expand,
-              Text(
-                'Price',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                ),
-              )
             ],
           ),
+        ),
 
-          Insets.gapH15,
+        Insets.gapH15,
 
-          // Event Title
-          CustomText.body(
-            event.name,
-            fontSize: 18,
-            color: AppColors.textBlackColor,
-          ),
+        // Billing Summary Labels
+        Row(
+          children: const [
+            CustomText(
+              'Ticket Type',
+              color: AppColors.textBlackColor,
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+            Insets.expand,
+            SizedBox(
+              width: 40,
+              child: CustomText(
+                'Qty',
+                color: AppColors.textBlackColor,
+                textAlign: TextAlign.center,
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Insets.gapW10,
+            CustomText(
+              'Price',
+              color: AppColors.textBlackColor,
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            )
+          ],
+        ),
 
-          Insets.gapH15,
+        Insets.gapH10,
 
-          // Seat Summary Data
+        // Seat Summary Data
+        Row(
+          children: [
+            // Type
+            const CustomText(
+              'Seat',
+              fontSize: 15,
+              color: AppColors.textGreyColor,
+            ),
+
+            Insets.expand,
+
+            // Num of tickets
+            SizedBox(
+              width: 40,
+              child: CustomText(
+                '${selectedSeats.length}',
+                textAlign: TextAlign.center,
+                fontSize: 15,
+                color: AppColors.textGreyColor,
+              ),
+            ),
+
+            Insets.gapW10,
+
+            // Price
+            CustomText(
+              '$ticketPrice',
+              fontSize: 15,
+              color: AppColors.textGreyColor,
+            )
+          ],
+        ),
+
+        Insets.gapH5,
+
+        // Parking Summary Data
+        if (selectedSpaces.isNotEmpty)
           Row(
             children: [
               // Type
-              CustomText.body(
-                'Seat',
+              const CustomText(
+                'Parking',
+                fontSize: 15,
                 color: AppColors.textGreyColor,
               ),
 
-              Insets.gapW10,
+              Insets.expand,
 
               // Num of tickets
               SizedBox(
                 width: 40,
                 child: CustomText(
-                  '${selectedSeats.length}',
+                  '${selectedSpaces.length}',
                   textAlign: TextAlign.center,
-                  fontSize: 16,
+                  fontSize: 15,
                   color: AppColors.textGreyColor,
                 ),
               ),
 
-              Insets.expand,
+              Insets.gapW10,
 
               // Price
-              CustomText.body(
+              CustomText(
                 '$ticketPrice',
+                fontSize: 15,
                 color: AppColors.textGreyColor,
               )
             ],
           ),
 
-          Insets.gapH10,
+        const Divider(color: Colors.black, thickness: 0.8),
 
-          // Parking Summary Data
-          if (selectedSpaces.isNotEmpty)
-            Row(
-              children: [
-                // Type
-                CustomText.body(
-                  'Parking',
-                  color: AppColors.textGreyColor,
-                ),
-
-                Insets.gapW10,
-
-                // Num of tickets
-                SizedBox(
-                  width: 40,
-                  child: CustomText(
-                    '${selectedSpaces.length}',
-                    textAlign: TextAlign.center,
-                    fontSize: 16,
-                    color: AppColors.textGreyColor,
-                  ),
-                ),
-
-                Insets.expand,
-
-                // Price
-                CustomText.body(
-                  '$ticketPrice',
-                  color: AppColors.textGreyColor,
-                )
-              ],
+        // Billing Total
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            CustomText.body(
+              'Total - Rs. $totalAmount',
+              color: AppColors.textBlackColor,
+              fontWeight: FontWeight.bold,
             ),
-
-          const Divider(color: Colors.black, thickness: 0.8),
-
-          // Billing Total
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              CustomText.body(
-                'Total - Rs. $totalAmount',
-                fontWeight: FontWeight.bold,
-              ),
-            ],
-          ),
-        ],
-      ),
+          ],
+        ),
+      ],
     );
   }
 }

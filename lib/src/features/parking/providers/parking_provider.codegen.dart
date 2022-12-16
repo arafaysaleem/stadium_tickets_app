@@ -15,7 +15,9 @@ part 'parking_provider.codegen.g.dart';
 
 final currentParkingFloorProvider =
     StateProvider.autoDispose<ParkingFloorModel?>(
-  (_) => null,
+  (ref) {
+    return ref.watch(parkingFloorsFutureProvider).asData?.value.first;
+  },
 );
 
 @riverpod

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../../helpers/typedefs.dart';
 
 // Screens
+import '../../features/checkout/checkout.dart';
 import '../../features/events/events.dart';
 import '../../features/stadium_zones/stadium_zones.dart';
 import '../../features/zone_resources/zone_resources.dart';
@@ -54,7 +55,7 @@ class Routes {
     ZoneResourcesScreenRoute: (_) => const ZoneResourcesScreen(),
     ZoneSeatsScreenRoute: (_) => const ZoneSeatsScreen(),
     ParkingsScreenRoute: (_) => const ParkingsScreen(),
-    CheckoutScreenRoute: (_) => const SizedBox.shrink(),
+    CheckoutScreenRoute: (_) => const CheckoutScreen(),
     TicketsSummaryScreenRoute: (_) => const TicketSummaryScreen(),
     NotFoundScreenRoute: (_) => const SizedBox.shrink(),
   };

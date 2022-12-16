@@ -24,7 +24,7 @@ class TicketsSummaryBox extends StatelessWidget {
     return Container(
       decoration: const BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.all(Radius.circular(10)),
+        borderRadius: Corners.rounded10,
       ),
       margin: const EdgeInsets.symmetric(horizontal: 20),
       child: Column(

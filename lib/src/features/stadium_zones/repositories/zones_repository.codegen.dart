@@ -61,6 +61,7 @@ class MockZonesRepository implements ZonesRepository {
         ZoneModel.fromJson(<String, dynamic>{
           'zone_id': 11,
           'name': 'WEST',
+          'number': 5,
           'seats_per_row': 17,
           'num_of_rows': 20,
           'color_hex_code': '#FDDF00',
@@ -72,6 +73,7 @@ class MockZonesRepository implements ZonesRepository {
         ZoneModel.fromJson(<String, dynamic>{
           'zone_id': 2,
           'name': 'SOUTH DECK',
+          'number': 9,
           'seats_per_row': 13,
           'num_of_rows': 7,
           'color_hex_code': '#FDDF00',
@@ -83,6 +85,7 @@ class MockZonesRepository implements ZonesRepository {
         ZoneModel.fromJson(<String, dynamic>{
           'zone_id': 1,
           'name': 'NORTH',
+          'number': 6,
           'seats_per_row': 14,
           'num_of_rows': 17,
           'color_hex_code': '#FDDF00',

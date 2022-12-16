@@ -52,11 +52,11 @@ class CheckoutScreen extends StatelessWidget {
 
               // Bill Details White Box
               Container(
-                padding: const EdgeInsets.symmetric(vertical: 15),
-                margin: const EdgeInsets.symmetric(horizontal: 20),
+                padding: const EdgeInsets.all(15),
+                margin: const EdgeInsets.symmetric(horizontal: 15),
                 decoration: const BoxDecoration(
                   color: Colors.white,
-                  borderRadius: Corners.rounded7,
+                  borderRadius: Corners.rounded10,
                 ),
                 child: const BillingDetails(),
               ),
@@ -66,25 +66,23 @@ class CheckoutScreen extends StatelessWidget {
               // Payment Details Black Box
               Expanded(
                 child: Container(
-                  padding: const EdgeInsets.symmetric(vertical: 15),
-                  margin: const EdgeInsets.symmetric(horizontal: 20),
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(15),
+                  margin: const EdgeInsets.symmetric(horizontal: 15),
                   decoration: const BoxDecoration(
                     color: AppColors.surfaceColor,
-                    borderRadius: Corners.rounded7,
+                    borderRadius: Corners.rounded10,
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       // Payment Mode Label
-                      const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 20),
-                        child: CustomText(
-                          'Payment Mode',
-                          fontWeight: FontWeight.bold,
-                          fontSize: 23,
-                          color: AppColors.textWhite80Color,
-                        ),
+                      CustomText.title(
+                        'Payment Mode',
+                        color: AppColors.textWhite80Color,
                       ),
+
+                      Insets.gapH10,
 
                       // Card details
                       CustomText.body(
@@ -95,6 +93,8 @@ class CheckoutScreen extends StatelessWidget {
                   ),
                 ),
               ),
+
+              Insets.gapH20,
 
               // Pay Button
               const PayButton(),

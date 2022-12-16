@@ -23,14 +23,14 @@ class ParkingSpacesArea extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final floor = ref.watch(currentParkingFloorProvider)!;
+    final floor = ref.watch(currentParkingFloorProvider);
     return AnimatedSwitcher(
       duration: const Duration(milliseconds: 550),
       switchOutCurve: Curves.easeInBack,
-      child: AsyncValueWidget<ParkingFloorSpacesModel>(
-        value: ref.watch(parkingSpacesFutureProvider(floor.pFloorId)),
+      child: AsyncValueWidget<ParkingFloorSpacesModel?>(
+        value: ref.watch(parkingSpacesFutureProvider(floor?.pFloorId)),
         data: (parkingSpacesModel) {
-          final extendBottom = floor.numOfRows > 11;
+          final extendBottom = floor!.numOfRows > 11;
           final extendRight = floor.spacesPerRow > 7;
           return Column(
             children: [
@@ -42,7 +42,7 @@ class ParkingSpacesArea extends ConsumerWidget {
                 extendBottom: extendBottom,
                 numOfRows: floor.numOfRows,
                 spacesPerRow: floor.spacesPerRow,
-                missing: parkingSpacesModel.missing,
+                missing: parkingSpacesModel!.missing,
                 blocked: parkingSpacesModel.blocked,
                 booked: parkingSpacesModel.booked,
               ),
