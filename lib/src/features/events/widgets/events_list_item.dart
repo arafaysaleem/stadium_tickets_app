@@ -18,6 +18,7 @@ import '../models/event_model.codegen.dart';
 // Widgets
 import '../../../global/widgets/custom_text.dart';
 import '../../../global/widgets/custom_network_image.dart';
+import '../skeletons/event_poster_placeholder.dart';
 
 class EventsListItem extends ConsumerWidget {
   final EventModel event;
@@ -46,6 +47,8 @@ class EventsListItem extends ConsumerWidget {
                   fit: BoxFit.cover,
                   borderRadius: Corners.none,
                   imageUrl: event.posterUrl,
+                  placeholder: const EventPosterPlaceholder(),
+                  errorWidget: const EventPosterPlaceholder(),
                 ),
               ),
 

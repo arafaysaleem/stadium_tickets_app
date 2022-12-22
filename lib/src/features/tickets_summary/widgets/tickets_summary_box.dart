@@ -10,9 +10,6 @@ import 'dashed_ticket_separator.dart';
 import 'show_details_section.dart';
 import 'ticket_details_list.dart';
 
-// Skeletons
-import '../skeletons/event_poster_placeholder.dart';
-
 // Features
 import '../../events/events.dart';
 

@@ -6,6 +6,9 @@ import '../../../helpers/constants/constants.dart';
 // Widgets
 import '../../../global/widgets/widgets.dart';
 
+// Features
+import '../../events/events.dart';
+
 class ZoneVideosList extends StatelessWidget {
   final List<String> videoUrls;
 
@@ -24,6 +27,8 @@ class ZoneVideosList extends StatelessWidget {
         radius: 15,
         imageUrl: videoUrls[index],
         fit: BoxFit.cover,
+        placeholder: const EventPosterPlaceholder(),
+        errorWidget: const EventPosterPlaceholder(),
       ),
     );
   }

@@ -1,8 +1,11 @@
 export 'enums/event_type_enum.dart';
+export 'enums/events_endpoint_enum.dart';
 export 'models/event_model.codegen.dart';
 export 'providers/events_provider.codegen.dart';
 export 'providers/filter_providers.codegen.dart';
+export 'repositories/events_repository.codegen.dart';
 export 'screens/events_screen.dart';
+export 'skeletons/event_poster_placeholder.dart';
 export 'widgets/events_list.dart';
 export 'widgets/events_list_item.dart';
 export 'widgets/hot_event_banner.dart';
