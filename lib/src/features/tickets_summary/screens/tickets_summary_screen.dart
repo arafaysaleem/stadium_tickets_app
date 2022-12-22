@@ -26,7 +26,7 @@ class TicketSummaryScreen extends StatelessWidget {
           children: [
             // Back icon and title
             Padding(
-              padding: const EdgeInsets.fromLTRB(10, 5, 5, 5),
+              padding: const EdgeInsets.fromLTRB(10, 10, 5, 5),
               child: Row(
                 children: const [
                   CustomBackIcon(
