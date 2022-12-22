@@ -79,10 +79,11 @@ class ParkingSpacesArea extends ConsumerWidget {
           );
         },
         loading: () => const CustomCircularLoader(),
+        emptyOrNull: () => const CustomCircularLoader(),
         error: (error, st) => ErrorResponseHandler(
           error: error,
-          // retryCallback: () => ref.refresh(showSpaceingFuture),
-          retryCallback: () {},
+          retryCallback: () =>
+              ref.refresh(parkingSpacesFutureProvider(floor?.pFloorId)),
           stackTrace: st,
         ),
       ),

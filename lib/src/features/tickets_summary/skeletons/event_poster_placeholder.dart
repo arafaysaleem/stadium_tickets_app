@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 // Helpers
 import '../../../helpers/constants/constants.dart';
 
-class MoviePosterPlaceholder extends StatelessWidget {
+class EventPosterPlaceholder extends StatelessWidget {
   final double? height;
   final double borderRadius;
   final double iconSize;
@@ -11,7 +11,7 @@ class MoviePosterPlaceholder extends StatelessWidget {
   final EdgeInsetsGeometry? margin;
   final EdgeInsets? padding;
 
-  const MoviePosterPlaceholder({
+  const EventPosterPlaceholder({
     super.key,
     this.height,
     this.padding,

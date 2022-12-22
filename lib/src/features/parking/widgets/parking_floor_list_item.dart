@@ -46,7 +46,7 @@ class ParkingFloorListItem extends ConsumerWidget {
           borderRadius: Corners.rounded10,
         ),
         child: Center(
-          child: CustomText.subtitle('Level $parking'),
+          child: CustomText.subtitle('Level ${parking.floorNumber}'),
         ),
       ),
     );

@@ -11,7 +11,7 @@ import 'show_details_section.dart';
 import 'ticket_details_list.dart';
 
 // Skeletons
-import '../skeletons/movie_poster_placeholder.dart';
+import '../skeletons/event_poster_placeholder.dart';
 
 // Features
 import '../../events/events.dart';
@@ -43,8 +43,8 @@ class TicketsSummaryBox extends StatelessWidget {
                   topLeft: Radius.circular(10),
                   topRight: Radius.circular(10),
                 ),
-                placeholder: const MoviePosterPlaceholder(),
-                errorWidget: const MoviePosterPlaceholder(),
+                placeholder: const EventPosterPlaceholder(),
+                errorWidget: const EventPosterPlaceholder(),
               );
             },
           ),

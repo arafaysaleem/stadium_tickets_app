@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // Helpers
 import '../../../helpers/constants/constants.dart';
@@ -10,24 +11,25 @@ import '../../../config/routing/routing.dart';
 import '../../../global/widgets/widgets.dart';
 import '../widgets/billing_details.dart';
 import '../widgets/pay_button.dart';
+import '../widgets/payment_details.dart';
 
-class CheckoutScreen extends StatelessWidget {
+class CheckoutScreen extends ConsumerWidget {
   const CheckoutScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       body: SafeArea(
         child: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
-          child: ScrollableColumn(
-            children: [
-              Insets.gapH20,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: ScrollableColumn(
+              children: [
+                Insets.gapH20,
 
-              // Back icon and title
-              Padding(
-                padding: const EdgeInsets.fromLTRB(10, 5, 5, 5),
-                child: Row(
+                // Back icon and title
+                Row(
                   children: const [
                     CustomBackIcon(
                       onTap: AppRouter.pop,
@@ -46,61 +48,25 @@ class CheckoutScreen extends StatelessWidget {
                     Insets.gapW30,
                   ],
                 ),
-              ),
 
-              Insets.gapH20,
+                Insets.gapH20,
 
-              // Bill Details White Box
-              Container(
-                padding: const EdgeInsets.all(15),
-                margin: const EdgeInsets.symmetric(horizontal: 15),
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: Corners.rounded10,
-                ),
-                child: const BillingDetails(),
-              ),
+                // Bill Details White Box
+                const BillingDetails(),
 
-              Insets.gapH20,
+                Insets.gapH20,
 
-              // Payment Details Black Box
-              Expanded(
-                child: Container(
-                  width: double.infinity,
-                  padding: const EdgeInsets.all(15),
-                  margin: const EdgeInsets.symmetric(horizontal: 15),
-                  decoration: const BoxDecoration(
-                    color: AppColors.surfaceColor,
-                    borderRadius: Corners.rounded10,
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Payment Mode Label
-                      CustomText.title(
-                        'Payment Mode',
-                        color: AppColors.textWhite80Color,
-                      ),
+                // Payment Details Black Box
+                const PaymentDetails(),
 
-                      Insets.gapH10,
+                Insets.expand,
 
-                      // Card details
-                      CustomText.body(
-                        '+ Add New Card',
-                        color: AppColors.textWhite80Color,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+                // Pay Button
+                const PayButton(),
 
-              Insets.gapH20,
-
-              // Pay Button
-              const PayButton(),
-
-              Insets.gapH5,
-            ],
+                Insets.bottomInsetsLow,
+              ],
+            ),
           ),
         ),
       ),
