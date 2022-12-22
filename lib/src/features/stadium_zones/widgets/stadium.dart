@@ -74,6 +74,7 @@ class Stadium extends ConsumerWidget {
                       _coords[_coords.length - i - 1],
                     ),
                     child: ZoneNumberBox(
+                      number: i + 1,
                       zone: zones[i + 1],
                     ),
                   )
@@ -117,6 +118,7 @@ class _MiddleGreyLayer extends StatelessWidget {
             top: 27,
             left: 12,
             child: ZoneNumberBox(
+              number: 5,
               zone: zonesMap[5],
             ),
           ),
@@ -126,6 +128,7 @@ class _MiddleGreyLayer extends StatelessWidget {
             top: 27,
             right: 12,
             child: ZoneNumberBox(
+              number: 6,
               zone: zonesMap[6],
             ),
           ),
@@ -135,6 +138,7 @@ class _MiddleGreyLayer extends StatelessWidget {
             bottom: 27,
             right: 12,
             child: ZoneNumberBox(
+              number: 7,
               zone: zonesMap[7],
             ),
           ),
@@ -144,6 +148,7 @@ class _MiddleGreyLayer extends StatelessWidget {
             bottom: 27,
             left: 12,
             child: ZoneNumberBox(
+              number: 8,
               zone: zonesMap[8],
             ),
           ),
@@ -181,7 +186,10 @@ class _InnerGreyLayer extends StatelessWidget {
                 _coords[i],
                 -1 * _coords[_coords.length - i - 1],
               ),
-              child: ZoneNumberBox(zone: zonesMap[i + 9]),
+              child: ZoneNumberBox(
+                number: i + 9,
+                zone: zonesMap[i + 9],
+              ),
             )
         ],
       ),
