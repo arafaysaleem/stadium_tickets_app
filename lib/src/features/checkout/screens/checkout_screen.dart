@@ -26,7 +26,7 @@ class CheckoutScreen extends ConsumerWidget {
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: ScrollableColumn(
               children: [
-                Insets.gapH20,
+                Insets.gapH10,
 
                 // Back icon and title
                 Row(

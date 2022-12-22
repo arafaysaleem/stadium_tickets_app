@@ -39,7 +39,7 @@ class BillingDetails extends ConsumerWidget {
           // Event Poster
           CustomNetworkImage(
             imageUrl: event.posterUrl,
-            height: 180,
+            height: 170,
             fit: BoxFit.cover,
             borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(10),
