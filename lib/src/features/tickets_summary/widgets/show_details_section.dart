@@ -21,7 +21,7 @@ class ShowDetailsSection extends ConsumerWidget {
     final zoneName =
         ref.watch(currentZoneProvider.select((value) => value!.name));
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
