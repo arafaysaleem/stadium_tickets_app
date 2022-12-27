@@ -119,7 +119,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
     setState(() {
       errorText = error;
     });
-    return error;
+    return null;
   }
 
   void _togglePasswordVisibility() {

@@ -7,9 +7,12 @@ import '../../../helpers/constants/constants.dart';
 // Models
 import '../models/seat_ticket_model.codegen.dart';
 
+// Providers
+import '../providers/tickets_summary_provider.dart';
+
 // Widgets
 import '../../../global/widgets/widgets.dart';
-import '../tickets_summary.dart';
+import 'ticket_details_bottom_sheet.dart';
 
 class SeatTicket extends StatelessWidget {
   const SeatTicket({
@@ -29,7 +32,6 @@ class SeatTicket extends StatelessWidget {
       height: 105,
       color: isDetailAdded ? Colors.white : AppColors.greyOutlineColor,
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           // Seat
           Padding(
@@ -65,6 +67,8 @@ class SeatTicket extends StatelessWidget {
               ],
             ),
           ),
+
+          Insets.gapW(35),
 
           // Person Details
           Column(
@@ -107,6 +111,8 @@ class SeatTicket extends StatelessWidget {
             ],
           ),
 
+          Insets.expand,
+
           // Add/Edit Details Button
           Consumer(
             builder: (context, ref, child) {
@@ -115,22 +121,18 @@ class SeatTicket extends StatelessWidget {
                 width: 44,
                 height: 27,
                 onPressed: () {
-                  ref.read(ticketsSummaryProvider.notifier).update(
-                    (state) {
-                      return state.copyWith(
-                        seatTickets: [
-                          for (int i = 0; i < state.seatTickets.length; i++)
-                            if (i == index)
-                              state.seatTickets[index].copyWith(
-                                personId:
-                                    isDetailAdded ? null : '42201-2909561-5',
-                                personName: isDetailAdded ? null : 'John Doe',
-                              )
-                            else
-                              state.seatTickets[i]
-                        ],
-                      );
-                    },
+                  showModalBottomSheet<dynamic>(
+                    isScrollControlled: true,
+                    shape: const RoundedRectangleBorder(
+                      borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(20),
+                      ),
+                    ),
+                    context: context,
+                    builder: (_) => TicketDetailsBottomSheet(
+                      index: index,
+                      seatTicket: seatTicketModel,
+                    ),
                   );
                 },
                 child: Center(

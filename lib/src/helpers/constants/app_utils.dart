@@ -105,8 +105,8 @@ class Regexes {
   /// The regular expression for validating contacts in the app.
   static RegExp contactRegex = RegExp(r'^(03|3)\d{9}$');
 
-  /// The regular expression for validating erps in the app.
-  static RegExp erpRegex = RegExp(r'^[1-9]{1}\d{4}$');
+  /// The regular expression for validating ids in the app.
+  static RegExp idRegex = RegExp(r'^(9\d{2})([ \-]?)([7]\d|8[0-8])([ \-]?)(\d{4})$');
 
   /// The regular expression for validating names in the app.
   static RegExp nameRegex = RegExp(r'^[a-z A-Z]+$');
