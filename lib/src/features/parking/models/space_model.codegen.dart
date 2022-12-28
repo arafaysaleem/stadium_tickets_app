@@ -10,13 +10,12 @@ class SpaceModel with _$SpaceModel {
   const factory SpaceModel({
     required String spaceRow,
     required int spaceNumber,
+    required int floorNumber,
   }) = _SpaceModel;
 
   const SpaceModel._();
 
   factory SpaceModel.fromJson(JSON json) => _$SpaceModelFromJson(json);
 
-  String toName() {
-    return '$spaceRow-$spaceNumber';
-  }
+  String get name => '$spaceRow-$spaceNumber';
 }

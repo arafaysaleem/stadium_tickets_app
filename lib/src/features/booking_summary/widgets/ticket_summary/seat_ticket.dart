@@ -2,17 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // Helpers
-import '../../../helpers/constants/constants.dart';
+import '../../../../helpers/constants/constants.dart';
 
 // Models
-import '../models/seat_ticket_model.codegen.dart';
-
-// Providers
-import '../providers/tickets_summary_provider.dart';
+import '../../models/booking_seat_model.codegen.dart';
 
 // Widgets
-import '../../../global/widgets/widgets.dart';
-import 'ticket_details_bottom_sheet.dart';
+import '../../../../global/widgets/widgets.dart';
+import '../ticket_details/ticket_details_bottom_sheet.dart';
 
 class SeatTicket extends StatelessWidget {
   const SeatTicket({
@@ -21,12 +18,12 @@ class SeatTicket extends StatelessWidget {
     required this.index,
   });
 
-  final SeatTicketModel seatTicketModel;
+  final BookingSeatModel seatTicketModel;
   final int index;
 
   @override
   Widget build(BuildContext context) {
-    final isDetailAdded = seatTicketModel.personId != null;
+    final isDetailAdded = seatTicketModel.identificationNumber != null;
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 8),
       height: 105,
@@ -56,7 +53,7 @@ class SeatTicket extends StatelessWidget {
                     color: AppColors.textGreyColor,
                   ),
                   child: CustomText(
-                    seatTicketModel.seatModel.name,
+                    '${seatTicketModel.seatRow}-${seatTicketModel.seatNumber}',
                     fontSize: 15,
                     color: isDetailAdded
                         ? AppColors.textBlackColor
@@ -100,7 +97,7 @@ class SeatTicket extends StatelessWidget {
                   color: AppColors.textGreyColor,
                 ),
                 child: CustomText(
-                  seatTicketModel.personId ?? 'To Be Added',
+                  seatTicketModel.identificationNumber ?? 'To Be Added',
                   fontSize: 15,
                   color: isDetailAdded
                       ? AppColors.textBlackColor

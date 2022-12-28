@@ -74,7 +74,7 @@ class CustomTextField extends StatefulWidget {
       color: AppColors.textWhite80Color,
     ),
     this.errorStyle = const TextStyle(
-      height: 0,
+      height: 0.01,
       color: Colors.transparent,
     ),
     this.inputStyle = const TextStyle(
@@ -119,7 +119,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
     setState(() {
       errorText = error;
     });
-    return null;
+    return error;
   }
 
   void _togglePasswordVisibility() {

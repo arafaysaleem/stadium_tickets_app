@@ -13,7 +13,7 @@ import '../providers/checkout_provider.dart';
 // Features
 import '../../events/events.dart';
 import '../../stadium_zones/stadium_zones.dart';
-import '../../tickets_summary/tickets_summary.dart';
+import '../../booking_summary/tickets_summary.dart';
 
 class BillingDetails extends ConsumerWidget {
   const BillingDetails({super.key});
@@ -25,9 +25,8 @@ class BillingDetails extends ConsumerWidget {
     );
     final event = ref.watch(currentEventProvider)!;
     final totalAmount = ref.watch(totalAmountProvider);
-    final ticketsSummary = ref.watch(ticketsSummaryProvider);
-    final selectedSeats = ticketsSummary.seatTickets;
-    final selectedSpaces = ticketsSummary.parkingTickets;
+    final selectedSeats = ref.watch(seatTicketsProvider);
+    final selectedSpaces = ref.watch(parkingTicketsProvider);
     return DecoratedBox(
       decoration: const BoxDecoration(
         color: Colors.white,

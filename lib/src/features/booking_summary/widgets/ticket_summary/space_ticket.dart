@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
 // Helpers
-import '../../../helpers/constants/constants.dart';
+import '../../../../helpers/constants/constants.dart';
 
 // Models
-import '../models/parking_ticket_model.dart';
+import '../../models/booking_parking_model.codegen.dart';
 
 // Widgets
-import '../../../global/widgets/widgets.dart';
+import '../../../../global/widgets/widgets.dart';
 
 class SpaceTicket extends StatelessWidget {
-  final ParkingTicketModel parkingTicketModel;
+  final BookingParkingModel parkingTicketModel;
 
   const SpaceTicket({
     super.key,
@@ -53,7 +53,7 @@ class SpaceTicket extends StatelessWidget {
               color: AppColors.textGreyColor,
             ),
             child: CustomText(
-              parkingTicketModel.spaceModel.toName(),
+              '${parkingTicketModel.spaceRow}-${parkingTicketModel.spaceNumber}',
               fontSize: 15,
               color: AppColors.textBlackColor,
               fontWeight: FontWeight.bold,

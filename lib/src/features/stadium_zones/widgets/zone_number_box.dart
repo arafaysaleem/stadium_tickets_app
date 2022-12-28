@@ -30,14 +30,15 @@ class ZoneNumberBox extends ConsumerWidget {
     );
     final size = isSelected ? 26.0 : 24.0;
     return InkWell(
-      onTap: () {
-        if (zone == null) return;
-        if (!isSelected) {
-          ref.read(currentZoneProvider.notifier).state = zone;
-        } else {
-          ref.invalidate(currentZoneProvider);
-        }
-      },
+      onTap: zone == null
+          ? null
+          : () {
+              if (!isSelected) {
+                ref.read(currentZoneProvider.notifier).state = zone;
+              } else {
+                ref.invalidate(currentZoneProvider);
+              }
+            },
       child: Container(
         decoration: BoxDecoration(
           borderRadius: Corners.rounded4,

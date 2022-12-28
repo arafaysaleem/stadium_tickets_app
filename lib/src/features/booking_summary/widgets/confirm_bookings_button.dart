@@ -19,7 +19,9 @@ class ConfirmBookingsButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final ticketDetailsAdded = ref.watch(
-      ticketsSummaryProvider.select((value) => value.personDetailsAdded),
+      seatTicketsProvider.select(
+        (value) => value.every((element) => element.identificationNumber != null),
+      ),
     );
     return Padding(
       padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),

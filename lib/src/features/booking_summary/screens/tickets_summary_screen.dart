@@ -10,7 +10,7 @@ import '../../../config/routing/routing.dart';
 // Widgets
 import '../../../global/widgets/widgets.dart';
 import '../widgets/confirm_bookings_button.dart';
-import '../widgets/tickets_summary_box.dart';
+import '../widgets/ticket_summary/tickets_summary_box.dart';
 
 // Features
 import '../../parking/parking.dart';

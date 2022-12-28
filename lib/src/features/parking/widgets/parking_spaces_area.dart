@@ -42,6 +42,7 @@ class ParkingSpacesArea extends ConsumerWidget {
                 extendBottom: extendBottom,
                 numOfRows: floor.numOfRows,
                 spacesPerRow: floor.spacesPerRow,
+                floorNumber: floor.floorNumber,
                 missing: parkingSpacesModel!.missing,
                 blocked: parkingSpacesModel.blocked,
                 booked: parkingSpacesModel.booked,
@@ -56,7 +57,7 @@ class ParkingSpacesArea extends ConsumerWidget {
                   builder: (ctx, ref, child) {
                     final spaceNames = ref.watch(
                       currentFloorSelectedSpacesProvider.select(
-                        (value) => value.map((e) => e.toName()).toList(),
+                        (value) => value.map((e) => e.name).toList(),
                       ),
                     );
                     return CustomChipsList(

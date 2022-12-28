@@ -19,6 +19,7 @@ class ParkingSpacesGrid extends HookWidget {
   final double spaceWidth;
   final double spaceGap;
   final int numOfRows;
+  final int floorNumber;
   final bool extendBottom;
   final bool extendRight;
   final int spacesPerRow;
@@ -38,6 +39,7 @@ class ParkingSpacesGrid extends HookWidget {
     required this.blocked,
     required this.booked,
     required this.numOfRows,
+    required this.floorNumber,
     required this.spacesPerRow,
   });
 
@@ -99,6 +101,7 @@ class ParkingSpacesGrid extends HookWidget {
                     ),
                     itemBuilder: (ctx, i) {
                       final space = SpaceModel(
+                        floorNumber: floorNumber,
                         spaceRow: String.fromCharCode(i % numOfRows + 65),
                         spaceNumber: i ~/ numOfRows,
                       );

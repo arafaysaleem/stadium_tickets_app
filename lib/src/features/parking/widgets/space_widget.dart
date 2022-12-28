@@ -87,7 +87,7 @@ class _SpaceWidgetState extends ConsumerState<SpaceWidget> {
           ),
           child: Center(
             child: CustomText.subtitle(
-              widget.space.toName(),
+              widget.space.name,
             ),
           ),
         ),

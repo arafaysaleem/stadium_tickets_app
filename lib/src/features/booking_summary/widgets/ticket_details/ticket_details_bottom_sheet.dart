@@ -3,24 +3,24 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // Providers
-import '../../../helpers/form_validator.dart';
-import '../providers/tickets_summary_provider.dart';
+import '../../providers/tickets_summary_provider.dart';
 
 // Models
-import '../models/seat_ticket_model.codegen.dart';
+import '../../models/booking_seat_model.codegen.dart';
 
 // Helpers
-import '../../../helpers/constants/constants.dart';
+import '../../../../helpers/form_validator.dart';
+import '../../../../helpers/constants/constants.dart';
 
 // Routing
-import '../../../config/routing/routing.dart';
+import '../../../../config/routing/routing.dart';
 
 // Widgets
-import '../../../global/widgets/widgets.dart';
+import '../../../../global/widgets/widgets.dart';
 
 class TicketDetailsBottomSheet extends HookConsumerWidget {
   final int index;
-  final SeatTicketModel seatTicket;
+  final BookingSeatModel seatTicket;
 
   const TicketDetailsBottomSheet({
     super.key,
@@ -36,20 +36,13 @@ class TicketDetailsBottomSheet extends HookConsumerWidget {
   }) {
     if (!formKey.currentState!.validate()) return;
     formKey.currentState!.save();
-    ref.read(ticketsSummaryProvider.notifier).update(
+    ref.read(seatTicketsProvider.notifier).update(
       (state) {
-        return state.copyWith(
-          seatTickets: [
-            for (int i = 0; i < state.seatTickets.length; i++)
-              if (i == index)
-                state.seatTickets[index].copyWith(
-                  personId: personId,
-                  personName: personName,
-                )
-              else
-                state.seatTickets[i]
-          ],
+        state[index] = state[index].copyWith(
+          identificationNumber: personId,
+          personName: personName,
         );
+        return [...state];
       },
     );
     AppRouter.pop();
@@ -59,7 +52,8 @@ class TicketDetailsBottomSheet extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final nameController =
         useTextEditingController(text: seatTicket.personName);
-    final idController = useTextEditingController(text: seatTicket.personId);
+    final idController =
+        useTextEditingController(text: seatTicket.identificationNumber);
     final formKey = useMemoized(GlobalKey<FormState>.new);
     return SafeArea(
       child: CustomScrollableBottomSheet(

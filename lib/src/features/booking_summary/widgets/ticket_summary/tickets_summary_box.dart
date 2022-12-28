@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // Helpers
-import '../../../helpers/constants/constants.dart';
+import '../../../../helpers/constants/constants.dart';
 
 // Widgets
-import '../../../global/widgets/widgets.dart';
+import '../../../../global/widgets/widgets.dart';
 import 'dashed_ticket_separator.dart';
 import 'show_details_section.dart';
 import 'ticket_details_list.dart';
 
 // Features
-import '../../events/events.dart';
+import '../../../events/events.dart';
 
 class TicketsSummaryBox extends StatelessWidget {
   const TicketsSummaryBox({super.key});

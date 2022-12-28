@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // Providers
-import '../providers/tickets_summary_provider.dart';
+import '../../providers/tickets_summary_provider.dart';
 
 // Widgets
 import 'dashed_ticket_separator.dart';
@@ -23,9 +23,8 @@ class TicketDetailsList extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final ticketsSummary = ref.watch(ticketsSummaryProvider);
-    final selectedSeats = ticketsSummary.seatTickets;
-    final selectedSpaces = ticketsSummary.parkingTickets;
+    final selectedSeats = ref.watch(seatTicketsProvider);
+    final selectedSpaces = ref.watch(parkingTicketsProvider);
     return ScrollConfiguration(
       behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
       child: ShaderMask(

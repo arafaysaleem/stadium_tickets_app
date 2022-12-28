@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 // Helper
-import '../../../helpers/constants/constants.dart';
+import '../../../../helpers/constants/constants.dart';
 
 class DashedTicketSeparator extends StatelessWidget {
   const DashedTicketSeparator({super.key});
