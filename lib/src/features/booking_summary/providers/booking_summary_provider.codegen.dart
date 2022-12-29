@@ -68,6 +68,11 @@ final totalAmountProvider = Provider.autoDispose<int>((ref) {
   return total;
 });
 
+final reservedBookingProvider = Provider.autoDispose<int?>((ref) {
+  final bookingSummary = ref.watch(bookingSummaryProvider);
+  return bookingSummary.asData?.value;
+});
+
 @riverpod
 class BookingSummary extends _$BookingSummary {
   @override

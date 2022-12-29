@@ -12,7 +12,7 @@ class CardDetailsModel with _$CardDetailsModel {
     required String cardHolderName,
     required int cardNumber,
     required int cvv,
-    required DateTime expiry,
+    required String expiry,
   }) = _CardDetailsModel;
 
   factory CardDetailsModel.fromJson(JSON json) => _$CardDetailsModelFromJson(json);

@@ -1,15 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-// Helpers
-import '../../../helpers/constants/constants.dart';
-
 // Widgets
-import '../../../global/widgets/widgets.dart';
-import '../checkout.dart';
+import '../../../../global/widgets/widgets.dart';
 
-class PayButton extends ConsumerWidget {
-  const PayButton({super.key});
+// Helpers
+import '../../../../helpers/constants/constants.dart';
+
+// Providers
+import '../../providers/checkout_provider.dart';
+
+class SaveButton extends ConsumerWidget {
+  final VoidCallback onSave;
+
+  const SaveButton({
+    super.key,
+    required this.onSave,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -18,12 +25,12 @@ class PayButton extends ConsumerWidget {
     );
     return CustomTextButton.gradient(
       width: double.infinity,
-      onPressed: () {},
+      onPressed: onSave,
       disabled: !cardAdded,
       gradient: AppColors.buttonGradientPrimary,
       child: const Center(
         child: Text(
-          'PAY',
+          'SAVE',
           style: TextStyle(
             color: Colors.white,
             fontSize: 15,

@@ -19,6 +19,15 @@ class FormValidator {
   /// The error message for invalid identification input.
   static const _invalidIdError = 'Please enter a valid identification';
 
+  /// The error message for invalid credit card number input.
+  static const _invalidCardNumberError = 'Invalid card number';
+
+  /// The error message for invalid credit card CVV input.
+  static const _invalidCardCVVError = 'Please enter a valid CVV';
+
+  /// The error message for invalid credit card expiry input.
+  static const _invalidCardExpiryError = 'Please enter a valid expiry date';
+
   /// A method containing validation logic for name input.
   static String? nameValidator(String? name) {
     if (name != null && name.isValidName) return null;
@@ -35,5 +44,23 @@ class FormValidator {
   static String? idValidator(String? id) {
     if (id != null && id.isValidIdentification) return null;
     return _invalidIdError;
+  }
+
+  /// A method containing validation logic for credit card number input.
+  static String? cardNumberValidator(String? ccNumber) {
+    if (ccNumber != null && ccNumber.isValidCreditCardNumber) return null;
+    return _invalidCardNumberError;
+  }
+
+  /// A method containing validation logic for credit card CVV input.
+  static String? cardCVVValidator(String? cvv) {
+    if (cvv != null && cvv.isValidCreditCardCVV) return null;
+    return _invalidCardCVVError;
+  }
+
+  /// A method containing validation logic for credit card expiry input.
+  static String? cardExpiryValidator(String? expiry) {
+    if (expiry != null && expiry.isValidCreditCardExpiry) return null;
+    return _invalidCardExpiryError;
   }
 }

@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // Helpers
-import '../../../helpers/constants/constants.dart';
+import '../../../../helpers/constants/constants.dart';
 
 // Widgets
-import '../../../global/widgets/widgets.dart';
+import '../../../../global/widgets/widgets.dart';
 
 // Features
-import '../../events/events.dart';
-import '../../stadium_zones/stadium_zones.dart';
-import '../../booking_summary/booking_summary.dart';
+import '../../../events/events.dart';
+import '../../../stadium_zones/stadium_zones.dart';
+import '../../../booking_summary/booking_summary.dart';
 
 class BillingDetails extends ConsumerWidget {
   const BillingDetails({super.key});

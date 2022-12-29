@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-// Helpers
-import '../../../helpers/constants/constants.dart';
+// Routing
+import '../../../../config/routing/routing.dart';
 
-// Models
-import '../models/card_details_model.codegen.dart';
+// Helpers
+import '../../../../helpers/constants/constants.dart';
 
 // Providers
-import '../providers/checkout_provider.dart';
+import '../../providers/checkout_provider.dart';
 
 // Widgets
-import '../../../global/widgets/widgets.dart';
+import '../../../../global/widgets/widgets.dart';
 
 class PaymentDetails extends ConsumerWidget {
   const PaymentDetails({super.key});
@@ -43,13 +43,7 @@ class PaymentDetails extends ConsumerWidget {
           if (cardDetails == null)
             GestureDetector(
               onTap: () {
-                final mockCard = CardDetailsModel(
-                  cardHolderName: 'John Doe',
-                  cardNumber: 1234567890123456,
-                  cvv: 123,
-                  expiry: DateTime.now(),
-                );
-                ref.read(cardDetailsProvider.notifier).state = mockCard;
+                AppRouter.pushNamed(Routes.CardSetupScreenRoute);
               },
               child: Row(
                 children: const [
