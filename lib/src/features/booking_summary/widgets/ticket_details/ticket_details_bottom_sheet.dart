@@ -3,7 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // Providers
-import '../../providers/tickets_summary_provider.dart';
+import '../../providers/booking_summary_provider.codegen.dart';
 
 // Models
 import '../../models/booking_seat_model.codegen.dart';

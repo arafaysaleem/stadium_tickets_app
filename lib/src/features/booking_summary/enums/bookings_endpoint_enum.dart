@@ -6,7 +6,7 @@ enum BookingsEndpoint {
 
   const BookingsEndpoint();
 
-  static const _baseRoute = '/bookings';
+  static const _baseRoute = '/event-bookings';
 
   /// Returns the path for bookings [endpoint].
   ///

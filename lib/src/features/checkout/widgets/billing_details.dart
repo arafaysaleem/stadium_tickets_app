@@ -7,13 +7,10 @@ import '../../../helpers/constants/constants.dart';
 // Widgets
 import '../../../global/widgets/widgets.dart';
 
-// Providers
-import '../providers/checkout_provider.dart';
-
 // Features
 import '../../events/events.dart';
 import '../../stadium_zones/stadium_zones.dart';
-import '../../booking_summary/tickets_summary.dart';
+import '../../booking_summary/booking_summary.dart';
 
 class BillingDetails extends ConsumerWidget {
   const BillingDetails({super.key});

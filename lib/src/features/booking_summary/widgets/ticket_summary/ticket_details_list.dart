@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // Providers
-import '../../providers/tickets_summary_provider.dart';
+import '../../providers/booking_summary_provider.codegen.dart';
 
 // Widgets
 import 'dashed_ticket_separator.dart';

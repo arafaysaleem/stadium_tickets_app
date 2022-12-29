@@ -10,7 +10,7 @@ import '../../features/events/events.dart';
 import '../../features/stadium_zones/stadium_zones.dart';
 import '../../features/zone_resources/zone_resources.dart';
 import '../../features/zone_seats/zone_seats.dart';
-import '../../features/booking_summary/tickets_summary.dart';
+import '../../features/booking_summary/booking_summary.dart';
 import '../../features/parking/parking.dart';
 
 /// A utility class that holds screen names for named navigation.

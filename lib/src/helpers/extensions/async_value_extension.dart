@@ -1,13 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-// Networking
-import '../../core/networking/custom_exception.dart';
+import '../../core/core.dart';
 
-abstract class AsyncStateNotifier<T> extends StateNotifier<AsyncValue<T>> {
-  AsyncStateNotifier(super.state);
-
-  @protected
+extension AsyncGuardedRequest<T> on AsyncValue<T> {
   Future<AsyncValue<T>> makeGuardedRequest(
     Future<T> Function() callback,
   ) async {
@@ -15,6 +11,7 @@ abstract class AsyncStateNotifier<T> extends StateNotifier<AsyncValue<T>> {
       final result = await callback.call();
       return AsyncValue.data(result);
     } on CustomException catch (ex, st) {
+      debugPrintStack(label: ex.message, stackTrace: st);
       return AsyncValue.error(ex.message, st);
     }
   }
