@@ -8,7 +8,7 @@ import '../../../../config/routing/routing.dart';
 import '../../../../helpers/constants/constants.dart';
 
 // Providers
-import '../../providers/checkout_provider.dart';
+import '../../providers/checkout_provider.codegen.dart';
 
 // Widgets
 import '../../../../global/widgets/widgets.dart';

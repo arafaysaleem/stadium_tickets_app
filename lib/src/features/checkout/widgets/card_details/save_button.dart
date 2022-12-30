@@ -8,7 +8,7 @@ import '../../../../global/widgets/widgets.dart';
 import '../../../../helpers/constants/constants.dart';
 
 // Providers
-import '../../providers/checkout_provider.dart';
+import '../../providers/checkout_provider.codegen.dart';
 
 class SaveButton extends ConsumerWidget {
   final VoidCallback onSave;

@@ -12,7 +12,7 @@ import '../../../helpers/constants/constants.dart';
 import '../models/card_details_model.codegen.dart';
 
 // Providers
-import '../providers/checkout_provider.dart';
+import '../providers/checkout_provider.codegen.dart';
 
 // Widgets
 import '../../../global/widgets/widgets.dart';

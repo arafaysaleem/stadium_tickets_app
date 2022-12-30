@@ -1,5 +1,5 @@
 export 'models/card_details_model.codegen.dart';
-export 'providers/checkout_provider.dart';
+export 'providers/checkout_provider.codegen.dart';
 export 'screens/card_setup_screen.dart';
 export 'screens/checkout_screen.dart';
 export 'widgets/billings/billing_details.dart';
