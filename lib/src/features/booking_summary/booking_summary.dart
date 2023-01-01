@@ -6,7 +6,6 @@ export 'models/booking_seat_model.codegen.dart';
 export 'providers/booking_summary_provider.codegen.dart';
 export 'repositories/bookings_repository.codegen.dart';
 export 'screens/tickets_summary_screen.dart';
-export 'booking_summary.dart';
 export 'widgets/confirm_bookings_button.dart';
 export 'widgets/ticket_details/ticket_details_bottom_sheet.dart';
 export 'widgets/ticket_summary/dashed_ticket_separator.dart';
