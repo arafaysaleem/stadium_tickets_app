@@ -7,6 +7,7 @@ import '../../../config/routing/routing.dart';
 
 // Helpers
 import '../../../helpers/constants/constants.dart';
+import '../enums/card_provider_enum.dart';
 
 // Models
 import '../models/card_details_model.codegen.dart';
@@ -24,7 +25,7 @@ class CardSetupScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final savedCardDetails = ref.watch(cardDetailsProvider);
+    final savedCardDetails = ref.watch(savedCardDetailsProvider);
     final formKey = useMemoized(GlobalKey<FormState>.new);
     final cardholderNameController = useTextEditingController(
       text: savedCardDetails?.cardHolderName,
@@ -38,17 +39,23 @@ class CardSetupScreen extends HookConsumerWidget {
     final cardExpiryController = useTextEditingController(
       text: savedCardDetails?.expiry,
     );
+    final cardProviderController = useValueNotifier<CardProvider>(
+      savedCardDetails?.provider ?? CardProvider.VISA,
+    );
 
-    void onSave() {
+    void onValidate() {
       if (formKey.currentState!.validate()) {
         formKey.currentState!.save();
+        final cardNumber = AppUtils.cleanWhitespace(cardNumberController.text);
+        final cardExpiry = AppUtils.cleanWhitespace(cardExpiryController.text);
         final card = CardDetailsModel(
           cardHolderName: cardholderNameController.text,
-          cardNumber: int.parse(cardNumberController.text),
+          cardNumber: int.parse(cardNumber),
           cvv: int.parse(cardCVVController.text),
-          expiry: cardExpiryController.text,
+          expiry: cardExpiry,
+          provider: cardProviderController.value,
         );
-        ref.read(cardDetailsProvider.notifier).state = card;
+        ref.read(editedCardDetailsProvider.notifier).state = card;
       }
     }
 
@@ -62,7 +69,7 @@ class CardSetupScreen extends HookConsumerWidget {
               key: formKey,
               child: ScrollableColumn(
                 children: [
-                  Insets.gapH10,
+                  Insets.gapH15,
 
                   // Back icon and title
                   Row(
@@ -89,6 +96,7 @@ class CardSetupScreen extends HookConsumerWidget {
 
                   // Card Template
                   CardTemplate(
+                    cardProviderController: cardProviderController,
                     cardholderNameController: cardholderNameController,
                     cardCVVController: cardCVVController,
                     cardNumberController: cardNumberController,
@@ -98,15 +106,36 @@ class CardSetupScreen extends HookConsumerWidget {
                   Insets.gapH20,
 
                   // Current Input Message
-                  CustomText.title(
-                    'Enter your card details',
-                    color: AppColors.textBlackColor,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      // Message
+                      CustomText.body(
+                        'Check your card details',
+                        fontSize: 18,
+                        color: AppColors.textWhite80Color,
+                      ),
+
+                      // Validate Button
+                      CustomTextButton.gradient(
+                        width: 70,
+                        height: 30,
+                        gradient: AppColors.buttonGradientPrimary,
+                        onPressed: onValidate,
+                        child: Center(
+                          child: CustomText.subtitle(
+                            'Validate',
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
 
                   Insets.expand,
 
                   // Save Button
-                  SaveButton(onSave: onSave),
+                  const SaveButton(),
 
                   Insets.bottomInsetsLow,
                 ],

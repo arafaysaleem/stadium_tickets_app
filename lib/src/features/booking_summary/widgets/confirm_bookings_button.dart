@@ -50,7 +50,10 @@ class ConfirmBookingsButton extends ConsumerWidget {
           builder: (context, ref, child) {
             final state = ref.watch(bookingSummaryProvider);
             return state.maybeWhen(
-              loading: () => const CustomCircularLoader(),
+              loading: () => const CustomCircularLoader(
+                color: Colors.white,
+                size: 20,
+              ),
               orElse: () => child!,
             );
           },

@@ -89,7 +89,6 @@ class TicketDetailsBottomSheet extends HookConsumerWidget {
         ),
         builder: (_, __) => Form(
           key: formKey,
-          autovalidateMode: AutovalidateMode.onUserInteraction,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: Column(

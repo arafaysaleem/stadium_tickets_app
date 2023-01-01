@@ -28,8 +28,10 @@ class CustomTextField extends StatefulWidget {
   final bool readOnly;
   final bool autofocus;
   final bool showErrorBorder;
+  final bool showErrorMessage;
   final bool showFocusedBorder;
   final BorderSide border;
+  final BorderSide focusedBorder;
   final TextAlign textAlign;
   final TextAlignVertical textAlignVertical;
   final Alignment errorAlign;
@@ -38,6 +40,7 @@ class CustomTextField extends StatefulWidget {
   final TextInputType? keyboardType;
   final TextInputAction? textInputAction;
   final String? Function(String? value)? validator;
+  final List<TextInputFormatter>? inputFormatters;
 
   const CustomTextField({
     super.key,
@@ -53,6 +56,7 @@ class CustomTextField extends StatefulWidget {
     this.enabled,
     this.keyboardType,
     this.textInputAction,
+    this.inputFormatters,
     this.hintText,
     this.validator,
     this.height = 47,
@@ -62,9 +66,14 @@ class CustomTextField extends StatefulWidget {
     this.expands = false,
     this.showCursor = true,
     this.showErrorBorder = false,
+    this.showErrorMessage = true,
     this.autofocus = false,
     this.textAlign = TextAlign.start,
     this.border = BorderSide.none,
+    this.focusedBorder = const BorderSide(
+      color: AppColors.primaryColor,
+      width: 2,
+    ),
     this.textAlignVertical = TextAlignVertical.center,
     this.errorAlign = Alignment.centerRight,
     this.floatingAlign = Alignment.centerLeft,
@@ -129,12 +138,9 @@ class _CustomTextFieldState extends State<CustomTextField> {
   }
 
   OutlineInputBorder _focusedBorder() {
-    return const OutlineInputBorder(
+    return OutlineInputBorder(
       borderRadius: Corners.rounded7,
-      borderSide: BorderSide(
-        color: AppColors.primaryColor,
-        width: 2,
-      ),
+      borderSide: widget.focusedBorder,
     );
   }
 
@@ -149,6 +155,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
     return const OutlineInputBorder(
       borderRadius: Corners.rounded7,
       borderSide: BorderSide(
+        width: 2,
         color: AppColors.redColor,
       ),
     );
@@ -191,6 +198,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 (widget.multiline ? TextInputType.multiline : null),
             textInputAction: widget.textInputAction ??
                 (widget.multiline ? TextInputAction.newline : null),
+            inputFormatters: widget.inputFormatters,
             style: widget.inputStyle,
             showCursor: widget.showCursor,
             maxLengthEnforcement: MaxLengthEnforcement.enforced,
@@ -212,11 +220,10 @@ class _CustomTextFieldState extends State<CustomTextField> {
               filled: true,
               counterText: '',
               border: _normalBorder(),
-              enabledBorder: _normalBorder(),
+              enabledBorder: (widget.showErrorBorder && hasError)
+                  ? _errorBorder()
+                  : _normalBorder(),
               focusedBorder: widget.showFocusedBorder ? _focusedBorder() : null,
-              focusedErrorBorder:
-                  widget.showFocusedBorder ? _focusedBorder() : null,
-              errorBorder: showErrorBorder ? _errorBorder() : null,
               suffixIcon: widget.suffix ??
                   (isPasswordField
                       ? InkWell(
@@ -233,7 +240,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
         ),
 
         // Error text
-        if (hasError) ...[
+        if (hasError && widget.showErrorMessage) ...[
           Insets.gapH3,
           SizedBox(
             width: widget.width,

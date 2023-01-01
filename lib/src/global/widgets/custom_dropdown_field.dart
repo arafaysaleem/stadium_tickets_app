@@ -18,10 +18,12 @@ abstract class CustomDropdownField<T> extends StatelessWidget {
     Key? key,
     ValueNotifier<T?>? controller,
     required CustomDropdownSheet<T> itemsSheet,
-    required String Function(T) selectedItemText,
+    required Widget Function(T) selectedItemBuilder,
     Widget suffixIcon,
     TextStyle selectedStyle,
+    double height,
     Color displayFieldColor,
+    EdgeInsets padding,
     String hintText,
     T? initialValue,
   }) = _CustomDropdownFieldSheet;
@@ -64,17 +66,23 @@ class _CustomDropdownFieldSheet<T> extends CustomDropdownField<T> {
   final CustomDropdownSheet<T> itemsSheet;
 
   /// This callback is used to map the selected value to a
-  /// [String] for displaying.
-  final String Function(T) selectedItemText;
+  /// [Widget] for displaying.
+  final Widget Function(T) selectedItemBuilder;
 
   /// The initial value to be selected in the dropdown
   final T? initialValue;
+
+  /// The value of content padding around the field.
+  final EdgeInsets padding;
+
+  /// The height of the display field.
+  final double height;
 
   _CustomDropdownFieldSheet({
     super.key,
     ValueNotifier<T?>? controller,
     required this.itemsSheet,
-    required this.selectedItemText,
+    required this.selectedItemBuilder,
     this.suffixIcon = const Icon(
       Icons.arrow_drop_down_rounded,
       color: AppColors.textGreyColor,
@@ -84,7 +92,9 @@ class _CustomDropdownFieldSheet<T> extends CustomDropdownField<T> {
       color: AppColors.textGreyColor,
     ),
     this.displayFieldColor = AppColors.fieldFillColor,
+    this.height = 47,
     this.hintText = 'Select a value',
+    this.padding = const EdgeInsets.only(left: 20, right: 15),
     this.initialValue,
   }) : controller = controller ?? ValueNotifier(initialValue);
 
@@ -107,25 +117,21 @@ class _CustomDropdownFieldSheet<T> extends CustomDropdownField<T> {
   @override
   Widget build(BuildContext context) {
     return CustomTextButton(
-      height: 47,
+      height: height,
       onPressed: () => _pickValue(context),
-      color: displayFieldColor,
-      padding: const EdgeInsets.only(left: 20, right: 15),
+      color: displayFieldColor == Colors.transparent ? null : displayFieldColor,
+      padding: padding,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           ValueListenableBuilder<T?>(
             valueListenable: controller,
-            builder: (_, value, __) {
-              var displayValue = hintText;
-              if (value != null) {
-                displayValue = selectedItemText(value);
-              }
-              return Text(
-                displayValue,
-                style: selectedStyle,
-              );
-            },
+            builder: (_, value, __) => value != null
+                ? selectedItemBuilder(value)
+                : Text(
+                    hintText,
+                    style: selectedStyle,
+                  ),
           ),
 
           // Icon

@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // Helpers
+import '../../../../config/routing/routing.dart';
 import '../../../../helpers/constants/constants.dart';
 
 // Widgets
 import '../../../../global/widgets/widgets.dart';
+
+// Features
 import '../../checkout.dart';
 
 class PayButton extends ConsumerWidget {
@@ -14,11 +17,14 @@ class PayButton extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final cardAdded = ref.watch(
-      cardDetailsProvider.select((value) => value != null),
+      savedCardDetailsProvider.select((value) => value != null),
     );
     return CustomTextButton.gradient(
       width: double.infinity,
-      onPressed: () {},
+      onPressed: () {
+        ref.read(checkoutProvider.notifier).makeCheckoutPayment();
+        AppRouter.pushNamed(Routes.ConfirmationScreenRoute);
+      },
       disabled: !cardAdded,
       gradient: AppColors.buttonGradientPrimary,
       child: const Center(

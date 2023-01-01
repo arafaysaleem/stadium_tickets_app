@@ -47,7 +47,10 @@ class Routes {
   static const String CheckoutScreenRoute = '/checkout-screen';
 
   /// The name of the route for card setup screen
-  static const String CardSetupScreenRoute = '/card-setup';
+  static const String CardSetupScreenRoute = '/card-setup-screen';
+
+  /// The name of the route for confirmation screen
+  static const String ConfirmationScreenRoute = '/confirmation-screen';
 
   /// The name of the route for parkings screen
   static const String ParkingsScreenRoute = '/parkings-screen';
@@ -60,6 +63,7 @@ class Routes {
     ParkingsScreenRoute: (_) => const ParkingsScreen(),
     CheckoutScreenRoute: (_) => const CheckoutScreen(),
     CardSetupScreenRoute: (_) => const CardSetupScreen(),
+    ConfirmationScreenRoute: (_) => const ConfirmationScreen(),
     TicketsSummaryScreenRoute: (_) => const TicketSummaryScreen(),
     NotFoundScreenRoute: (_) => const SizedBox.shrink(),
   };

@@ -4,6 +4,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 // Widgets
 import '../../../../global/widgets/widgets.dart';
 
+// Routing
+import '../../../../config/routing/routing.dart';
+
 // Helpers
 import '../../../../helpers/constants/constants.dart';
 
@@ -11,21 +14,20 @@ import '../../../../helpers/constants/constants.dart';
 import '../../providers/checkout_provider.codegen.dart';
 
 class SaveButton extends ConsumerWidget {
-  final VoidCallback onSave;
-
-  const SaveButton({
-    super.key,
-    required this.onSave,
-  });
+  const SaveButton({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final cardAdded = ref.watch(
-      cardDetailsProvider.select((value) => value != null),
+      editedCardDetailsProvider.select((value) => value != null),
     );
     return CustomTextButton.gradient(
       width: double.infinity,
-      onPressed: onSave,
+      onPressed: () {
+        final card = ref.watch(editedCardDetailsProvider);
+        ref.read(savedCardDetailsProvider.notifier).state = card;
+        AppRouter.pop();
+      },
       disabled: !cardAdded,
       gradient: AppColors.buttonGradientPrimary,
       child: const Center(

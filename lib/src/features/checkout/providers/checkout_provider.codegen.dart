@@ -16,8 +16,15 @@ import '../../booking_summary/booking_summary.dart';
 
 part 'checkout_provider.codegen.g.dart';
 
-final cardDetailsProvider = StateProvider.autoDispose<CardDetailsModel?>((ref) {
+final savedCardDetailsProvider =
+    StateProvider.autoDispose<CardDetailsModel?>((ref) {
   return null;
+});
+
+final editedCardDetailsProvider =
+    StateProvider.autoDispose<CardDetailsModel?>((ref) {
+  final savedCard = ref.read(savedCardDetailsProvider);
+  return savedCard?.copyWith();
 });
 
 @riverpod
@@ -29,12 +36,8 @@ class Checkout extends _$Checkout {
     final checkoutRepository = ref.read(checkoutRepositoryProvider);
     state = const AsyncLoading();
 
-    state = await Future.delayed(1.seconds, () {
-      return const AsyncData(CheckoutState.PROCESSING_PAYMENT);
-    });
-
     state = await state.makeGuardedRequest(() async {
-      final card = ref.read(cardDetailsProvider);
+      final card = ref.read(savedCardDetailsProvider);
       final bookingId = ref.read(reservedBookingProvider);
       final data = card!.toJson();
       data['booking_id'] = bookingId;
@@ -44,8 +47,6 @@ class Checkout extends _$Checkout {
       return CheckoutState.CONFIRMING_BOOKING;
     });
 
-    state = await Future.delayed(1.seconds, () {
-      return const AsyncData(CheckoutState.SUCCESS);
-    });
+    state = const AsyncData(CheckoutState.SUCCESS);
   }
 }

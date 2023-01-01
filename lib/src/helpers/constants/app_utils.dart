@@ -60,6 +60,11 @@ class AppUtils {
     return list?.whereType<int>().toList();
   }
 
+  /// A utility method to clean spaces from input
+  static String cleanWhitespace(String input) {
+    return input.replaceAll(' ', '');
+  }
+
   /// Helper method to show toast message
   static void showFlushBar({
     required BuildContext context,
@@ -123,9 +128,9 @@ class Regexes {
 
   /// The regular expression for validating credit card expiry in the app.
   static RegExp creditCardExpiryRegex =
-      RegExp(r'(0[1-9]|10|11|12)/20[0-9]{2}$');
+      RegExp(r'(0[1-9]|10|11|12)/[0-9]{2}$');
 
-  /// The regular expression for validating credit card expiry in the app.
+  /// The regular expression for validating otp in the app.
   static final RegExp otpDigitRegex = RegExp(r'^[0-9]{1}$');
 }
 

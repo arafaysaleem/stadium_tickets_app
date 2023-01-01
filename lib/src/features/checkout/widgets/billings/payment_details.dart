@@ -18,7 +18,7 @@ class PaymentDetails extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final cardDetails = ref.watch(cardDetailsProvider);
+    final cardDetails = ref.watch(savedCardDetailsProvider);
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(15),
@@ -98,7 +98,7 @@ class PaymentDetails extends ConsumerWidget {
                 // Edit Icon
                 GestureDetector(
                   onTap: () {
-                    ref.read(cardDetailsProvider.notifier).state = null;
+                    AppRouter.pushNamed(Routes.CardSetupScreenRoute);
                   },
                   child: const Icon(
                     Icons.edit_outlined,

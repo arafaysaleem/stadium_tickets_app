@@ -11,4 +11,10 @@ class AppAssets {
 
   /// The path for padlock png asset
   static const String lockIcon = 'assets/images/padlock.png';
+  
+  /// The path for visa png asset
+  static const String visaIcon = 'assets/images/visa.png';
+  
+  /// The path for mastercard png asset
+  static const String mastercardIcon = 'assets/images/mastercard.png';
 }

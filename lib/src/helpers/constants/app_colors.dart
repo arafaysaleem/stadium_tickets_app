@@ -51,7 +51,7 @@ class AppColors {
   static const Color surfaceColor = Color(0xFF2b2b2b);
 
   /// The light greyish color used for filling fields of the app.
-  static const Color fieldFillColor = surfaceColor;
+  static const Color fieldFillColor = Color.fromARGB(255, 35, 35, 35);
 
   /// The color value for rating stars in the app.
   static const Color starsColor = Color.fromARGB(255, 247, 162, 64);
