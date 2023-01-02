@@ -20,19 +20,16 @@ class ConfirmationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Confirmation'),
-        centerTitle: true,
-      ),
       resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: WillPopScope(
-          onWillPop: () async => true,
+          onWillPop: () async => false,
           child: Container(
             decoration: const BoxDecoration(
               gradient: AppColors.buttonGradientDanger,
             ),
-            padding: EdgeInsets.only(bottom: Insets.bottomInsetsLow.height! + 5),
+            padding:
+                EdgeInsets.only(bottom: Insets.bottomInsetsLow.height! + 5),
             child: Consumer(
               builder: (ctx, ref, child) {
                 final state = ref.watch(checkoutProvider);
@@ -45,7 +42,7 @@ class ConfirmationScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Insets.expand,
-      
+
                         // Loading
                         if (status == CheckoutState.SUCCESS)
                           const Icon(
@@ -59,9 +56,9 @@ class ConfirmationScreen extends StatelessWidget {
                             duration: Duration(milliseconds: 1100),
                             size: 64,
                           ),
-      
+
                         const SizedBox(height: 10),
-      
+
                         // Text
                         Expanded(
                           child: Text(
@@ -76,8 +73,9 @@ class ConfirmationScreen extends StatelessWidget {
                             ),
                           ),
                         ),
-      
-                        if (status == CheckoutState.SUCCESS) const MoreBookingsButton(),
+
+                        if (status == CheckoutState.SUCCESS)
+                          const MoreBookingsButton(),
                       ],
                     ),
                     error: (reason, st) => Column(
@@ -85,15 +83,15 @@ class ConfirmationScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: const [
                         Insets.expand,
-      
+
                         Icon(
                           Icons.cancel_outlined,
                           color: Colors.white,
                           size: 64,
                         ),
-      
+
                         SizedBox(height: 10),
-      
+
                         // Text
                         Expanded(
                           child: Text(
@@ -104,7 +102,7 @@ class ConfirmationScreen extends StatelessWidget {
                             ),
                           ),
                         ),
-      
+
                         RetryPaymentButton(),
                       ],
                     ),

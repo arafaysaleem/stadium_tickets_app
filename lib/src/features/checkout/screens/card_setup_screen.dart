@@ -19,6 +19,7 @@ import '../providers/checkout_provider.codegen.dart';
 import '../../../global/widgets/widgets.dart';
 import '../widgets/card_details/card_template.dart';
 import '../widgets/card_details/save_button.dart';
+import '../widgets/card_details/validate_button.dart';
 
 class CardSetupScreen extends HookConsumerWidget {
   const CardSetupScreen({super.key});
@@ -117,18 +118,7 @@ class CardSetupScreen extends HookConsumerWidget {
                       ),
 
                       // Validate Button
-                      CustomTextButton.gradient(
-                        width: 70,
-                        height: 30,
-                        gradient: AppColors.buttonGradientPrimary,
-                        onPressed: onValidate,
-                        child: Center(
-                          child: CustomText.subtitle(
-                            'Validate',
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
+                      ValidateButton(onValidate: onValidate),
                     ],
                   ),
 
