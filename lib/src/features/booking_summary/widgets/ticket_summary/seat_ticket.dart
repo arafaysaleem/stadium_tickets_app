@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // Helpers
 import '../../../../helpers/constants/constants.dart';
@@ -111,35 +110,31 @@ class SeatTicket extends StatelessWidget {
           Insets.expand,
 
           // Add/Edit Details Button
-          Consumer(
-            builder: (context, ref, child) {
-              return CustomTextButton.gradient(
-                gradient: AppColors.buttonGradientPrimary,
-                width: 44,
-                height: 27,
-                onPressed: () {
-                  showModalBottomSheet<dynamic>(
-                    isScrollControlled: true,
-                    shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.vertical(
-                        top: Radius.circular(20),
-                      ),
-                    ),
-                    context: context,
-                    builder: (_) => TicketDetailsBottomSheet(
-                      index: index,
-                      seatTicket: seatTicketModel,
-                    ),
-                  );
-                },
-                child: Center(
-                  child: CustomText(
-                    fontSize: 13,
-                    isDetailAdded ? 'Edit' : 'Add',
+          CustomTextButton.gradient(
+            gradient: AppColors.buttonGradientPrimary,
+            width: 44,
+            height: 27,
+            onPressed: () {
+              showModalBottomSheet<dynamic>(
+                isScrollControlled: true,
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.vertical(
+                    top: Radius.circular(20),
                   ),
+                ),
+                context: context,
+                builder: (_) => TicketDetailsBottomSheet(
+                  index: index,
+                  seatTicket: seatTicketModel,
                 ),
               );
             },
+            child: Center(
+              child: CustomText(
+                fontSize: 13,
+                isDetailAdded ? 'Edit' : 'Add',
+              ),
+            ),
           )
         ],
       ),

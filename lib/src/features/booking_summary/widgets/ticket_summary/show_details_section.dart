@@ -23,12 +23,37 @@ class ShowDetailsSection extends ConsumerWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // Name
+          CustomText(
+            selectedEvent.name,
+            color: AppColors.textBlackColor,
+            fontWeight: FontWeight.bold,
+            fontSize: 16,
+            maxLines: 2,
+          ),
+
+          Insets.gapH20,
+
           // Event datetime
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
+              // Zone
+              LabeledWidget(
+                label: 'Zone',
+                labelStyle: const TextStyle(
+                  fontSize: 13,
+                  color: AppColors.textGreyColor,
+                ),
+                child: CustomText(
+                  zoneName,
+                  color: AppColors.textBlackColor,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                ),
+              ),
+
               // Date
               LabeledWidget(
                 label: 'Date',
@@ -37,7 +62,7 @@ class ShowDetailsSection extends ConsumerWidget {
                   color: AppColors.textGreyColor,
                 ),
                 child: CustomText(
-                  selectedEvent.date.toDateString('E, d MMMM y'),
+                  selectedEvent.date.toDateString('E, d MMM, yy'),
                   color: AppColors.textBlackColor,
                   fontWeight: FontWeight.bold,
                   fontSize: 14,
@@ -59,23 +84,6 @@ class ShowDetailsSection extends ConsumerWidget {
                 ),
               ),
             ],
-          ),
-
-          Insets.gapH10,
-
-          // Zone
-          LabeledWidget(
-            label: 'Zone',
-            labelStyle: const TextStyle(
-              fontSize: 13,
-              color: AppColors.textGreyColor,
-            ),
-            child: CustomText(
-              zoneName,
-              color: AppColors.textBlackColor,
-              fontWeight: FontWeight.bold,
-              fontSize: 14,
-            ),
           ),
         ],
       ),

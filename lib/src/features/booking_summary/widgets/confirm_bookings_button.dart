@@ -25,6 +25,10 @@ class ConfirmBookingsButton extends ConsumerWidget {
       ),
     );
 
+    final buyerDetailsAdded = ref.watch(
+      buyerEmailProvider.select((value) => value != null && value.isNotEmpty),
+    );
+
     ref.listen(
       bookingSummaryProvider,
       (_, state) => state.whenOrNull(
@@ -41,7 +45,7 @@ class ConfirmBookingsButton extends ConsumerWidget {
       padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
       child: CustomTextButton.gradient(
         width: double.infinity,
-        disabled: !ticketDetailsAdded,
+        disabled: !ticketDetailsAdded || !buyerDetailsAdded,
         onPressed: () {
           ref.read(bookingSummaryProvider.notifier).reserveBooking();
         },

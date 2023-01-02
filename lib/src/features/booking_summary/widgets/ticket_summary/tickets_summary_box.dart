@@ -6,6 +6,7 @@ import '../../../../helpers/constants/constants.dart';
 
 // Widgets
 import '../../../../global/widgets/widgets.dart';
+import 'buyer_details_section.dart';
 import 'dashed_ticket_separator.dart';
 import 'show_details_section.dart';
 import 'ticket_details_list.dart';
@@ -34,7 +35,7 @@ class TicketsSummaryBox extends StatelessWidget {
               );
               return CustomNetworkImage(
                 imageUrl: selectedEventPoster,
-                height: 180,
+                height: 130,
                 fit: BoxFit.cover,
                 borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(10),
@@ -48,6 +49,12 @@ class TicketsSummaryBox extends StatelessWidget {
 
           // Event details
           const ShowDetailsSection(),
+
+          // Separator
+          const Divider(color: Colors.black),
+
+          // Event details
+          const BuyerDetailsSection(),
 
           // Separator
           const DashedTicketSeparator(),

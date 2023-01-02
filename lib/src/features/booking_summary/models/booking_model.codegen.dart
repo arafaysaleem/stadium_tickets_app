@@ -14,7 +14,7 @@ part 'booking_model.codegen.g.dart';
 @freezed
 class BookingModel with _$BookingModel {
   const factory BookingModel({
-    required String personName,
+    required String personEmail,
     required int amountPayable,
     required DateTime dateTime,
     required BookingStatus status,

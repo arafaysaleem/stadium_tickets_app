@@ -57,6 +57,8 @@ final seatTicketsProvider =
   return seatTickets;
 });
 
+final buyerEmailProvider = StateProvider.autoDispose<String?>((ref) => null);
+
 final totalAmountProvider = Provider.autoDispose<int>((ref) {
   final ticketPrice = ref.watch(
     currentZoneProvider.select((value) => value!.type.price),
@@ -83,16 +85,15 @@ class BookingSummary extends _$BookingSummary {
     state = const AsyncLoading();
 
     state = await state.makeGuardedRequest(() {
-      final bookingSeats = ref.read(seatTicketsProvider);
       final data = BookingModel(
-        personName: bookingSeats.first.personName!,
+        personEmail: ref.read(buyerEmailProvider)!,
         amountPayable: ref.read(totalAmountProvider),
-        dateTime: DateTime.now(),
-        status: BookingStatus.RESERVED,
         zoneId: ref.read(currentZoneProvider)!.zoneId,
         eventId: ref.read(currentEventProvider)!.eventId,
-        bookingSeats: bookingSeats,
+        bookingSeats: ref.read(seatTicketsProvider),
         bookingParkingSpaces: ref.read(parkingTicketsProvider),
+        dateTime: DateTime.now(),
+        status: BookingStatus.RESERVED,
       );
 
       final bookingId = bookingsRepository.create(data: data.toJson());

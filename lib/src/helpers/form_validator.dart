@@ -10,6 +10,12 @@ import 'extensions/string_extension.dart';
 class FormValidator {
   const FormValidator._();
 
+  /// The error message for invalid email input.
+  static const _invalidEmailError = 'Please enter a valid email address';
+
+  /// The error message for empty email input.
+  static const _emptyEmailInputError = 'Please enter an email';
+
   /// The error message for invalid name input.
   static const _invalidNameError = 'Please enter a valid name';
 
@@ -18,6 +24,16 @@ class FormValidator {
 
   /// The error message for invalid identification input.
   static const _invalidIdError = 'Please enter a valid identification';
+
+  /// A method containing validation logic for email input.
+  static String? emailValidator(String? email) {
+    if (email == null || email.isEmpty) {
+      return _emptyEmailInputError;
+    } else if (!email.isValidEmail) {
+      return _invalidEmailError;
+    }
+    return null;
+  }
 
   /// A method containing validation logic for name input.
   static String? nameValidator(String? name) {
