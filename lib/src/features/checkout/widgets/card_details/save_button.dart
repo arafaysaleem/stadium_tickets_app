@@ -26,6 +26,7 @@ class SaveButton extends ConsumerWidget {
       onPressed: () {
         final card = ref.watch(editedCardDetailsProvider);
         ref.read(savedCardDetailsProvider.notifier).state = card;
+        ref.invalidate(editedCardDetailsProvider);
         AppRouter.pop();
       },
       disabled: !cardAdded,

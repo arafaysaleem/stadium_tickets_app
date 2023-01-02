@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
 // Formatters
 import '../../../../global/formatters/formatters.dart';
@@ -11,22 +12,34 @@ import '../../../../global/widgets/widgets.dart';
 import '../../../../helpers/constants/constants.dart';
 import '../../../../helpers/form_validator.dart';
 
-class CardExpiryInputField extends StatelessWidget {
+class CardExpiryInputField extends HookWidget {
   const CardExpiryInputField({
     super.key,
     required this.cardExpiryController,
   });
 
   final TextEditingController cardExpiryController;
+  static final _expiryFormatter = CardExpiryInputFormatter();
 
   @override
   Widget build(BuildContext context) {
+    useEffect(
+      () {
+        final formattedExpiry = _expiryFormatter.formatEditUpdate(
+          TextEditingValue.empty,
+          cardExpiryController.value,
+        );
+        cardExpiryController.value = formattedExpiry;
+        return null;
+      },
+      const [],
+    );
     return CustomTextField(
       controller: cardExpiryController,
       inputFormatters: [
         FilteringTextInputFormatter.digitsOnly,
         LengthLimitingTextInputFormatter(4),
-        CardExpiryInputFormatter()
+        _expiryFormatter
       ],
       hintText: 'MM / YY',
       floatingText: 'VALID THRU',

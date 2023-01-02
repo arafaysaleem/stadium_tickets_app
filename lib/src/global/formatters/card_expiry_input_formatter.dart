@@ -12,7 +12,9 @@ class CardExpiryInputFormatter extends TextInputFormatter {
     }
     final buffer = StringBuffer();
     for (var i = 0; i < newText.length; i++) {
-      buffer.write(newText[i]);
+      if (!newText[i].contains('/')) {
+        buffer.write(newText[i]);
+      }
       final nonZeroIndex = i + 1;
       if (nonZeroIndex == 2) {
         buffer.write(' / ');

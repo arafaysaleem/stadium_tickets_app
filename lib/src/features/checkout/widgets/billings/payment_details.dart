@@ -41,7 +41,7 @@ class PaymentDetails extends ConsumerWidget {
 
           // Card details
           if (cardDetails == null)
-            GestureDetector(
+            InkWell(
               onTap: () {
                 AppRouter.pushNamed(Routes.CardSetupScreenRoute);
               },

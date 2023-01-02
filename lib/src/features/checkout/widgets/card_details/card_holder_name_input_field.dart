@@ -1,8 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-
-// Formatters
-import '../../../../global/formatters/formatters.dart';
 
 // Widgets
 import '../../../../global/widgets/widgets.dart';
@@ -11,43 +7,38 @@ import '../../../../global/widgets/widgets.dart';
 import '../../../../helpers/constants/constants.dart';
 import '../../../../helpers/form_validator.dart';
 
-class CardNumberInputField extends StatelessWidget {
-  const CardNumberInputField({
+class CardHolderNameInputField extends StatelessWidget {
+  const CardHolderNameInputField({
     super.key,
-    required this.cardNumberController,
+    required this.cardholderNameController,
   });
 
-  final TextEditingController cardNumberController;
+  final TextEditingController cardholderNameController;
 
   @override
   Widget build(BuildContext context) {
     return CustomTextField(
-      controller: cardNumberController,
-      inputFormatters: [
-        FilteringTextInputFormatter.digitsOnly,
-        LengthLimitingTextInputFormatter(16),
-        CardNumberInputFormatter(),
-      ],
-      floatingText: 'CARD NUMBER',
-      hintText: 'XXXX XXXX XXXX XXXX',
-      showErrorMessage: false,
+      controller: cardholderNameController,
+      hintText: 'FULL NAME',
+      floatingText: 'CARDHOLDER NAME',
       showErrorBorder: true,
-      hintStyle: const TextStyle(
-        fontSize: 15,
-        color: AppColors.textGreyColor,
-      ),
+      showErrorMessage: false,
       floatingStyle: const TextStyle(
         fontSize: 12,
         fontWeight: FontWeight.bold,
         color: AppColors.textGreyColor,
       ),
       inputStyle: const TextStyle(
-        fontSize: 15,
+        fontSize: 13,
         color: AppColors.textWhite80Color,
       ),
-      keyboardType: TextInputType.number,
+      hintStyle: const TextStyle(
+        fontSize: 13,
+        color: AppColors.textGreyColor,
+      ),
+      keyboardType: TextInputType.text,
       textInputAction: TextInputAction.next,
-      validator: FormValidator.cardNumberValidator,
+      validator: FormValidator.cardNameValidator,
     );
   }
 }

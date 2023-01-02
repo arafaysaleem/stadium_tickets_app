@@ -23,8 +23,7 @@ final savedCardDetailsProvider =
 
 final editedCardDetailsProvider =
     StateProvider.autoDispose<CardDetailsModel?>((ref) {
-  final savedCard = ref.read(savedCardDetailsProvider);
-  return savedCard?.copyWith();
+  return null;
 });
 
 @riverpod
