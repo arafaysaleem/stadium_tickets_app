@@ -14,7 +14,7 @@ export 'widgets/card_details/card_cvv_input_field.dart';
 export 'widgets/card_details/card_expiry_input_field.dart';
 export 'widgets/card_details/card_handler_dropdown.dart';
 export 'widgets/card_details/card_number_input_field.dart';
-export 'widgets/card_details/card_holder_name_input_field.dart';
+export 'widgets/card_details/card_holder_input_field.dart';
 export 'widgets/card_details/card_template.dart';
 export 'widgets/card_details/save_button.dart';
 export 'widgets/confirmation/more_bookings_button.dart';

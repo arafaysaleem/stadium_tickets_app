@@ -22,8 +22,8 @@ class PayButton extends ConsumerWidget {
     return CustomTextButton.gradient(
       width: double.infinity,
       onPressed: () {
-        ref.read(checkoutProvider.notifier).makeCheckoutPayment();
         AppRouter.pushNamed(Routes.ConfirmationScreenRoute);
+        ref.read(checkoutProvider.notifier).makeCheckoutPayment();
       },
       disabled: !cardAdded,
       gradient: AppColors.buttonGradientPrimary,

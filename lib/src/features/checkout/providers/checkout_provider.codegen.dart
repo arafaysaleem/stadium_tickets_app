@@ -29,11 +29,11 @@ final editedCardDetailsProvider =
 @riverpod
 class Checkout extends _$Checkout {
   @override
-  FutureOr<CheckoutState?> build() => null;
+  Future<CheckoutState> build() => makeCheckoutPayment();
 
-  Future<void> makeCheckoutPayment() async {
+  Future<CheckoutState> makeCheckoutPayment() async {
     final checkoutRepository = ref.read(checkoutRepositoryProvider);
-    state = const AsyncLoading();
+    state = const AsyncData(CheckoutState.PROCESSING_PAYMENT);
 
     state = await state.makeGuardedRequest(() async {
       final card = ref.read(savedCardDetailsProvider);
@@ -43,9 +43,13 @@ class Checkout extends _$Checkout {
 
       await checkoutRepository.create(data: data);
 
-      return CheckoutState.CONFIRMING_BOOKING;
+      state = const AsyncData(CheckoutState.CONFIRMING_BOOKING);
+
+      await Future<void>.delayed(2.seconds);
+
+      return CheckoutState.SUCCESS;
     });
 
-    state = const AsyncData(CheckoutState.SUCCESS);
+    return CheckoutState.SUCCESS;
   }
 }

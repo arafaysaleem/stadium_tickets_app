@@ -9,7 +9,7 @@ import 'card_cvv_input_field.dart';
 import 'card_expiry_input_field.dart';
 import 'card_handler_dropdown.dart';
 import 'card_number_input_field.dart';
-import 'card_holder_name_input_field.dart';
+import 'card_holder_input_field.dart';
 
 class CardTemplate extends StatelessWidget {
   final TextEditingController cardholderNameController;

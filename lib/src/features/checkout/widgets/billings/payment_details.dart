@@ -68,10 +68,9 @@ class PaymentDetails extends ConsumerWidget {
             Row(
               children: [
                 // Card Icon
-                const Icon(
-                  Icons.credit_card_outlined,
-                  size: 23,
-                  color: AppColors.textWhite80Color,
+                Image.asset(
+                  cardDetails.provider.icon,
+                  height: 40,
                 ),
 
                 Insets.gapW10,
