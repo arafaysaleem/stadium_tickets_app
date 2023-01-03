@@ -24,7 +24,7 @@ class ValidateButton extends ConsumerWidget {
       editedCardDetailsProvider.select((value) => value != null),
     );
     return AnimatedSwitcher(
-      duration: const Duration(milliseconds: 150),
+      duration: Durations.fast,
       transitionBuilder: (child, animation) => ScaleTransition(
         scale: animation,
         child: child,
