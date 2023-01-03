@@ -58,6 +58,7 @@ class TicketDetailsBottomSheet extends HookConsumerWidget {
     return SafeArea(
       child: CustomScrollableBottomSheet(
         snapSizes: const [1],
+        initialSheetSize: 1,
         minSheetSize: 0.7,
         titleText: 'Ticket Details',
         leading: GestureDetector(
