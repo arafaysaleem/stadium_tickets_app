@@ -38,8 +38,8 @@ class BuyerDetailsBottomSheet extends HookConsumerWidget {
     final formKey = useMemoized(GlobalKey<FormState>.new);
     return SafeArea(
       child: CustomScrollableBottomSheet(
-        maxSheetSize: 0.8,
-        snapSizes: const [0.8],
+        snapSizes: const [1],
+        minSheetSize: 0.7,
         titleText: 'Buyer Details',
         leading: InkWell(
           onTap: AppRouter.pop,

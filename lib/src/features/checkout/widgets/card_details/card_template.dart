@@ -35,7 +35,7 @@ class CardTemplate extends StatelessWidget {
         borderRadius: Corners.rounded20,
         color: AppColors.surfaceColor,
       ),
-      padding: const EdgeInsets.fromLTRB(12, 10, 12, 3),
+      padding: const EdgeInsets.fromLTRB(12, 10, 12, 12),
       child: Column(
         children: [
           // Card Handler Icon

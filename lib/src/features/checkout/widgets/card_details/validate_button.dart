@@ -32,7 +32,7 @@ class ValidateButton extends ConsumerWidget {
       child: isCardAdded
           ? SizedBox(
               width: 70,
-              height: 30,
+              height: 35,
               child: Center(
                 child: Icon(
                   Icons.check,
@@ -42,7 +42,7 @@ class ValidateButton extends ConsumerWidget {
             )
           : CustomTextButton.gradient(
               width: 70,
-              height: 30,
+              height: 35,
               gradient: AppColors.buttonGradientPrimary,
               onPressed: onValidate,
               child: Center(

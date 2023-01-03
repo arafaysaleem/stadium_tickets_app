@@ -57,8 +57,8 @@ class TicketDetailsBottomSheet extends HookConsumerWidget {
     final formKey = useMemoized(GlobalKey<FormState>.new);
     return SafeArea(
       child: CustomScrollableBottomSheet(
-        maxSheetSize: 0.8,
-        snapSizes: const [0.8],
+        snapSizes: const [1],
+        minSheetSize: 0.7,
         titleText: 'Ticket Details',
         leading: GestureDetector(
           onTap: AppRouter.pop,
