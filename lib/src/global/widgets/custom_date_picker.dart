@@ -12,7 +12,7 @@ import '../../helpers/constants/app_styles.dart';
 import './cupertino_date_picker_dialog.dart';
 import './custom_text_button.dart';
 
-class CustomDatePicker extends StatelessWidget {
+class CustomDatePicker extends StatefulWidget {
   /// The initially selected [DateTime] that the picker should display.
   final DateTime? initialDate;
 
@@ -50,6 +50,9 @@ class CustomDatePicker extends StatelessWidget {
   /// The notifier used to store and passback selected values to the parent.
   final ValueNotifier<DateTime?> dateNotifier;
 
+  /// The callback that is called when the user selects a date.
+  final ValueChanged<DateTime>? onDateChanged;
+
   /// The format used to decide the pattern of the selected datetime's
   /// output in the form field.
   final DateFormat dateFormat;
@@ -67,38 +70,60 @@ class CustomDatePicker extends StatelessWidget {
     this.initialMaterialDatePickerMode = DatePickerMode.day,
     this.initialCupertinoDatePickerMode = CupertinoDatePickerMode.date,
     this.pickerStyle = const CustomDatePickerStyle(),
+    this.onDateChanged,
     required this.firstDate,
     required this.dateNotifier,
     required this.dateFormat,
   });
 
+  @override
+  State<CustomDatePicker> createState() => _CustomDatePickerState();
+}
+
+class _CustomDatePickerState extends State<CustomDatePicker> {
+  @override
+  void initState() {
+    super.initState();
+    widget.dateNotifier.addListener(() {
+      widget.onDateChanged?.call(widget.dateNotifier.value!);
+    });
+  }
+
   Future<void> _pickDate(BuildContext context) async {
     final nowDate = DateTime.now();
     if (!Platform.isIOS) {
-      dateNotifier.value = await showDatePicker(
-            helpText: helpText,
+      widget.dateNotifier.value = await showDatePicker(
+            helpText: widget.helpText,
             context: context,
-            initialEntryMode: initialEntryMode,
-            initialDatePickerMode: initialMaterialDatePickerMode,
-            initialDate: dateNotifier.value ?? initialDate ?? nowDate,
-            firstDate: firstDate,
-            lastDate: lastDate ?? nowDate,
+            initialEntryMode: widget.initialEntryMode,
+            initialDatePickerMode: widget.initialMaterialDatePickerMode,
+            initialDate:
+                widget.dateNotifier.value ?? widget.initialDate ?? nowDate,
+            firstDate: widget.firstDate,
+            lastDate: widget.lastDate ?? nowDate,
           ) ??
-          dateNotifier.value;
+          widget.dateNotifier.value;
     } else {
-      dateNotifier.value = await showCupertinoModalPopup<DateTime>(
+      widget.dateNotifier.value = await showCupertinoModalPopup<DateTime>(
             context: context,
             builder: (BuildContext ctx) {
               return CupertinoDatePickerDialog(
-                mode: initialCupertinoDatePickerMode,
-                initialDateTime: dateNotifier.value ?? initialDate ?? nowDate,
-                minimumDate: firstDate,
-                maximumDate: lastDate ?? nowDate,
+                mode: widget.initialCupertinoDatePickerMode,
+                initialDateTime:
+                    widget.dateNotifier.value ?? widget.initialDate ?? nowDate,
+                minimumDate: widget.firstDate,
+                maximumDate: widget.lastDate ?? nowDate,
               );
             },
           ) ??
-          dateNotifier.value;
+          widget.dateNotifier.value;
     }
+  }
+
+  @override
+  void dispose() {
+    widget.dateNotifier.removeListener((){});
+    super.dispose();
   }
 
   @override
@@ -109,9 +134,9 @@ class CustomDatePicker extends StatelessWidget {
         Align(
           alignment: Alignment.centerLeft,
           child: Text(
-            pickerStyle.floatingText,
-            style:
-                pickerStyle.floatingTextStyle ?? const TextStyle(fontSize: 16),
+            widget.pickerStyle.floatingText,
+            style: widget.pickerStyle.floatingTextStyle ??
+                const TextStyle(fontSize: 16),
           ),
         ),
 
@@ -122,27 +147,27 @@ class CustomDatePicker extends StatelessWidget {
           width: double.infinity,
           height: 47,
           onPressed: () => _pickDate(context),
-          color: pickerStyle.displayFieldColor,
+          color: widget.pickerStyle.displayFieldColor,
           padding: const EdgeInsets.only(left: 20, right: 15),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               ValueListenableBuilder<DateTime?>(
-                valueListenable: dateNotifier,
+                valueListenable: widget.dateNotifier,
                 builder: (_, date, __) {
-                  var dateString = pickerStyle.initialDateString;
+                  var dateString = widget.pickerStyle.initialDateString;
                   if (date != null) {
-                    dateString = dateFormat.format(date);
+                    dateString = widget.dateFormat.format(date);
                   }
                   return Text(
                     dateString,
-                    style: pickerStyle.displayTextStyle,
+                    style: widget.pickerStyle.displayTextStyle,
                   );
                 },
               ),
 
               // Icon
-              pickerStyle.icon,
+              widget.pickerStyle.icon,
             ],
           ),
         ),

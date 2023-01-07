@@ -9,6 +9,7 @@ import '../../../helpers/constants/constants.dart';
 
 // Widgets
 import '../../../global/widgets/custom_text_field.dart';
+import 'filters/filters_bottom_sheet.dart';
 
 class SearchAndFiltersBar extends ConsumerWidget {
   const SearchAndFiltersBar({super.key});
@@ -42,18 +43,18 @@ class SearchAndFiltersBar extends ConsumerWidget {
           // Filters Button
           InkWell(
             onTap: () {
-              // showModalBottomSheet<dynamic>(
-              //   isScrollControlled: true,
-              //   shape: const RoundedRectangleBorder(
-              //     borderRadius: BorderRadius.vertical(
-              //       top: Radius.circular(20),
-              //     ),
-              //   ),
-              //   context: context,
-              //   builder: (context) {
-              //     return const FiltersBottomSheet();
-              //   },
-              // );
+              showModalBottomSheet<dynamic>(
+                isScrollControlled: true,
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.vertical(
+                    top: Radius.circular(20),
+                  ),
+                ),
+                context: context,
+                builder: (context) {
+                  return const FiltersBottomSheet();
+                },
+              );
             },
             child: Container(
               height: 47,
@@ -62,7 +63,10 @@ class SearchAndFiltersBar extends ConsumerWidget {
                 color: AppColors.surfaceColor,
                 borderRadius: Corners.rounded7,
               ),
-              child: const Icon(Icons.tune_rounded),
+              child: const Icon(
+                Icons.tune_rounded,
+                color: AppColors.textLightGreyColor,
+              ),
             ),
           ),
         ],

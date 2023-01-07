@@ -8,5 +8,7 @@ export 'screens/events_screen.dart';
 export 'skeletons/event_poster_placeholder.dart';
 export 'widgets/events_list.dart';
 export 'widgets/events_list_item.dart';
+export 'widgets/filters/filters_bottom_sheet.dart';
+export 'widgets/filters/filters_list_view.dart';
 export 'widgets/hot_event_banner.dart';
 export 'widgets/search_and_filters_bar.dart';

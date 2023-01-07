@@ -17,8 +17,10 @@ class EventModel with _$EventModel {
     required int eventId,
     required String name,
     required DateTime date,
-    @JsonKey(fromJson: AppUtils.timeFromJson, toJson: AppUtils.toNull) required TimeOfDay startTime,
-    @JsonKey(fromJson: AppUtils.timeFromJson, toJson: AppUtils.toNull) required TimeOfDay endTime,
+    @JsonKey(fromJson: AppUtils.timeFromJson, toJson: AppUtils.toNull)
+        required TimeOfDay startTime,
+    @JsonKey(fromJson: AppUtils.timeFromJson, toJson: AppUtils.toNull)
+        required TimeOfDay endTime,
     required String posterUrl,
     required EventType eventType,
     required DateTime createdAt,
@@ -26,4 +28,24 @@ class EventModel with _$EventModel {
   }) = _EventModel;
 
   factory EventModel.fromJson(JSON json) => _$EventModelFromJson(json);
+
+  static JSON toCustomJson({
+    int? eventId,
+    String? name,
+    DateTime? date,
+    TimeOfDay? startTime,
+    TimeOfDay? endTime,
+    String? posterUrl,
+    EventType? eventType,
+  }) {
+    return <String, Object?>{
+      if (eventId != null) 'event_id': eventId,
+      if (name != null) 'name': name,
+      if (date != null) 'date': AppUtils.dateToJson(date),
+      if (startTime != null) 'start_time': AppUtils.timeToJson(startTime),
+      if (endTime != null) 'end_time': AppUtils.timeToJson(endTime),
+      if (posterUrl != null) 'poster_url': posterUrl,
+      if (eventType != null) 'event_type': eventType.toJson,
+    };
+  }
 }

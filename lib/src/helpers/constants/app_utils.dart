@@ -52,6 +52,21 @@ class AppUtils {
     return TimeOfDay.fromDateTime(dateTime);
   }
 
+  /// A utility method to convert a [TimeOfDay] object
+  /// to a JSON API accepted 24hr time string
+  static String timeToJson(TimeOfDay time) {
+    String addLeadingZeroIfNeeded(int value) {
+      if (value < 10) {
+        return '0$value';
+      }
+      return value.toString();
+    }
+
+    final hourLabel = addLeadingZeroIfNeeded(time.hour);
+    final minuteLabel = addLeadingZeroIfNeeded(time.minute);
+    return '$hourLabel:$minuteLabel';
+  }
+
   /// A utility method to convert any instance to null
   static T? toNull<T>(Object? _) => null;
 
@@ -111,7 +126,8 @@ class Regexes {
   static RegExp contactRegex = RegExp(r'^(03|3)\d{9}$');
 
   /// The regular expression for validating ids in the app.
-  static RegExp idRegex = RegExp(r'^(9\d{2})([ \-]?)([7]\d|8[0-8])([ \-]?)(\d{4})$');
+  static RegExp idRegex =
+      RegExp(r'^(9\d{2})([ \-]?)([7]\d|8[0-8])([ \-]?)(\d{4})$');
 
   /// The regular expression for validating names in the app.
   static RegExp nameRegex = RegExp(r'^[a-z A-Z]+$');
@@ -127,8 +143,7 @@ class Regexes {
   static RegExp creditCardCVVRegex = RegExp(r'^[0-9]{3}$');
 
   /// The regular expression for validating credit card expiry in the app.
-  static RegExp creditCardExpiryRegex =
-      RegExp(r'(0[1-9]|10|11|12)/[0-9]{2}$');
+  static RegExp creditCardExpiryRegex = RegExp(r'(0[1-9]|10|11|12)/[0-9]{2}$');
 
   /// The regular expression for validating otp in the app.
   static final RegExp otpDigitRegex = RegExp(r'^[0-9]{1}$');
