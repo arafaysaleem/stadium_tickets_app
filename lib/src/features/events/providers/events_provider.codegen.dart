@@ -16,19 +16,19 @@ final currentEventProvider = StateProvider<EventModel?>((_) => null);
 
 @riverpod
 Future<List<EventModel>> eventsFuture(EventsFutureRef ref) async {
-  return ref.watch(eventsControllerProvider).getAllEvents();
+  return ref.watch(eventsProvider).getAllEvents();
 }
 
 /// A provider used to access instance of this service
 @riverpod
-EventsController eventsController(EventsControllerRef ref) {
-  return EventsController(ref.watch(eventsRepositoryProvider));
+EventsProvider events(EventsRef ref) {
+  return EventsProvider(ref.watch(eventsRepositoryProvider));
 }
 
-class EventsController {
+class EventsProvider {
   final EventsRepository _eventsRepository;
 
-  EventsController(this._eventsRepository);
+  EventsProvider(this._eventsRepository);
 
   Future<List<EventModel>> getAllEvents([JSON? queryParams]) async {
     return _eventsRepository.fetchAllEvents(queryParameters: queryParams);

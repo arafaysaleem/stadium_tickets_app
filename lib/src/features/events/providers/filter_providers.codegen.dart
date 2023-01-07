@@ -32,7 +32,7 @@ final filtersProvider = Provider<JSON>(
 @riverpod
 Future<List<EventModel>> filteredEvents(FilteredEventsRef ref) {
   final queryParams = ref.watch(filtersProvider);
-  return ref.watch(eventsControllerProvider).getAllEvents(queryParams);
+  return ref.watch(eventsProvider).getAllEvents(queryParams);
 }
 
 /// A provider used to access list of searched events

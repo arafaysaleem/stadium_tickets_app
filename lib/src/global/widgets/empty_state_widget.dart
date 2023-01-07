@@ -26,6 +26,7 @@ class EmptyStateWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     return Padding(
       padding: margin,
       child: SizedBox(
@@ -51,8 +52,9 @@ class EmptyStateWidget extends StatelessWidget {
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.fade,
                     maxLines: 1,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 20,
+                      color: colorScheme.onBackground,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
