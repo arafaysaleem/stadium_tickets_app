@@ -7,7 +7,7 @@ import '../../../helpers/constants/app_styles.dart';
 import '../../../global/widgets/custom_text.dart';
 import '../widgets/events_list.dart';
 import '../widgets/hot_event_banner.dart';
-import '../widgets/search_bar.dart';
+import '../widgets/search_and_filters_bar.dart';
 
 class EventsScreen extends StatelessWidget {
   const EventsScreen({super.key});
@@ -30,7 +30,7 @@ class EventsScreen extends StatelessWidget {
             // Search bar
             const Padding(
               padding: EdgeInsets.symmetric(vertical: 20),
-              child: SearchBar(),
+              child: SearchAndFiltersBar(),
             ),
             
             // Events List

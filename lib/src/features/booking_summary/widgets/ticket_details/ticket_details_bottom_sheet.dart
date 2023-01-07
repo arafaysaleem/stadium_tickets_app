@@ -97,13 +97,14 @@ class TicketDetailsBottomSheet extends HookConsumerWidget {
                 // Person Name
                 CustomTextField(
                   controller: nameController,
+                  autofocus: true,
                   floatingText: 'Person Name',
                   floatingStyle: const TextStyle(
                     fontSize: 15,
                     color: AppColors.textGreyColor,
                   ),
                   hintText: "Type the ticket designee's name",
-                  keyboardType: TextInputType.text,
+                  keyboardType: TextInputType.name,
                   textInputAction: TextInputAction.next,
                   validator: FormValidator.nameValidator,
                 ),
@@ -119,7 +120,7 @@ class TicketDetailsBottomSheet extends HookConsumerWidget {
                     color: AppColors.textGreyColor,
                   ),
                   hintText: "Type the ticket designee's identification",
-                  keyboardType: TextInputType.text,
+                  keyboardType: TextInputType.number,
                   textInputAction: TextInputAction.done,
                   validator: FormValidator.idValidator,
                 ),

@@ -74,13 +74,14 @@ class BuyerDetailsBottomSheet extends HookConsumerWidget {
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: CustomTextField(
               controller: emailController,
+              autofocus: true,
               floatingText: 'Buyer Email',
               floatingStyle: const TextStyle(
                 fontSize: 15,
                 color: AppColors.textGreyColor,
               ),
               hintText: "Type the ticket booker's email",
-              keyboardType: TextInputType.text,
+              keyboardType: TextInputType.emailAddress,
               textInputAction: TextInputAction.next,
               validator: FormValidator.emailValidator,
             ),
