@@ -23,8 +23,6 @@ class EventModel with _$EventModel {
         required TimeOfDay endTime,
     required String posterUrl,
     required EventType eventType,
-    required DateTime createdAt,
-    required DateTime updatedAt,
   }) = _EventModel;
 
   factory EventModel.fromJson(JSON json) => _$EventModelFromJson(json);

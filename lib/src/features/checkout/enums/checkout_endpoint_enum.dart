@@ -6,7 +6,7 @@ enum CheckoutEndpoint {
 
   const CheckoutEndpoint();
 
-  static const _baseRoute = '/checkout';
+  static const _baseRoute = '/process-payment';
 
   /// Returns the path for checkout [endpoint].
   ///

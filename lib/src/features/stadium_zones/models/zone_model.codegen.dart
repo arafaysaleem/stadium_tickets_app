@@ -17,8 +17,6 @@ class ZoneModel with _$ZoneModel {
     required int seatsPerRow,
     required String colorHexCode,
     required ZoneTypeModel type,
-    required DateTime createdAt,
-    required DateTime updatedAt,
   }) = _ZoneModel;
 
   factory ZoneModel.fromJson(JSON json) => _$ZoneModelFromJson(json);

@@ -19,8 +19,8 @@ part 'parking_repository.codegen.g.dart';
 @Riverpod(keepAlive: true)
 ParkingRepository parkingRepository(ParkingRepositoryRef ref) {
   final _apiService = ref.watch(apiServiceProvider);
-  // return ParkingRepository(apiService: _apiService);
-  return MockParkingRepository(apiService: _apiService);
+  // return MockParkingRepository(apiService: _apiService);
+  return ParkingRepository(apiService: _apiService);
 }
 
 class ParkingRepository {
@@ -130,24 +130,18 @@ class MockParkingRepository implements ParkingRepository {
           'floor_number': 1,
           'spaces_per_row': 17,
           'num_of_rows': 20,
-          'created_at': '2022-10-15T15:00:40.352Z',
-          'updated_at': '2022-10-15T15:00:40.352Z',
         }),
         ParkingFloorModel.fromJson(<String, dynamic>{
           'p_floor_id': 2,
           'floor_number': 2,
           'spaces_per_row': 13,
           'num_of_rows': 7,
-          'created_at': '2022-10-15T15:00:40.352Z',
-          'updated_at': '2022-10-15T15:00:40.352Z',
         }),
         ParkingFloorModel.fromJson(<String, dynamic>{
           'p_floor_id': 1,
           'floor_number': 3,
           'spaces_per_row': 14,
           'num_of_rows': 17,
-          'created_at': '2022-10-15T15:00:40.352Z',
-          'updated_at': '2022-10-15T15:00:40.352Z',
         }),
       ],
     );

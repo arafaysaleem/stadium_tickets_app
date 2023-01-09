@@ -14,8 +14,6 @@ class ZoneResourceModel with _$ZoneResourceModel {
     required String resourceUrl,
     required int zoneId,
     required ResourceType type,
-    required DateTime createdAt,
-    required DateTime updatedAt,
   }) = _ZoneResourceModel;
 
   factory ZoneResourceModel.fromJson(JSON json) => _$ZoneResourceModelFromJson(json);

@@ -19,8 +19,8 @@ part 'events_repository.codegen.g.dart';
 @riverpod
 EventsRepository eventsRepository(EventsRepositoryRef ref) {
   final _apiService = ref.watch(apiServiceProvider);
-  // return EventsRepository(apiService: _apiService);
-  return MockEventsRepository(apiService: _apiService);
+  // return MockEventsRepository(apiService: _apiService);
+  return EventsRepository(apiService: _apiService);
 }
 
 class EventsRepository {
@@ -60,8 +60,6 @@ class MockEventsRepository implements EventsRepository {
           endTime: TimeOfDay.fromDateTime(DateTime.now().add(5.hours)),
           posterUrl: 'https://wallpapercave.com/wp/wp1713760.jpg',
           eventType: EventType.OPEN,
-          createdAt: DateTime.now(),
-          updatedAt: DateTime.now(),
         ),
         EventModel(
           eventId: 2,
@@ -72,8 +70,6 @@ class MockEventsRepository implements EventsRepository {
           posterUrl:
               'https://img.mensxp.com/media/content/2019/Apr/the-esl-one-dota-2-tournament-in-mumbai-was-crazy-1200x900-1556079193.jpg',
           eventType: EventType.OPEN,
-          createdAt: DateTime.now(),
-          updatedAt: DateTime.now(),
         ),
         EventModel(
           eventId: 3,
@@ -84,8 +80,6 @@ class MockEventsRepository implements EventsRepository {
           posterUrl:
               'https://img.freepik.com/free-vector/music-event-poster-template-with-colorful-shapes_1361-1591.jpg',
           eventType: EventType.OPEN,
-          createdAt: DateTime.now(),
-          updatedAt: DateTime.now(),
         ),
         EventModel(
           eventId: 4,
@@ -95,8 +89,6 @@ class MockEventsRepository implements EventsRepository {
           endTime: TimeOfDay.fromDateTime(DateTime.now().add(5.hours)),
           posterUrl: 'https://i.ytimg.com/vi/7J4315BBr2E/maxresdefault.jpg',
           eventType: EventType.OPEN,
-          createdAt: DateTime.now(),
-          updatedAt: DateTime.now(),
         )
       ],
     );

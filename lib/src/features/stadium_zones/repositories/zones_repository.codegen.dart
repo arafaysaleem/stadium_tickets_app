@@ -18,8 +18,8 @@ part 'zones_repository.codegen.g.dart';
 @riverpod
 ZonesRepository zonesRepository(ZonesRepositoryRef ref) {
   final _apiService = ref.watch(apiServiceProvider);
-  // return ZonesRepository(apiService: _apiService);
-  return MockZonesRepository(apiService: _apiService);
+  // return MockZonesRepository(apiService: _apiService);
+  return ZonesRepository(apiService: _apiService);
 }
 
 class ZonesRepository {
@@ -66,8 +66,6 @@ class MockZonesRepository implements ZonesRepository {
           'num_of_rows': 20,
           'color_hex_code': '#FDDF00',
           'z_type_id': 1,
-          'created_at': '2022-10-15T15:00:40.352Z',
-          'updated_at': '2022-10-15T15:00:40.352Z',
           'type': {'z_type_id': 1, 'type': 'vip', 'price': 70}
         }),
         ZoneModel.fromJson(<String, dynamic>{
@@ -78,8 +76,6 @@ class MockZonesRepository implements ZonesRepository {
           'num_of_rows': 7,
           'color_hex_code': '#FDDF00',
           'z_type_id': 2,
-          'created_at': '2022-10-15T15:00:40.352Z',
-          'updated_at': '2022-10-15T15:00:40.352Z',
           'type': {'z_type_id': 2, 'type': 'general', 'price': 10}
         }),
         ZoneModel.fromJson(<String, dynamic>{
@@ -90,8 +86,6 @@ class MockZonesRepository implements ZonesRepository {
           'num_of_rows': 17,
           'color_hex_code': '#FDDF00',
           'z_type_id': 3,
-          'created_at': '2022-10-15T15:00:40.352Z',
-          'updated_at': '2022-10-15T15:00:40.352Z',
           'type': {'z_type_id': 3, 'type': 'premium', 'price': 40}
         }),
       ],

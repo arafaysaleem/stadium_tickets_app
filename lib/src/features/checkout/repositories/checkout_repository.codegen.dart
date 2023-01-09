@@ -17,8 +17,8 @@ part 'checkout_repository.codegen.g.dart';
 @riverpod
 CheckoutRepository checkoutRepository(CheckoutRepositoryRef ref) {
   final _apiService = ref.watch(apiServiceProvider);
-  // return CheckoutRepository(apiService: _apiService);
-  return MockCheckoutRepository(apiService: _apiService);
+  // return MockCheckoutRepository(apiService: _apiService);
+  return CheckoutRepository(apiService: _apiService);
 }
 
 class CheckoutRepository {

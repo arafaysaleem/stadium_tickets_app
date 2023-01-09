@@ -20,8 +20,8 @@ ZoneResourcesRepository zoneResourcesRepository(
   ZoneResourcesRepositoryRef ref,
 ) {
   final _apiService = ref.watch(apiServiceProvider);
-  // return ZoneResourcesRepository(apiService: _apiService);
-  return MockZoneResourcesRepository(apiService: _apiService);
+  // return MockZoneResourcesRepository(apiService: _apiService);
+  return ZoneResourcesRepository(apiService: _apiService);
 }
 
 class ZoneResourcesRepository {
@@ -56,15 +56,13 @@ class MockZoneResourcesRepository implements ZoneResourcesRepository {
   }) {
     return Future.delayed(
       2.seconds,
-      () => <ZoneResourceModel>[
+      () => const <ZoneResourceModel>[
         ZoneResourceModel(
           resourceId: 1,
           zoneId: 2,
           resourceUrl:
               'https://img.freepik.com/free-vector/music-event-banner-template-with-photo_52683-12627.jpg',
           type: ResourceType.IMAGE,
-          createdAt: DateTime.now(),
-          updatedAt: DateTime.now(),
         ),
         ZoneResourceModel(
           resourceId: 2,
@@ -72,8 +70,6 @@ class MockZoneResourcesRepository implements ZoneResourcesRepository {
           resourceUrl:
               'https://img.freepik.com/free-vector/music-event-banner-template-with-photo_52683-12627.jpg',
           type: ResourceType.IMAGE,
-          createdAt: DateTime.now(),
-          updatedAt: DateTime.now(),
         ),
         ZoneResourceModel(
           resourceId: 3,
@@ -81,8 +77,6 @@ class MockZoneResourcesRepository implements ZoneResourcesRepository {
           resourceUrl:
               'https://img.freepik.com/free-vector/music-event-poster-template-with-colorful-shapes_1361-1591.jpg',
           type: ResourceType.IMAGE,
-          createdAt: DateTime.now(),
-          updatedAt: DateTime.now(),
         ),
         ZoneResourceModel(
           resourceId: 4,
@@ -90,8 +84,6 @@ class MockZoneResourcesRepository implements ZoneResourcesRepository {
           resourceUrl:
               'https://img.freepik.com/free-vector/music-event-poster-template-with-abstract-shapes_1361-1316.jpg',
           type: ResourceType.VIDEO,
-          createdAt: DateTime.now(),
-          updatedAt: DateTime.now(),
         )
       ],
     );

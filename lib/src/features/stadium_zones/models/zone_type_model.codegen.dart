@@ -12,8 +12,6 @@ class ZoneTypeModel with _$ZoneTypeModel {
     required int zTypeId,
     required String type,
     required int price,
-    required DateTime? createdAt,
-    required DateTime? updatedAt,
   }) = _ZoneTypeModel;
 
   factory ZoneTypeModel.fromJson(JSON json) => _$ZoneTypeModelFromJson(json);

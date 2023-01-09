@@ -17,8 +17,8 @@ part 'bookings_repository.codegen.g.dart';
 @riverpod
 BookingsRepository bookingsRepository(BookingsRepositoryRef ref) {
   final _apiService = ref.watch(apiServiceProvider);
-  // return BookingsRepository(apiService: _apiService);
-  return MockBookingsRepository(apiService: _apiService);
+  return BookingsRepository(apiService: _apiService);
+  // return MockBookingsRepository(apiService: _apiService);
 }
 
 class BookingsRepository {
