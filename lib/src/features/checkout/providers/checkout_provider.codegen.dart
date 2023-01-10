@@ -46,7 +46,7 @@ class Checkout extends _$Checkout {
       final seatTickets = ref.read(seatTicketsProvider).length;
       final parkingTickets = ref.read(parkingTicketsProvider);
       final data = PaymentModel(
-        card: card!,
+        card: card,
         event: PaymentEventModel(
           name: event.name,
           date: event.date,
