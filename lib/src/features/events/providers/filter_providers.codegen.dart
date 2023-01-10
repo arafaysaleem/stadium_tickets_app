@@ -5,7 +5,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../../helpers/typedefs.dart';
 
 // Models
-import '../enums/event_type_enum.dart';
+import '../enums/event_status_enum.dart';
 import '../models/event_model.codegen.dart';
 
 // Providers
@@ -22,7 +22,7 @@ final filtersProvider = Provider<JSON>(
 
     final filters = EventModel.toCustomJson(
       date: eventDateFilter,
-      eventType: EventType.OPEN,
+      eventStatus: EventStatus.OPEN,
     );
 
     return filters;

@@ -1,5 +1,4 @@
 export 'enums/card_provider_enum.dart';
-export 'enums/checkout_endpoint_enum.dart';
 export 'enums/checkout_state_enum.dart';
 export 'models/card_details_model.codegen.dart';
 export 'providers/checkout_provider.codegen.dart';

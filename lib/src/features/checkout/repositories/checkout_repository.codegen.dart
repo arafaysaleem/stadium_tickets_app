@@ -4,11 +4,10 @@ import 'package:time/time.dart';
 // Networking
 import '../../../core/core.dart';
 
-// Enums
-import '../enums/checkout_endpoint_enum.dart';
+// Features
+import '../../booking_summary/booking_summary.dart';
 
 // Helpers
-import '../../../helpers/constants/app_utils.dart';
 import '../../../helpers/typedefs.dart';
 
 part 'checkout_repository.codegen.g.dart';
@@ -28,11 +27,14 @@ class CheckoutRepository {
     required ApiService apiService,
   }) : _apiService = apiService;
 
-  Future<int> create({required JSON data}) async {
-    return _apiService.setData<int>(
-      endpoint: CheckoutEndpoint.BASE.route(),
+  Future<bool> create({
+    required int bookingId,
+    required JSON data,
+  }) async {
+    return _apiService.setData<bool>(
+      endpoint: BookingsEndpoint.PROCESS_PAYMENT.route(id: bookingId),
       data: data,
-      converter: (response) => response.body['payment_id'] as int,
+      converter: (response) => true,
     );
   }
 }
@@ -46,10 +48,13 @@ class MockCheckoutRepository implements CheckoutRepository {
   }) : _apiService = apiService;
 
   @override
-  Future<int> create({required JSON data}) {
+  Future<bool> create({
+    required int bookingId,
+    required JSON data,
+  }) {
     return Future.delayed(
       2.seconds,
-      () => AppUtils.randomizer().nextInt(10),
+      () => true,
     );
   }
 }

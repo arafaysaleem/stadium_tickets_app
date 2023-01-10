@@ -7,11 +7,11 @@ import '../../../core/core.dart';
 // Models
 import '../models/parking_floor_model.codegen.dart';
 import '../models/parking_floor_spaces_model.codegen.dart';
+import '../models/space_model.codegen.dart';
 
 // Helpers
 import '../enums/parking_endpoint_enum.dart';
 import '../../../helpers/typedefs.dart';
-import '../models/space_model.codegen.dart';
 
 part 'parking_repository.codegen.g.dart';
 
@@ -57,61 +57,61 @@ class MockParkingRepository implements ParkingRepository {
   static const mockSpaces = <int, ParkingFloorSpacesModel>{
     1: ParkingFloorSpacesModel(
       missing: [
-        SpaceModel(spaceRow: 'A', spaceNumber: 2, floorNumber: 3),
-        SpaceModel(spaceRow: 'B', spaceNumber: 2, floorNumber: 3),
-        SpaceModel(spaceRow: 'C', spaceNumber: 2, floorNumber: 3),
-        SpaceModel(spaceRow: 'D', spaceNumber: 2, floorNumber: 3),
-        SpaceModel(spaceRow: 'E', spaceNumber: 2, floorNumber: 3),
-        SpaceModel(spaceRow: 'F', spaceNumber: 2, floorNumber: 3),
-        SpaceModel(spaceRow: 'G', spaceNumber: 2, floorNumber: 3),
-        SpaceModel(spaceRow: 'H', spaceNumber: 2, floorNumber: 3),
-        SpaceModel(spaceRow: 'I', spaceNumber: 2, floorNumber: 3),
-        SpaceModel(spaceRow: 'J', spaceNumber: 2, floorNumber: 3),
-        SpaceModel(spaceRow: 'K', spaceNumber: 2, floorNumber: 3),
-        SpaceModel(spaceRow: 'L', spaceNumber: 2, floorNumber: 3),
-        SpaceModel(spaceRow: 'M', spaceNumber: 2, floorNumber: 3),
+        SpaceModel(spaceRow: 'A', spaceNumber: 2),
+        SpaceModel(spaceRow: 'B', spaceNumber: 2),
+        SpaceModel(spaceRow: 'C', spaceNumber: 2),
+        SpaceModel(spaceRow: 'D', spaceNumber: 2),
+        SpaceModel(spaceRow: 'E', spaceNumber: 2),
+        SpaceModel(spaceRow: 'F', spaceNumber: 2),
+        SpaceModel(spaceRow: 'G', spaceNumber: 2),
+        SpaceModel(spaceRow: 'H', spaceNumber: 2),
+        SpaceModel(spaceRow: 'I', spaceNumber: 2),
+        SpaceModel(spaceRow: 'J', spaceNumber: 2),
+        SpaceModel(spaceRow: 'K', spaceNumber: 2),
+        SpaceModel(spaceRow: 'L', spaceNumber: 2),
+        SpaceModel(spaceRow: 'M', spaceNumber: 2),
       ],
       blocked: [
-        SpaceModel(spaceRow: 'C', spaceNumber: 1, floorNumber: 3),
-        SpaceModel(spaceRow: 'D', spaceNumber: 0, floorNumber: 3),
-        SpaceModel(spaceRow: 'A', spaceNumber: 2, floorNumber: 3),
+        SpaceModel(spaceRow: 'C', spaceNumber: 1),
+        SpaceModel(spaceRow: 'D', spaceNumber: 0),
+        SpaceModel(spaceRow: 'A', spaceNumber: 2),
       ],
       booked: [
-        SpaceModel(spaceRow: 'A', spaceNumber: 1, floorNumber: 3),
-        SpaceModel(spaceRow: 'B', spaceNumber: 1, floorNumber: 3),
-        SpaceModel(spaceRow: 'D', spaceNumber: 1, floorNumber: 3),
-        SpaceModel(spaceRow: 'E', spaceNumber: 0, floorNumber: 3),
-        SpaceModel(spaceRow: 'F', spaceNumber: 0, floorNumber: 3),
+        SpaceModel(spaceRow: 'A', spaceNumber: 1),
+        SpaceModel(spaceRow: 'B', spaceNumber: 1),
+        SpaceModel(spaceRow: 'D', spaceNumber: 1),
+        SpaceModel(spaceRow: 'E', spaceNumber: 0),
+        SpaceModel(spaceRow: 'F', spaceNumber: 0),
       ],
     ),
     2: ParkingFloorSpacesModel(missing: [], blocked: [], booked: []),
     11: ParkingFloorSpacesModel(
       missing: [
-        SpaceModel(spaceRow: 'A', spaceNumber: 2, floorNumber: 1),
-        SpaceModel(spaceRow: 'B', spaceNumber: 2, floorNumber: 1),
-        SpaceModel(spaceRow: 'C', spaceNumber: 2, floorNumber: 1),
-        SpaceModel(spaceRow: 'D', spaceNumber: 2, floorNumber: 1),
-        SpaceModel(spaceRow: 'E', spaceNumber: 2, floorNumber: 1),
-        SpaceModel(spaceRow: 'F', spaceNumber: 2, floorNumber: 1),
-        SpaceModel(spaceRow: 'G', spaceNumber: 2, floorNumber: 1),
-        SpaceModel(spaceRow: 'H', spaceNumber: 2, floorNumber: 1),
-        SpaceModel(spaceRow: 'I', spaceNumber: 2, floorNumber: 1),
-        SpaceModel(spaceRow: 'J', spaceNumber: 2, floorNumber: 1),
-        SpaceModel(spaceRow: 'K', spaceNumber: 2, floorNumber: 1),
-        SpaceModel(spaceRow: 'L', spaceNumber: 2, floorNumber: 1),
-        SpaceModel(spaceRow: 'M', spaceNumber: 2, floorNumber: 1),
+        SpaceModel(spaceRow: 'A', spaceNumber: 2),
+        SpaceModel(spaceRow: 'B', spaceNumber: 2),
+        SpaceModel(spaceRow: 'C', spaceNumber: 2),
+        SpaceModel(spaceRow: 'D', spaceNumber: 2),
+        SpaceModel(spaceRow: 'E', spaceNumber: 2),
+        SpaceModel(spaceRow: 'F', spaceNumber: 2),
+        SpaceModel(spaceRow: 'G', spaceNumber: 2),
+        SpaceModel(spaceRow: 'H', spaceNumber: 2),
+        SpaceModel(spaceRow: 'I', spaceNumber: 2),
+        SpaceModel(spaceRow: 'J', spaceNumber: 2),
+        SpaceModel(spaceRow: 'K', spaceNumber: 2),
+        SpaceModel(spaceRow: 'L', spaceNumber: 2),
+        SpaceModel(spaceRow: 'M', spaceNumber: 2),
       ],
       blocked: [
-        SpaceModel(spaceRow: 'C', spaceNumber: 1, floorNumber: 1),
-        SpaceModel(spaceRow: 'D', spaceNumber: 0, floorNumber: 1),
-        SpaceModel(spaceRow: 'A', spaceNumber: 2, floorNumber: 1),
+        SpaceModel(spaceRow: 'C', spaceNumber: 1),
+        SpaceModel(spaceRow: 'D', spaceNumber: 0),
+        SpaceModel(spaceRow: 'A', spaceNumber: 2),
       ],
       booked: [
-        SpaceModel(spaceRow: 'A', spaceNumber: 1, floorNumber: 1),
-        SpaceModel(spaceRow: 'B', spaceNumber: 1, floorNumber: 1),
-        SpaceModel(spaceRow: 'D', spaceNumber: 1, floorNumber: 1),
-        SpaceModel(spaceRow: 'E', spaceNumber: 0, floorNumber: 1),
-        SpaceModel(spaceRow: 'F', spaceNumber: 0, floorNumber: 1),
+        SpaceModel(spaceRow: 'A', spaceNumber: 1),
+        SpaceModel(spaceRow: 'B', spaceNumber: 1),
+        SpaceModel(spaceRow: 'D', spaceNumber: 1),
+        SpaceModel(spaceRow: 'E', spaceNumber: 0),
+        SpaceModel(spaceRow: 'F', spaceNumber: 0),
       ],
     ),
   };

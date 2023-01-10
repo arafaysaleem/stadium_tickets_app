@@ -1,4 +1,4 @@
-export 'enums/event_type_enum.dart';
+export 'enums/event_status_enum.dart';
 export 'enums/events_endpoint_enum.dart';
 export 'models/event_model.codegen.dart';
 export 'providers/events_provider.codegen.dart';

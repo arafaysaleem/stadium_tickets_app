@@ -10,7 +10,6 @@ class SpaceModel with _$SpaceModel {
   const factory SpaceModel({
     required String spaceRow,
     required int spaceNumber,
-    required int floorNumber,
   }) = _SpaceModel;
 
   const SpaceModel._();

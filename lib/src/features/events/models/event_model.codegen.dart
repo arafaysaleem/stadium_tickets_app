@@ -6,7 +6,7 @@ import '../../../helpers/constants/app_utils.dart';
 import '../../../helpers/typedefs.dart';
 
 // Enums
-import '../enums/event_type_enum.dart';
+import '../enums/event_status_enum.dart';
 
 part 'event_model.codegen.freezed.dart';
 part 'event_model.codegen.g.dart';
@@ -22,7 +22,7 @@ class EventModel with _$EventModel {
     @JsonKey(fromJson: AppUtils.timeFromJson, toJson: AppUtils.toNull)
         required TimeOfDay endTime,
     required String posterUrl,
-    required EventType eventType,
+    required EventStatus eventStatus,
   }) = _EventModel;
 
   factory EventModel.fromJson(JSON json) => _$EventModelFromJson(json);
@@ -34,7 +34,7 @@ class EventModel with _$EventModel {
     TimeOfDay? startTime,
     TimeOfDay? endTime,
     String? posterUrl,
-    EventType? eventType,
+    EventStatus? eventStatus,
   }) {
     return <String, Object?>{
       if (eventId != null) 'event_id': eventId,
@@ -43,7 +43,7 @@ class EventModel with _$EventModel {
       if (startTime != null) 'start_time': AppUtils.timeToJson(startTime),
       if (endTime != null) 'end_time': AppUtils.timeToJson(endTime),
       if (posterUrl != null) 'poster_url': posterUrl,
-      if (eventType != null) 'event_type': eventType.toJson,
+      if (eventStatus != null) 'event_status': eventStatus.toJson,
     };
   }
 }

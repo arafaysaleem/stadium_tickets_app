@@ -4,7 +4,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 /// A collection of types that an event can be.
 @JsonEnum()
-enum EventType {
+enum EventStatus {
   @JsonValue('open')
   OPEN,
   @JsonValue('closed')
@@ -12,6 +12,6 @@ enum EventType {
 }
 
 /// A utility with extensions for enum name and serialized value.
-extension ExtEventType on EventType {
+extension ExtEventType on EventStatus {
   String get toJson => name.toLowerCase();
 }

@@ -101,7 +101,6 @@ class ParkingSpacesGrid extends HookWidget {
                     ),
                     itemBuilder: (ctx, i) {
                       final space = SpaceModel(
-                        floorNumber: floorNumber,
                         spaceRow: String.fromCharCode(i % numOfRows + 65),
                         spaceNumber: i ~/ numOfRows,
                       );

@@ -5,7 +5,8 @@ import '../../../helpers/constants/constants.dart';
 
 class EventPosterPlaceholder extends StatelessWidget {
   final double? height;
-  final double borderRadius;
+  final double radius;
+  final BorderRadius? borderRadius;
   final double iconSize;
   final AlignmentGeometry childXAlign;
   final EdgeInsetsGeometry? margin;
@@ -17,7 +18,8 @@ class EventPosterPlaceholder extends StatelessWidget {
     this.padding,
     this.margin,
     this.childXAlign = Alignment.center,
-    this.borderRadius = 20,
+    this.radius = 20,
+    this.borderRadius,
     this.iconSize = 65,
   });
 
@@ -30,7 +32,7 @@ class EventPosterPlaceholder extends StatelessWidget {
       margin: margin,
       decoration: BoxDecoration(
         color: AppColors.surfaceColor,
-        borderRadius: Corners.rounded(borderRadius),
+        borderRadius: borderRadius ?? Corners.rounded(radius),
       ),
       child: Align(
         alignment: childXAlign,

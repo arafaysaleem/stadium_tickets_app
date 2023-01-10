@@ -13,12 +13,14 @@ import 'custom_text_button.dart';
 class CustomErrorWidget extends StatelessWidget {
   final CustomException error;
   final Color backgroundColor;
+  final Color fontColor;
   final double height;
   final VoidCallback retryCallback;
 
   const CustomErrorWidget._({
     required this.error,
     required this.backgroundColor,
+    required this.fontColor,
     required this.retryCallback,
     required this.height,
   });
@@ -59,7 +61,10 @@ class CustomErrorWidget extends StatelessWidget {
               Text(
                 error.message,
                 textAlign: TextAlign.center,
-                style: const TextStyle(fontSize: 21),
+                style: TextStyle(
+                  fontSize: 21,
+                  color: fontColor,
+                ),
               ),
               Insets.expand,
               CustomTextButton.gradient(
@@ -92,7 +97,8 @@ class _CustomErrorWidgetDark extends CustomErrorWidget {
     required super.retryCallback,
     double? height,
   }) : super._(
-          backgroundColor: AppColors.darkSkeletonColor,
+          backgroundColor: AppColors.surfaceColor,
+          fontColor: AppColors.textWhite80Color,
           height: height ?? double.infinity,
         );
 }
@@ -103,7 +109,8 @@ class _CustomErrorWidgetLight extends CustomErrorWidget {
     required super.retryCallback,
     double? height,
   }) : super._(
-          backgroundColor: AppColors.lightSkeletonColor,
+          backgroundColor: AppColors.surfaceColor,
+          fontColor: AppColors.textBlackColor,
           height: height ?? double.infinity,
         );
 }

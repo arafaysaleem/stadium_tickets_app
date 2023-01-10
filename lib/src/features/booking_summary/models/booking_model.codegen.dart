@@ -1,6 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 // Helpers
+import '../../../helpers/constants/app_utils.dart';
 import '../../../helpers/typedefs.dart';
 
 // Enums
@@ -14,9 +15,10 @@ part 'booking_model.codegen.g.dart';
 @freezed
 class BookingModel with _$BookingModel {
   const factory BookingModel({
+    required String personName,
     required String personEmail,
     required int amountPayable,
-    required DateTime dateTime,
+    @JsonKey(toJson: AppUtils.dateTimeToJson) required DateTime datetime,
     required BookingStatus status,
     required int zoneId,
     required int eventId,

@@ -29,12 +29,20 @@ final parkingTicketsProvider =
   final parkingTickets = parkingSpacesMap.entries
       .map(
     (e) => e.value.map(
-      (k) => BookingParkingModel(
-        spaceNumber: k.spaceNumber,
-        spaceRow: k.spaceRow,
-        pFloorId: e.key,
-        floorNo: k.floorNumber,
-      ),
+      (k) {
+        final pFloor = ref
+            .watch(parkingFloorsFutureProvider)
+            .asData!
+            .value
+            .firstWhere((element) => element.pFloorId == e.key);
+        return BookingParkingModel(
+          spaceNumber: k.spaceNumber,
+          spaceRow: k.spaceRow,
+          floorNo: pFloor.floorNumber,
+          price: pFloor.price,
+          pFloorId: e.key,
+        );
+      },
     ),
   )
       .fold(
@@ -85,14 +93,16 @@ class BookingSummary extends _$BookingSummary {
     state = const AsyncLoading();
 
     state = await state.makeGuardedRequest(() {
+      final seatTickets = ref.read(seatTicketsProvider);
       final data = BookingModel(
+        personName: seatTickets.first.personName!,
         personEmail: ref.read(buyerEmailProvider)!,
         amountPayable: ref.read(totalAmountProvider),
         zoneId: ref.read(currentZoneProvider)!.zoneId,
         eventId: ref.read(currentEventProvider)!.eventId,
-        bookingSeats: ref.read(seatTicketsProvider),
+        bookingSeats: seatTickets,
         bookingParkingSpaces: ref.read(parkingTicketsProvider),
-        dateTime: DateTime.now(),
+        datetime: DateTime.now(),
         status: BookingStatus.RESERVED,
       );
 

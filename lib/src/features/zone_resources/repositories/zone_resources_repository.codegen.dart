@@ -6,11 +6,13 @@ import '../../../core/core.dart';
 
 // Models
 import '../enums/resource_type_enum.dart';
-import '../enums/zone_resources_endpoint_enum.dart';
 import '../models/zone_resource_model.codegen.dart';
 
 // Helpers
 import '../../../helpers/typedefs.dart';
+
+// Features
+import '../../stadium_zones/stadium_zones.dart';
 
 part 'zone_resources_repository.codegen.g.dart';
 
@@ -32,10 +34,11 @@ class ZoneResourcesRepository {
   }) : _apiService = apiService;
 
   Future<List<ZoneResourceModel>> fetchAllZoneResources({
+    required int zoneId,
     JSON? queryParameters,
   }) async {
     return _apiService.getCollectionData<ZoneResourceModel>(
-      endpoint: ZoneResourcesEndpoint.BASE.route(),
+      endpoint: ZonesEndpoint.RESOURCES.route(id: zoneId),
       queryParams: queryParameters,
       converter: ZoneResourceModel.fromJson,
     );
@@ -52,6 +55,7 @@ class MockZoneResourcesRepository implements ZoneResourcesRepository {
 
   @override
   Future<List<ZoneResourceModel>> fetchAllZoneResources({
+    required int zoneId,
     JSON? queryParameters,
   }) {
     return Future.delayed(

@@ -41,8 +41,18 @@ class BillingDetails extends ConsumerWidget {
               topLeft: Radius.circular(10),
               topRight: Radius.circular(10),
             ),
-            placeholder: const EventPosterPlaceholder(),
-            errorWidget: const EventPosterPlaceholder(),
+            placeholder: const EventPosterPlaceholder(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(10),
+                topRight: Radius.circular(10),
+              ),
+            ),
+            errorWidget: const EventPosterPlaceholder(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(10),
+                topRight: Radius.circular(10),
+              ),
+            ),
           ),
 
           // Event Title

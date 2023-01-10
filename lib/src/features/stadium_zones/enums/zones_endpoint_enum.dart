@@ -3,12 +3,14 @@
 enum ZonesEndpoint {
   BASE,
   SEATS,
+  RESOURCES,
   BY_ID;
 
   const ZonesEndpoint();
 
   static const _baseRoute = '/zones';
   static const _seatsRoute = 'seats';
+  static const _resourcesRoute = 'resources';
 
   /// Returns the path for zones [endpoint].
   ///
@@ -28,6 +30,12 @@ enum ZonesEndpoint {
           assert(id != null, 'zoneId is required for SEATS endpoint');
           const seats = ZonesEndpoint._seatsRoute;
           return '$path/$id/$seats';
+        }
+      case ZonesEndpoint.RESOURCES:
+        {
+          assert(id != null, 'zoneId is required for RESOURCES endpoint');
+          const resources = ZonesEndpoint._resourcesRoute;
+          return '$path/$id/$resources';
         }
     }
   }

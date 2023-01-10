@@ -13,6 +13,7 @@ class ParkingFloorModel with _$ParkingFloorModel {
     required int floorNumber,
     required int numOfRows,
     required int spacesPerRow,
+    required int price,
   }) = _ParkingFloorModel;
 
   factory ParkingFloorModel.fromJson(JSON json) => _$ParkingFloorModelFromJson(json);

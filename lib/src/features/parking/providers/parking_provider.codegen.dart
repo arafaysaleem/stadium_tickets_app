@@ -20,7 +20,7 @@ final currentParkingFloorProvider =
   },
 );
 
-@riverpod
+@Riverpod(keepAlive: true)
 Future<List<ParkingFloorModel>> parkingFloorsFuture(
   ParkingFloorsFutureRef ref,
 ) {

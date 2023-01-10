@@ -119,7 +119,7 @@ class TicketDetailsBottomSheet extends HookConsumerWidget {
                     fontSize: 15,
                     color: AppColors.textGreyColor,
                   ),
-                  hintText: "Type the ticket designee's identification",
+                  hintText: 'X-XXXX-XXXX or XXXXXXXXXXXX',
                   keyboardType: TextInputType.number,
                   textInputAction: TextInputAction.done,
                   validator: FormValidator.idValidator,

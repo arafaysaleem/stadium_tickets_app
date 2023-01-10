@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
 
+import '../../../config/config.dart';
+
 /// A class that holds intercepting logic for API related requests. This is
 /// the first interceptor in case of both request and response.
 ///
@@ -33,6 +35,7 @@ class ApiInterceptor extends Interceptor {
     RequestOptions options,
     RequestInterceptorHandler handler,
   ) async {
+    // Add auth token to request if required
     if (options.extra.containsKey('requiresAuthToken')) {
       if (options.extra['requiresAuthToken'] == true) {
         // final token =
@@ -41,6 +44,11 @@ class ApiInterceptor extends Interceptor {
         //   <String, Object?>{'Authorization': 'Bearer $token'},
         // );
       }
+
+      // Add API Key to request
+      options.headers.addAll(
+        <String, Object?>{'api-key': Config.apiKey},
+      );
 
       options.extra.remove('requiresAuthToken');
     }

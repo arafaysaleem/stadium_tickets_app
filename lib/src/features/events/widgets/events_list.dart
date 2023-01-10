@@ -27,10 +27,13 @@ class EventsList extends ConsumerWidget {
           padding: EdgeInsets.only(top: 70),
           child: CustomCircularLoader(),
         ),
-        error: (error, st) => ErrorResponseHandler(
-          error: error,
-          retryCallback: () => ref.refresh(filtersProvider),
-          stackTrace: st,
+        error: (error, st) => Padding(
+          padding: const EdgeInsets.fromLTRB(16, 0, 16, 20),
+          child: ErrorResponseHandler(
+            error: error,
+            retryCallback: () => ref.refresh(filtersProvider),
+            stackTrace: st,
+          ),
         ),
         emptyOrNull: () => const EmptyStateWidget(
           height: 395,

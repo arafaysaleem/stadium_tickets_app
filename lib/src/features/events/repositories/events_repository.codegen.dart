@@ -6,7 +6,7 @@ import 'package:time/time.dart';
 import '../../../core/core.dart';
 
 // Models
-import '../enums/event_type_enum.dart';
+import '../enums/event_status_enum.dart';
 import '../enums/events_endpoint_enum.dart';
 import '../models/event_model.codegen.dart';
 
@@ -59,7 +59,7 @@ class MockEventsRepository implements EventsRepository {
           startTime: TimeOfDay.now(),
           endTime: TimeOfDay.fromDateTime(DateTime.now().add(5.hours)),
           posterUrl: 'https://wallpapercave.com/wp/wp1713760.jpg',
-          eventType: EventType.OPEN,
+          eventStatus: EventStatus.OPEN,
         ),
         EventModel(
           eventId: 2,
@@ -69,7 +69,7 @@ class MockEventsRepository implements EventsRepository {
           endTime: TimeOfDay.fromDateTime(DateTime.now().add(5.hours)),
           posterUrl:
               'https://img.mensxp.com/media/content/2019/Apr/the-esl-one-dota-2-tournament-in-mumbai-was-crazy-1200x900-1556079193.jpg',
-          eventType: EventType.OPEN,
+          eventStatus: EventStatus.OPEN,
         ),
         EventModel(
           eventId: 3,
@@ -79,7 +79,7 @@ class MockEventsRepository implements EventsRepository {
           endTime: TimeOfDay.fromDateTime(DateTime.now().add(5.hours)),
           posterUrl:
               'https://img.freepik.com/free-vector/music-event-poster-template-with-colorful-shapes_1361-1591.jpg',
-          eventType: EventType.OPEN,
+          eventStatus: EventStatus.OPEN,
         ),
         EventModel(
           eventId: 4,
@@ -88,7 +88,7 @@ class MockEventsRepository implements EventsRepository {
           startTime: TimeOfDay.now(),
           endTime: TimeOfDay.fromDateTime(DateTime.now().add(5.hours)),
           posterUrl: 'https://i.ytimg.com/vi/7J4315BBr2E/maxresdefault.jpg',
-          eventType: EventType.OPEN,
+          eventStatus: EventStatus.OPEN,
         )
       ],
     );

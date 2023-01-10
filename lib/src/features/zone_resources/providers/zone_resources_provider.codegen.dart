@@ -4,6 +4,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../../helpers/typedefs.dart';
 
 // Models
+import '../../stadium_zones/stadium_zones.dart';
 import '../models/zone_resource_model.codegen.dart';
 
 // Repositories
@@ -15,7 +16,8 @@ part 'zone_resources_provider.codegen.g.dart';
 Future<List<ZoneResourceModel>> zoneResourcesFuture(
   ZoneResourcesFutureRef ref,
 ) async {
-  return ref.watch(zoneResourcesControllerProvider).getAllZoneResources();
+  final zoneId = ref.watch(currentZoneProvider)!.zoneId;
+  return ref.watch(zoneResourcesControllerProvider).getAllZoneResources(zoneId);
 }
 
 /// A provider used to access instance of this service
@@ -31,10 +33,11 @@ class ZoneResourcesController {
 
   ZoneResourcesController(this._zoneResourcesRepository);
 
-  Future<List<ZoneResourceModel>> getAllZoneResources([
+  Future<List<ZoneResourceModel>> getAllZoneResources(int zoneId, [
     JSON? queryParams,
   ]) async {
     return _zoneResourcesRepository.fetchAllZoneResources(
+      zoneId: zoneId,
       queryParameters: queryParams,
     );
   }

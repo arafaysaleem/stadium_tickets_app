@@ -13,6 +13,7 @@ class BookingParkingModel with _$BookingParkingModel {
     required String? spaceRow,
     required int? spaceNumber,
     required int? pFloorId,
+    required int? price,
     @JsonKey(toJson: AppUtils.toNull) required int? floorNo,
   }) = _BookingParkingModel;
 

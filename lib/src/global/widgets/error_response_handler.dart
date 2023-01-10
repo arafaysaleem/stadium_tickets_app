@@ -31,11 +31,19 @@ class ErrorResponseHandler extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (error is CustomException) {
-      return CustomErrorWidget.light(
-        error: error as CustomException,
-        retryCallback: retryCallback!,
-        height: MediaQuery.of(context).size.height * 0.5,
-      );
+      final isDark =
+          Theme.of(context).colorScheme.brightness == Brightness.dark;
+      return isDark
+          ? CustomErrorWidget.dark(
+              error: error as CustomException,
+              retryCallback: retryCallback!,
+              height: MediaQuery.of(context).size.height * 0.5,
+            )
+          : CustomErrorWidget.light(
+              error: error as CustomException,
+              retryCallback: retryCallback!,
+              height: MediaQuery.of(context).size.height * 0.5,
+            );
     }
     onError?.call();
     debugPrint(error.toString());

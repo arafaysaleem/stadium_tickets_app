@@ -22,8 +22,8 @@ Future<ParkingFloorSpacesModel?> parkingSpacesFuture(
 @riverpod
 List<SpaceModel> currentFloorSelectedSpaces(CurrentFloorSelectedSpacesRef ref) {
   final spacesMap = ref.watch(parkingSpacesProvider);
-  final activeFloorNo = ref.watch(currentParkingFloorProvider)!.floorNumber;
-  return spacesMap[activeFloorNo] ?? [];
+  final activeFloorId = ref.watch(currentParkingFloorProvider)!.pFloorId;
+  return spacesMap[activeFloorId] ?? [];
 }
 
 final confirmedParkingSpacesProvider =
@@ -44,9 +44,9 @@ class ParkingSpaces extends _$ParkingSpaces {
   }
 
   void selectSpace(SpaceModel space) {
-    final floorNo = ref.read(currentParkingFloorProvider)!.floorNumber;
+    final floor = ref.read(currentParkingFloorProvider)!;
     state.update(
-      floorNo,
+      floor.pFloorId,
       (value) => [...value, space],
       ifAbsent: () => [space],
     );
@@ -54,9 +54,9 @@ class ParkingSpaces extends _$ParkingSpaces {
   }
 
   void removeSpace(SpaceModel space) {
-    final floorNo = ref.read(currentParkingFloorProvider)!.floorNumber;
+    final pFloorId = ref.read(currentParkingFloorProvider)!.pFloorId;
     state.update(
-      floorNo,
+      pFloorId,
       (value) {
         value.remove(space);
         return [...value];

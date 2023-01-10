@@ -23,7 +23,7 @@ class Config {
 
   /// The client key for sentry SDK. The DSN tells the SDK where to
   /// send the events to.
-  /// 
+  ///
   /// It is supplied at the time of building the apk or running the app:
   /// ```
   /// flutter build apk --debug --dart-define=SENTRY_DSN=www.some_url.com
@@ -35,5 +35,21 @@ class Config {
   static const sentryDSN = String.fromEnvironment(
     'SENTRY_DSN',
     defaultValue: 'https://some-number.ingest.sentry.io/number',
+  );
+
+
+  /// The api key for authorizing HTTP requests to the backend
+  /// 
+  /// It is supplied at the time of building the apk or running the app:
+  /// ```
+  /// flutter build apk --debug --dart-define=API_KEY=abcd123...
+  /// ```
+  /// OR
+  /// ```
+  /// flutter run --dart-define=API_KEY=abcd123...
+  /// ```
+  static const apiKey = String.fromEnvironment(
+    'API_KEY',
+    defaultValue: 'invalid',
   );
 }

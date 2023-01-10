@@ -1,5 +1,4 @@
 export 'enums/resource_type_enum.dart';
-export 'enums/zone_resources_endpoint_enum.dart';
 export 'models/zone_resource_model.codegen.dart';
 export 'providers/zone_resources_provider.codegen.dart';
 export 'repositories/zone_resources_repository.codegen.dart';
