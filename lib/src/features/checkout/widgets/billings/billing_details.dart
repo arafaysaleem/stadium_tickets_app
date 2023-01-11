@@ -207,7 +207,7 @@ class BillingDetails extends ConsumerWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     CustomText.body(
-                      'Total - Rs. $totalAmount',
+                      'Total - \$$totalAmount',
                       color: AppColors.textBlackColor,
                       fontWeight: FontWeight.bold,
                     ),

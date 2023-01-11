@@ -42,9 +42,13 @@ class ParkingRepository {
 
   Future<ParkingFloorSpacesModel> fetchAllParkingFloorSpaces({
     required int pFloorId,
+    required int eventId,
   }) async {
     return _apiService.getDocumentData<ParkingFloorSpacesModel>(
-      endpoint: ParkingEndpoint.SPACES.route(id: pFloorId),
+      endpoint: ParkingEndpoint.SPACES.route(
+        id: pFloorId,
+        eventId: eventId,
+      ),
       converter: ParkingFloorSpacesModel.fromJson,
     );
   }
@@ -150,6 +154,7 @@ class MockParkingRepository implements ParkingRepository {
   @override
   Future<ParkingFloorSpacesModel> fetchAllParkingFloorSpaces({
     required int pFloorId,
+    required int eventId,
   }) {
     return Future.delayed(2.seconds, () => mockSpaces[pFloorId]!);
   }

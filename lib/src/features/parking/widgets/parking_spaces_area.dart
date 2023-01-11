@@ -30,7 +30,7 @@ class ParkingSpacesArea extends ConsumerWidget {
       child: AsyncValueWidget<ParkingFloorSpacesModel?>(
         value: ref.watch(parkingSpacesFutureProvider(floor?.pFloorId)),
         data: (parkingSpacesModel) {
-          final extendBottom = floor!.numOfRows > 11;
+          final extendBottom = floor!.numOfRows > 9;
           final extendRight = floor.spacesPerRow > 7;
           return Column(
             children: [

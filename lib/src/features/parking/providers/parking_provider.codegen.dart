@@ -5,6 +5,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../../helpers/typedefs.dart';
 
 // Models
+import '../../events/events.dart';
 import '../models/parking_floor_model.codegen.dart';
 import '../models/parking_floor_spaces_model.codegen.dart';
 
@@ -23,26 +24,33 @@ final currentParkingFloorProvider =
 @Riverpod(keepAlive: true)
 Future<List<ParkingFloorModel>> parkingFloorsFuture(
   ParkingFloorsFutureRef ref,
-) {
-  return ref.watch(parkingProvider).getAllParking();
+) async {
+  final parking = await ref.watch(parkingProvider).getAllParking();
+  parking.sort((a, b) => a.floorNumber.compareTo(b.floorNumber));
+  return parking;
 }
 
 /// A provider used to access instance of this service
 @Riverpod(keepAlive: true)
 ParkingProvider parking(ParkingRef ref) {
-  return ParkingProvider(ref.watch(parkingRepositoryProvider));
+  return ParkingProvider(ref, ref.watch(parkingRepositoryProvider));
 }
 
 class ParkingProvider {
+  final Ref ref;
   final ParkingRepository _parkingRepository;
 
-  ParkingProvider(this._parkingRepository);
+  ParkingProvider(this.ref, this._parkingRepository);
 
   Future<List<ParkingFloorModel>> getAllParking([JSON? queryParams]) async {
     return _parkingRepository.fetchAllParking(queryParameters: queryParams);
   }
 
   Future<ParkingFloorSpacesModel> getAllParkingFloorSpaces(int id) async {
-    return _parkingRepository.fetchAllParkingFloorSpaces(pFloorId: id);
+    final eventId = ref.read(currentEventProvider)!.eventId;
+    return _parkingRepository.fetchAllParkingFloorSpaces(
+      pFloorId: id,
+      eventId: eventId,
+    );
   }
 }

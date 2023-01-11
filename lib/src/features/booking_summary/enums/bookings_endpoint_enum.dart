@@ -8,7 +8,7 @@ enum BookingsEndpoint {
   const BookingsEndpoint();
 
   static const _baseRoute = '/event-bookings';
-  static const _payment = '/process-payment';
+  static const _payment = 'process-payment';
 
   /// Returns the path for bookings [endpoint].
   ///

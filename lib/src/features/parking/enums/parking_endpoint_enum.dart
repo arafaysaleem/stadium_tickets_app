@@ -9,11 +9,13 @@ enum ParkingEndpoint {
 
   static const _baseRoute = '/parking-floors';
   static const _spacesRoute = 'spaces';
+  static const _eventsRoute = 'events';
 
   /// Returns the path for parkings [endpoint].
   ///
   /// Specify parking floor [id] to get the path for a specific parking.
-  String route({int? id}) {
+  /// Specify event [eventId] to get the path for a specific event's parking.
+  String route({int? id, int? eventId}) {
     const path = ParkingEndpoint._baseRoute;
     switch (this) {
       case ParkingEndpoint.BASE:
@@ -26,8 +28,10 @@ enum ParkingEndpoint {
       case ParkingEndpoint.SPACES:
         {
           assert(id != null, 'parkingFloorId is required for SPACES endpoint');
+          assert(eventId != null, 'eventId is required for SPACES endpoint');
           const spaces = ParkingEndpoint._spacesRoute;
-          return '$path/$id/$spaces';
+          const events = ParkingEndpoint._eventsRoute;
+          return '$path/$id/$events/$eventId/$spaces';
         }
     }
   }

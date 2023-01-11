@@ -7,6 +7,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import '../../../helpers/constants/constants.dart';
 
 // Models
+import '../enums/seat_indicator_enum.dart';
 import '../models/seat_model.codegen.dart';
 
 // Widgets
@@ -134,9 +135,9 @@ class SeatsArea extends HookWidget {
                               if (isMissing(seat)) {
                                 child = Insets.shrink;
                               } else if (isBlocked(seat) || isBooked(seat)) {
-                                child = const DecoratedBox(
+                                child = DecoratedBox(
                                   decoration: BoxDecoration(
-                                    color: Color(0xFF5A5A5A),
+                                    color: SeatIndicator.TAKEN.color,
                                     borderRadius: Corners.rounded7,
                                   ),
                                 );

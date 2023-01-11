@@ -37,9 +37,12 @@ class ZonesRepository {
     );
   }
 
-  Future<ZoneSeatingModel> fetchAllZoneSeats({required int zoneId}) async {
+  Future<ZoneSeatingModel> fetchAllZoneSeats({
+    required int zoneId,
+    required int eventId,
+  }) async {
     return _apiService.getDocumentData<ZoneSeatingModel>(
-      endpoint: ZonesEndpoint.SEATS.route(id: zoneId),
+      endpoint: ZonesEndpoint.SEATS.route(id: zoneId, eventId: eventId),
       converter: ZoneSeatingModel.fromJson,
     );
   }
@@ -93,7 +96,10 @@ class MockZonesRepository implements ZonesRepository {
   }
 
   @override
-  Future<ZoneSeatingModel> fetchAllZoneSeats({required int zoneId}) {
+  Future<ZoneSeatingModel> fetchAllZoneSeats({
+    required int zoneId,
+    required int eventId,
+  }) {
     return Future.delayed(
       2.seconds,
       () => const ZoneSeatingModel(
