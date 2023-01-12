@@ -5,7 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../helpers/constants/constants.dart';
 
 // Models
-import '../models/parking_floor_spaces_model.codegen.dart';
+import '../models/space_model.codegen.dart';
 
 // Providers
 import '../providers/parking_provider.codegen.dart';
@@ -27,9 +27,17 @@ class ParkingSpacesArea extends ConsumerWidget {
     return AnimatedSwitcher(
       duration: const Duration(milliseconds: 550),
       switchOutCurve: Curves.easeInBack,
-      child: AsyncValueWidget<ParkingFloorSpacesModel?>(
+      child: AsyncValueWidget<List<SpaceModel>?>(
         value: ref.watch(parkingSpacesFutureProvider(floor?.pFloorId)),
-        data: (parkingSpacesModel) {
+        loading: () => const CustomCircularLoader(),
+        onNull: () => const CustomCircularLoader(),
+        error: (error, st) => ErrorResponseHandler(
+          error: error,
+          retryCallback: () =>
+              ref.refresh(parkingSpacesFutureProvider(floor?.pFloorId)),
+          stackTrace: st,
+        ),
+        data: (parkingBookedSpaces) {
           final extendBottom = floor!.numOfRows > 9;
           final extendRight = floor.spacesPerRow > 7;
           return Column(
@@ -43,9 +51,9 @@ class ParkingSpacesArea extends ConsumerWidget {
                 numOfRows: floor.numOfRows,
                 spacesPerRow: floor.spacesPerRow,
                 floorNumber: floor.floorNumber,
-                missing: parkingSpacesModel!.missing,
-                blocked: parkingSpacesModel.blocked,
-                booked: parkingSpacesModel.booked,
+                missing: floor.missing,
+                blocked: floor.blocked,
+                booked: parkingBookedSpaces!,
               ),
 
               if (!extendBottom) Insets.expand,
@@ -79,14 +87,6 @@ class ParkingSpacesArea extends ConsumerWidget {
             ],
           );
         },
-        loading: () => const CustomCircularLoader(),
-        emptyOrNull: () => const CustomCircularLoader(),
-        error: (error, st) => ErrorResponseHandler(
-          error: error,
-          retryCallback: () =>
-              ref.refresh(parkingSpacesFutureProvider(floor?.pFloorId)),
-          stackTrace: st,
-        ),
       ),
     );
   }

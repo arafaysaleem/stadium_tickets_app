@@ -9,9 +9,9 @@ import '../../stadium_zones/stadium_zones.dart';
 part 'zone_seats_provider.codegen.g.dart';
 
 @riverpod
-Future<ZoneSeatingModel> zoneSeatsFuture(ZoneSeatsFutureRef ref) {
+Future<List<SeatModel>> zoneSeatsFuture(ZoneSeatsFutureRef ref) {
   final zoneId = ref.watch(currentZoneProvider)!.zoneId;
-  return ref.watch(zonesControllerProvider).getAllZoneSeats(zoneId);
+  return ref.watch(zonesControllerProvider).getAllZoneBookedSeats(zoneId);
 }
 
 @riverpod

@@ -1,7 +1,6 @@
 export 'enums/parking_endpoint_enum.dart';
 export 'enums/space_indicator_enum.dart';
 export 'models/parking_floor_model.codegen.dart';
-export 'models/parking_floor_spaces_model.codegen.dart';
 export 'models/space_model.codegen.dart';
 export 'providers/parking_provider.codegen.dart';
 export 'providers/parking_spaces_provider.codegen.dart';

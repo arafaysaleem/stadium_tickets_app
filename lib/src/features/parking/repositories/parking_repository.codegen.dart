@@ -6,7 +6,6 @@ import '../../../core/core.dart';
 
 // Models
 import '../models/parking_floor_model.codegen.dart';
-import '../models/parking_floor_spaces_model.codegen.dart';
 import '../models/space_model.codegen.dart';
 
 // Helpers
@@ -19,8 +18,8 @@ part 'parking_repository.codegen.g.dart';
 @Riverpod(keepAlive: true)
 ParkingRepository parkingRepository(ParkingRepositoryRef ref) {
   final _apiService = ref.watch(apiServiceProvider);
-  // return MockParkingRepository(apiService: _apiService);
-  return ParkingRepository(apiService: _apiService);
+  return MockParkingRepository(apiService: _apiService);
+  // return ParkingRepository(apiService: _apiService);
 }
 
 class ParkingRepository {
@@ -40,16 +39,16 @@ class ParkingRepository {
     );
   }
 
-  Future<ParkingFloorSpacesModel> fetchAllParkingFloorSpaces({
+  Future<List<SpaceModel>> fetchAllParkingFloorSpaces({
     required int pFloorId,
     required int eventId,
   }) async {
-    return _apiService.getDocumentData<ParkingFloorSpacesModel>(
+    return _apiService.getCollectionData<SpaceModel>(
       endpoint: ParkingEndpoint.SPACES.route(
         id: pFloorId,
         eventId: eventId,
       ),
-      converter: ParkingFloorSpacesModel.fromJson,
+      converter: SpaceModel.fromJson,
     );
   }
 }
@@ -58,66 +57,24 @@ class MockParkingRepository implements ParkingRepository {
   @override
   final ApiService _apiService;
 
-  static const mockSpaces = <int, ParkingFloorSpacesModel>{
-    1: ParkingFloorSpacesModel(
-      missing: [
-        SpaceModel(spaceRow: 'A', spaceNumber: 2),
-        SpaceModel(spaceRow: 'B', spaceNumber: 2),
-        SpaceModel(spaceRow: 'C', spaceNumber: 2),
-        SpaceModel(spaceRow: 'D', spaceNumber: 2),
-        SpaceModel(spaceRow: 'E', spaceNumber: 2),
-        SpaceModel(spaceRow: 'F', spaceNumber: 2),
-        SpaceModel(spaceRow: 'G', spaceNumber: 2),
-        SpaceModel(spaceRow: 'H', spaceNumber: 2),
-        SpaceModel(spaceRow: 'I', spaceNumber: 2),
-        SpaceModel(spaceRow: 'J', spaceNumber: 2),
-        SpaceModel(spaceRow: 'K', spaceNumber: 2),
-        SpaceModel(spaceRow: 'L', spaceNumber: 2),
-        SpaceModel(spaceRow: 'M', spaceNumber: 2),
-      ],
-      blocked: [
-        SpaceModel(spaceRow: 'C', spaceNumber: 1),
-        SpaceModel(spaceRow: 'D', spaceNumber: 0),
-        SpaceModel(spaceRow: 'A', spaceNumber: 2),
-      ],
-      booked: [
-        SpaceModel(spaceRow: 'A', spaceNumber: 1),
-        SpaceModel(spaceRow: 'B', spaceNumber: 1),
-        SpaceModel(spaceRow: 'D', spaceNumber: 1),
-        SpaceModel(spaceRow: 'E', spaceNumber: 0),
-        SpaceModel(spaceRow: 'F', spaceNumber: 0),
-      ],
-    ),
-    2: ParkingFloorSpacesModel(missing: [], blocked: [], booked: []),
-    11: ParkingFloorSpacesModel(
-      missing: [
-        SpaceModel(spaceRow: 'A', spaceNumber: 2),
-        SpaceModel(spaceRow: 'B', spaceNumber: 2),
-        SpaceModel(spaceRow: 'C', spaceNumber: 2),
-        SpaceModel(spaceRow: 'D', spaceNumber: 2),
-        SpaceModel(spaceRow: 'E', spaceNumber: 2),
-        SpaceModel(spaceRow: 'F', spaceNumber: 2),
-        SpaceModel(spaceRow: 'G', spaceNumber: 2),
-        SpaceModel(spaceRow: 'H', spaceNumber: 2),
-        SpaceModel(spaceRow: 'I', spaceNumber: 2),
-        SpaceModel(spaceRow: 'J', spaceNumber: 2),
-        SpaceModel(spaceRow: 'K', spaceNumber: 2),
-        SpaceModel(spaceRow: 'L', spaceNumber: 2),
-        SpaceModel(spaceRow: 'M', spaceNumber: 2),
-      ],
-      blocked: [
-        SpaceModel(spaceRow: 'C', spaceNumber: 1),
-        SpaceModel(spaceRow: 'D', spaceNumber: 0),
-        SpaceModel(spaceRow: 'A', spaceNumber: 2),
-      ],
-      booked: [
-        SpaceModel(spaceRow: 'A', spaceNumber: 1),
-        SpaceModel(spaceRow: 'B', spaceNumber: 1),
-        SpaceModel(spaceRow: 'D', spaceNumber: 1),
-        SpaceModel(spaceRow: 'E', spaceNumber: 0),
-        SpaceModel(spaceRow: 'F', spaceNumber: 0),
-      ],
-    ),
+  static const mockSpaces = <int, List<SpaceModel>>{
+    1: [
+      SpaceModel(spaceRow: 'A', spaceNumber: 1),
+      SpaceModel(spaceRow: 'B', spaceNumber: 1),
+      SpaceModel(spaceRow: 'D', spaceNumber: 1),
+      SpaceModel(spaceRow: 'E', spaceNumber: 0),
+      SpaceModel(spaceRow: 'F', spaceNumber: 0),
+    ],
+    2: [
+      SpaceModel(spaceRow: 'A', spaceNumber: 1),
+      SpaceModel(spaceRow: 'B', spaceNumber: 1),
+      SpaceModel(spaceRow: 'D', spaceNumber: 1),
+      SpaceModel(spaceRow: 'E', spaceNumber: 0),
+      SpaceModel(spaceRow: 'F', spaceNumber: 0),
+    ],
+    11: [
+      SpaceModel(spaceRow: 'A', spaceNumber: 1),
+    ],
   };
 
   MockParkingRepository({
@@ -134,25 +91,34 @@ class MockParkingRepository implements ParkingRepository {
           'floor_number': 1,
           'spaces_per_row': 17,
           'num_of_rows': 20,
+          'price': 30,
+          'missing': <SpaceModel>[],
+          'blocked': <SpaceModel>[],
         }),
         ParkingFloorModel.fromJson(<String, dynamic>{
           'p_floor_id': 2,
           'floor_number': 2,
           'spaces_per_row': 13,
           'num_of_rows': 7,
+          'price': 30,
+          'missing': <SpaceModel>[],
+          'blocked': <SpaceModel>[],
         }),
         ParkingFloorModel.fromJson(<String, dynamic>{
           'p_floor_id': 1,
           'floor_number': 3,
           'spaces_per_row': 14,
           'num_of_rows': 17,
+          'price': 30,
+          'missing': <SpaceModel>[],
+          'blocked': <SpaceModel>[],
         }),
       ],
     );
   }
 
   @override
-  Future<ParkingFloorSpacesModel> fetchAllParkingFloorSpaces({
+  Future<List<SpaceModel>> fetchAllParkingFloorSpaces({
     required int pFloorId,
     required int eventId,
   }) {

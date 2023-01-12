@@ -11,6 +11,7 @@ import '../../../helpers/constants/constants.dart';
 import '../../../config/routing/routing.dart';
 
 // Providers
+import '../models/seat_model.codegen.dart';
 import '../providers/zone_seats_provider.codegen.dart';
 
 // Widgets
@@ -69,9 +70,9 @@ class ZoneSeatsScreen extends ConsumerWidget {
               child: AnimatedSwitcher(
                 duration: const Duration(milliseconds: 550),
                 switchOutCurve: Curves.easeInBack,
-                child: AsyncValueWidget<ZoneSeatingModel>(
+                child: AsyncValueWidget<List<SeatModel>>(
                   value: ref.watch(zoneSeatsFutureProvider),
-                  data: (zoneSeatingModel) {
+                  data: (zoneBookedSeats) {
                     final extendBottom = zone.numOfRows > 12;
                     final extendRight = zone.seatsPerRow > 8;
                     return Column(
@@ -89,9 +90,9 @@ class ZoneSeatsScreen extends ConsumerWidget {
                           extendBottom: extendBottom,
                           numOfRows: zone.numOfRows,
                           seatsPerRow: zone.seatsPerRow,
-                          missing: zoneSeatingModel.missing,
-                          blocked: zoneSeatingModel.blocked,
-                          booked: zoneSeatingModel.booked,
+                          missing: zone.missing,
+                          blocked: zone.blocked,
+                          booked: zoneBookedSeats,
                         ),
 
                         if (!extendBottom) Insets.expand,

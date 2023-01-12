@@ -5,8 +5,8 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../../helpers/typedefs.dart';
 
 // Models
+import '../../zone_seats/models/seat_model.codegen.dart';
 import '../models/zone_model.codegen.dart';
-import '../models/zone_seating_model.codegen.dart';
 
 // Repositories
 import '../repositories/zones_repository.codegen.dart';
@@ -41,8 +41,11 @@ class ZonesController {
     return _zonesRepository.fetchAllZones(queryParameters: queryParams);
   }
 
-  Future<ZoneSeatingModel> getAllZoneSeats(int id) async {
+  Future<List<SeatModel>> getAllZoneBookedSeats(int id) async {
     final eventId = ref.read(currentEventProvider)!.eventId;
-    return _zonesRepository.fetchAllZoneSeats(zoneId: id, eventId: eventId);
+    return _zonesRepository.fetchAllZoneBookedSeats(
+      zoneId: id,
+      eventId: eventId,
+    );
   }
 }

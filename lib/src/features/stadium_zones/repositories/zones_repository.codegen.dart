@@ -5,11 +5,11 @@ import 'package:time/time.dart';
 import '../../../core/core.dart';
 
 // Models
-import '../enums/zones_endpoint_enum.dart';
+import '../../zone_seats/models/seat_model.codegen.dart';
 import '../models/zone_model.codegen.dart';
-import '../models/zone_seating_model.codegen.dart';
 
 // Helpers
+import '../enums/zones_endpoint_enum.dart';
 import '../../../helpers/typedefs.dart';
 
 part 'zones_repository.codegen.g.dart';
@@ -18,8 +18,8 @@ part 'zones_repository.codegen.g.dart';
 @riverpod
 ZonesRepository zonesRepository(ZonesRepositoryRef ref) {
   final _apiService = ref.watch(apiServiceProvider);
-  // return MockZonesRepository(apiService: _apiService);
-  return ZonesRepository(apiService: _apiService);
+  return MockZonesRepository(apiService: _apiService);
+  // return ZonesRepository(apiService: _apiService);
 }
 
 class ZonesRepository {
@@ -37,13 +37,13 @@ class ZonesRepository {
     );
   }
 
-  Future<ZoneSeatingModel> fetchAllZoneSeats({
+  Future<List<SeatModel>> fetchAllZoneBookedSeats({
     required int zoneId,
     required int eventId,
   }) async {
-    return _apiService.getDocumentData<ZoneSeatingModel>(
+    return _apiService.getCollectionData<SeatModel>(
       endpoint: ZonesEndpoint.SEATS.route(id: zoneId, eventId: eventId),
-      converter: ZoneSeatingModel.fromJson,
+      converter: SeatModel.fromJson,
     );
   }
 }
@@ -69,7 +69,9 @@ class MockZonesRepository implements ZonesRepository {
           'num_of_rows': 20,
           'color_hex_code': '#FDDF00',
           'z_type_id': 1,
-          'type': {'z_type_id': 1, 'type': 'vip', 'price': 70}
+          'type': {'z_type_id': 1, 'type': 'vip', 'price': 70},
+          'missing': <SeatModel>[],
+          'blocked': <SeatModel>[],
         }),
         ZoneModel.fromJson(<String, dynamic>{
           'zone_id': 2,
@@ -79,7 +81,9 @@ class MockZonesRepository implements ZonesRepository {
           'num_of_rows': 7,
           'color_hex_code': '#FDDF00',
           'z_type_id': 2,
-          'type': {'z_type_id': 2, 'type': 'general', 'price': 10}
+          'type': {'z_type_id': 2, 'type': 'general', 'price': 10},
+          'missing': <SeatModel>[],
+          'blocked': <SeatModel>[],
         }),
         ZoneModel.fromJson(<String, dynamic>{
           'zone_id': 1,
@@ -89,24 +93,22 @@ class MockZonesRepository implements ZonesRepository {
           'num_of_rows': 17,
           'color_hex_code': '#FDDF00',
           'z_type_id': 3,
-          'type': {'z_type_id': 3, 'type': 'premium', 'price': 40}
+          'type': {'z_type_id': 3, 'type': 'premium', 'price': 40},
+          'missing': <SeatModel>[],
+          'blocked': <SeatModel>[],
         }),
       ],
     );
   }
 
   @override
-  Future<ZoneSeatingModel> fetchAllZoneSeats({
+  Future<List<SeatModel>> fetchAllZoneBookedSeats({
     required int zoneId,
     required int eventId,
   }) {
     return Future.delayed(
       2.seconds,
-      () => const ZoneSeatingModel(
-        missing: [],
-        blocked: [],
-        booked: [],
-      ),
+      () => const [],
     );
   }
 }

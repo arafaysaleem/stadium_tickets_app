@@ -5,12 +5,14 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../../helpers/typedefs.dart';
 
 // Models
-import '../../events/events.dart';
 import '../models/parking_floor_model.codegen.dart';
-import '../models/parking_floor_spaces_model.codegen.dart';
+import '../models/space_model.codegen.dart';
 
 // Repositories
 import '../repositories/parking_repository.codegen.dart';
+
+// Features
+import '../../events/events.dart';
 
 part 'parking_provider.codegen.g.dart';
 
@@ -46,7 +48,7 @@ class ParkingProvider {
     return _parkingRepository.fetchAllParking(queryParameters: queryParams);
   }
 
-  Future<ParkingFloorSpacesModel> getAllParkingFloorSpaces(int id) async {
+  Future<List<SpaceModel>> getAllParkingFloorSpaces(int id) async {
     final eventId = ref.read(currentEventProvider)!.eventId;
     return _parkingRepository.fetchAllParkingFloorSpaces(
       pFloorId: id,

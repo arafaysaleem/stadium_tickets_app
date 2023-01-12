@@ -7,6 +7,8 @@ class AsyncValueWidget<T> extends StatelessWidget {
   final AsyncValue<T> value;
   final Widget Function() loading;
   final Widget Function()? emptyOrNull;
+  final Widget Function()? onEmpty;
+  final Widget Function()? onNull;
   final Widget Function()? onFirstLoad;
   final Widget Function(Object, StackTrace?) error;
   final Widget Function(T) data;
@@ -17,6 +19,8 @@ class AsyncValueWidget<T> extends StatelessWidget {
     super.key,
     this.onFirstLoad,
     this.emptyOrNull,
+    this.onEmpty,
+    this.onNull,
     this.showEmptyOnNotFoundError = false,
     this.showLoadingOnRefresh = true,
     required this.value,
@@ -39,10 +43,12 @@ class AsyncValueWidget<T> extends StatelessWidget {
         return error(ex, st);
       },
       data: (d) {
-        if (emptyOrNull != null) {
-          if (d == null || (d is List && d.isEmpty)) {
-            return emptyOrNull!.call();
-          }
+        if (emptyOrNull != null && (d == null || (d is List && d.isEmpty))) {
+          return emptyOrNull!.call();
+        } else if (onEmpty != null && (d is List && d.isEmpty)) {
+          return onEmpty!.call();
+        } else if (onNull != null && d == null) {
+          return onNull!.call();
         }
         return data(d);
       },

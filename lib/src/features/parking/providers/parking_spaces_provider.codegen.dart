@@ -2,7 +2,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 // Models
-import '../models/parking_floor_spaces_model.codegen.dart';
 import '../models/space_model.codegen.dart';
 
 // Providers
@@ -11,7 +10,7 @@ import 'parking_provider.codegen.dart';
 part 'parking_spaces_provider.codegen.g.dart';
 
 @Riverpod(keepAlive: true)
-Future<ParkingFloorSpacesModel?> parkingSpacesFuture(
+Future<List<SpaceModel>?> parkingSpacesFuture(
   ParkingSpacesFutureRef ref,
   int? pFloorId,
 ) {
