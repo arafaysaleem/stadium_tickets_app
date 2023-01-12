@@ -18,8 +18,8 @@ part 'zones_repository.codegen.g.dart';
 @riverpod
 ZonesRepository zonesRepository(ZonesRepositoryRef ref) {
   final _apiService = ref.watch(apiServiceProvider);
-  return MockZonesRepository(apiService: _apiService);
-  // return ZonesRepository(apiService: _apiService);
+  // return MockZonesRepository(apiService: _apiService);
+  return ZonesRepository(apiService: _apiService);
 }
 
 class ZonesRepository {
@@ -34,16 +34,6 @@ class ZonesRepository {
       endpoint: ZonesEndpoint.BASE.route(),
       queryParams: queryParameters,
       converter: ZoneModel.fromJson,
-    );
-  }
-
-  Future<List<SeatModel>> fetchAllZoneBookedSeats({
-    required int zoneId,
-    required int eventId,
-  }) async {
-    return _apiService.getCollectionData<SeatModel>(
-      endpoint: ZonesEndpoint.SEATS.route(id: zoneId, eventId: eventId),
-      converter: SeatModel.fromJson,
     );
   }
 }
@@ -98,17 +88,6 @@ class MockZonesRepository implements ZonesRepository {
           'blocked': <SeatModel>[],
         }),
       ],
-    );
-  }
-
-  @override
-  Future<List<SeatModel>> fetchAllZoneBookedSeats({
-    required int zoneId,
-    required int eventId,
-  }) {
-    return Future.delayed(
-      2.seconds,
-      () => const [],
     );
   }
 }

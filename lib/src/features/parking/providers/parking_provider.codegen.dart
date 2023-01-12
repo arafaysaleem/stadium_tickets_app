@@ -12,6 +12,7 @@ import '../models/space_model.codegen.dart';
 import '../repositories/parking_repository.codegen.dart';
 
 // Features
+import '../../booking_summary/booking_summary.dart';
 import '../../events/events.dart';
 
 part 'parking_provider.codegen.g.dart';
@@ -50,7 +51,8 @@ class ParkingProvider {
 
   Future<List<SpaceModel>> getAllParkingFloorSpaces(int id) async {
     final eventId = ref.read(currentEventProvider)!.eventId;
-    return _parkingRepository.fetchAllParkingFloorSpaces(
+    final bookingsRepository = ref.read(bookingsRepositoryProvider);
+    return bookingsRepository.fetchAllParkingFloorBookedSpaces(
       pFloorId: id,
       eventId: eventId,
     );

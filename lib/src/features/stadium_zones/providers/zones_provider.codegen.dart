@@ -13,6 +13,7 @@ import '../repositories/zones_repository.codegen.dart';
 
 // Features
 import '../../events/events.dart';
+import '../../booking_summary/booking_summary.dart';
 
 part 'zones_provider.codegen.g.dart';
 
@@ -43,7 +44,8 @@ class ZonesController {
 
   Future<List<SeatModel>> getAllZoneBookedSeats(int id) async {
     final eventId = ref.read(currentEventProvider)!.eventId;
-    return _zonesRepository.fetchAllZoneBookedSeats(
+    final bookingsRepository = ref.read(bookingsRepositoryProvider);
+    return bookingsRepository.fetchAllZoneBookedSeats(
       zoneId: id,
       eventId: eventId,
     );

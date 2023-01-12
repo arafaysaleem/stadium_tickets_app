@@ -18,8 +18,8 @@ part 'parking_repository.codegen.g.dart';
 @Riverpod(keepAlive: true)
 ParkingRepository parkingRepository(ParkingRepositoryRef ref) {
   final _apiService = ref.watch(apiServiceProvider);
-  return MockParkingRepository(apiService: _apiService);
-  // return ParkingRepository(apiService: _apiService);
+  // return MockParkingRepository(apiService: _apiService);
+  return ParkingRepository(apiService: _apiService);
 }
 
 class ParkingRepository {
@@ -38,44 +38,11 @@ class ParkingRepository {
       converter: ParkingFloorModel.fromJson,
     );
   }
-
-  Future<List<SpaceModel>> fetchAllParkingFloorSpaces({
-    required int pFloorId,
-    required int eventId,
-  }) async {
-    return _apiService.getCollectionData<SpaceModel>(
-      endpoint: ParkingEndpoint.SPACES.route(
-        id: pFloorId,
-        eventId: eventId,
-      ),
-      converter: SpaceModel.fromJson,
-    );
-  }
 }
 
 class MockParkingRepository implements ParkingRepository {
   @override
   final ApiService _apiService;
-
-  static const mockSpaces = <int, List<SpaceModel>>{
-    1: [
-      SpaceModel(spaceRow: 'A', spaceNumber: 1),
-      SpaceModel(spaceRow: 'B', spaceNumber: 1),
-      SpaceModel(spaceRow: 'D', spaceNumber: 1),
-      SpaceModel(spaceRow: 'E', spaceNumber: 0),
-      SpaceModel(spaceRow: 'F', spaceNumber: 0),
-    ],
-    2: [
-      SpaceModel(spaceRow: 'A', spaceNumber: 1),
-      SpaceModel(spaceRow: 'B', spaceNumber: 1),
-      SpaceModel(spaceRow: 'D', spaceNumber: 1),
-      SpaceModel(spaceRow: 'E', spaceNumber: 0),
-      SpaceModel(spaceRow: 'F', spaceNumber: 0),
-    ],
-    11: [
-      SpaceModel(spaceRow: 'A', spaceNumber: 1),
-    ],
-  };
 
   MockParkingRepository({
     required ApiService apiService,
@@ -115,13 +82,5 @@ class MockParkingRepository implements ParkingRepository {
         }),
       ],
     );
-  }
-
-  @override
-  Future<List<SpaceModel>> fetchAllParkingFloorSpaces({
-    required int pFloorId,
-    required int eventId,
-  }) {
-    return Future.delayed(2.seconds, () => mockSpaces[pFloorId]!);
   }
 }
