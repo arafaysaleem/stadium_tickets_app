@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -30,11 +31,13 @@ class TicketDetailsBottomSheet extends HookConsumerWidget {
 
   void _onSaveTap({
     required WidgetRef ref,
+    required BuildContext context,
     required String? personName,
     required String? personId,
     required GlobalKey<FormState> formKey,
   }) {
     if (!formKey.currentState!.validate()) return;
+    FocusScope.of(context).unfocus(); // Close keyboard
     formKey.currentState!.save();
     ref.read(seatTicketsProvider.notifier).update(
       (state) {
@@ -56,75 +59,86 @@ class TicketDetailsBottomSheet extends HookConsumerWidget {
         useTextEditingController(text: seatTicket.identificationNumber);
     final formKey = useMemoized(GlobalKey<FormState>.new);
     return SafeArea(
-      child: CustomScrollableBottomSheet(
-        snapSizes: const [1],
-        initialSheetSize: 1,
-        minSheetSize: 0.7,
-        titleText: 'Ticket Details',
-        leading: GestureDetector(
-          onTap: AppRouter.pop,
-          child: Padding(
-            padding: const EdgeInsets.all(10),
-            child: CustomText.body(
-              'Cancel',
-              color: AppColors.textGreyColor,
+      child: GestureDetector(
+        onTap: () => FocusScope.of(context).unfocus(),
+        child: CustomScrollableBottomSheet(
+          snapSizes: const [1],
+          initialSheetSize: 1,
+          minSheetSize: 0.7,
+          titleText: 'Ticket Details',
+          leading: GestureDetector(
+            onTap:() {
+              FocusScope.of(context).unfocus(); // Close keyboard
+              AppRouter.pop();
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: CustomText.body(
+                'Cancel',
+                color: AppColors.textGreyColor,
+              ),
             ),
           ),
-        ),
-        trailing: CustomTextButton.gradient(
-          width: 60,
-          height: 30,
-          gradient: AppColors.buttonGradientPrimary,
-          onPressed: () => _onSaveTap(
-            formKey: formKey,
-            ref: ref,
-            personName: nameController.text,
-            personId: idController.text,
-          ),
-          child: Center(
-            child: CustomText.subtitle(
-              'Apply',
-              color: Colors.white,
+          trailing: CustomTextButton.gradient(
+            width: 60,
+            height: 30,
+            gradient: AppColors.buttonGradientPrimary,
+            onPressed: () => _onSaveTap(
+              formKey: formKey,
+              context: context,
+              ref: ref,
+              personName: nameController.text,
+              personId: idController.text,
+            ),
+            child: Center(
+              child: CustomText.subtitle(
+                'Apply',
+                color: Colors.white,
+              ),
             ),
           ),
-        ),
-        builder: (_, __) => Form(
-          key: formKey,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
-            child: Column(
-              children: [
-                // Person Name
-                CustomTextField(
-                  controller: nameController,
-                  autofocus: true,
-                  floatingText: 'Person Name',
-                  floatingStyle: const TextStyle(
-                    fontSize: 15,
-                    color: AppColors.textGreyColor,
+          builder: (_, __) => Form(
+            key: formKey,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: Column(
+                children: [
+                  // Person Name
+                  CustomTextField(
+                    controller: nameController,
+                    autofocus: true,
+                    floatingText: 'Person Name',
+                    floatingStyle: const TextStyle(
+                      fontSize: 15,
+                      color: AppColors.textGreyColor,
+                    ),
+                    hintText: "Type the ticket designee's name",
+                    keyboardType: TextInputType.name,
+                    textInputAction: TextInputAction.next,
+                    validator: FormValidator.nameValidator,
                   ),
-                  hintText: "Type the ticket designee's name",
-                  keyboardType: TextInputType.name,
-                  textInputAction: TextInputAction.next,
-                  validator: FormValidator.nameValidator,
-                ),
-
-                Insets.gapH15,
-
-                // Person Id
-                CustomTextField(
-                  controller: idController,
-                  floatingText: 'Person Id',
-                  floatingStyle: const TextStyle(
-                    fontSize: 15,
-                    color: AppColors.textGreyColor,
+      
+                  Insets.gapH15,
+      
+                  // Person Id
+                  CustomTextField(
+                    controller: idController,
+                    floatingText: 'Person Id',
+                    inputFormatters: [
+                      FilteringTextInputFormatter.digitsOnly,
+                      LengthLimitingTextInputFormatter(13),
+                    ],
+                    floatingStyle: const TextStyle(
+                      fontSize: 15,
+                      color: AppColors.textGreyColor,
+                    ),
+                    hintText: 'XXXXXXXXX(9) or XXXXXXXXXXXX(12)',
+                    keyboardType: TextInputType.number,
+                    textInputAction: TextInputAction.done,
+                    validator: FormValidator.idValidator,
                   ),
-                  hintText: 'X-XXXX-XXXX or XXXXXXXXXXXX',
-                  keyboardType: TextInputType.number,
-                  textInputAction: TextInputAction.done,
-                  validator: FormValidator.idValidator,
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

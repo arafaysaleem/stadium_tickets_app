@@ -22,10 +22,12 @@ class BuyerDetailsBottomSheet extends HookConsumerWidget {
 
   void _onSaveTap({
     required WidgetRef ref,
+    required BuildContext context,
     required String? email,
     required GlobalKey<FormState> formKey,
   }) {
     if (!formKey.currentState!.validate()) return;
+    FocusScope.of(context).unfocus(); // Close keyboard
     formKey.currentState!.save();
     ref.read(buyerEmailProvider.notifier).state = email;
     AppRouter.pop();
@@ -37,53 +39,60 @@ class BuyerDetailsBottomSheet extends HookConsumerWidget {
     final emailController = useTextEditingController(text: buyerEmail);
     final formKey = useMemoized(GlobalKey<FormState>.new);
     return SafeArea(
-      child: CustomScrollableBottomSheet(
-        snapSizes: const [1],
-        initialSheetSize: 1,
-        minSheetSize: 0.7,
-        titleText: 'Buyer Details',
-        leading: InkWell(
-          onTap: AppRouter.pop,
-          child: Padding(
-            padding: const EdgeInsets.all(10),
-            child: CustomText.body(
-              'Cancel',
-              color: AppColors.textGreyColor,
-            ),
-          ),
-        ),
-        trailing: CustomTextButton.gradient(
-          width: 60,
-          height: 30,
-          gradient: AppColors.buttonGradientPrimary,
-          onPressed: () => _onSaveTap(
-            formKey: formKey,
-            ref: ref,
-            email: emailController.text,
-          ),
-          child: Center(
-            child: CustomText.subtitle(
-              'Apply',
-              color: Colors.white,
-            ),
-          ),
-        ),
-        builder: (_, __) => Form(
-          key: formKey,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
-            child: CustomTextField(
-              controller: emailController,
-              autofocus: true,
-              floatingText: 'Buyer Email',
-              floatingStyle: const TextStyle(
-                fontSize: 15,
+      child: GestureDetector(
+        onTap: () => FocusScope.of(context).unfocus(),
+        child: CustomScrollableBottomSheet(
+          snapSizes: const [1],
+          initialSheetSize: 1,
+          minSheetSize: 0.7,
+          titleText: 'Buyer Details',
+          leading: InkWell(
+            onTap: () {
+              FocusScope.of(context).unfocus(); // Close keyboard
+              AppRouter.pop();
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: CustomText.body(
+                'Cancel',
                 color: AppColors.textGreyColor,
               ),
-              hintText: "Type the ticket booker's email",
-              keyboardType: TextInputType.emailAddress,
-              textInputAction: TextInputAction.next,
-              validator: FormValidator.emailValidator,
+            ),
+          ),
+          trailing: CustomTextButton.gradient(
+            width: 60,
+            height: 30,
+            gradient: AppColors.buttonGradientPrimary,
+            onPressed: () => _onSaveTap(
+              context: context,
+              formKey: formKey,
+              ref: ref,
+              email: emailController.text,
+            ),
+            child: Center(
+              child: CustomText.subtitle(
+                'Apply',
+                color: Colors.white,
+              ),
+            ),
+          ),
+          builder: (_, __) => Form(
+            key: formKey,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: CustomTextField(
+                controller: emailController,
+                autofocus: true,
+                floatingText: 'Buyer Email',
+                floatingStyle: const TextStyle(
+                  fontSize: 15,
+                  color: AppColors.textGreyColor,
+                ),
+                hintText: "Type the ticket booker's email",
+                keyboardType: TextInputType.emailAddress,
+                textInputAction: TextInputAction.next,
+                validator: FormValidator.emailValidator,
+              ),
             ),
           ),
         ),

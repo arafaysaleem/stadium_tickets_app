@@ -23,6 +23,7 @@ class ShowDetailsSection extends ConsumerWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Name
           CustomText(
@@ -36,8 +37,11 @@ class ShowDetailsSection extends ConsumerWidget {
           Insets.gapH20,
 
           // Event datetime
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          Wrap(
+            runSpacing: 5,
+            spacing: 20,
+            runAlignment: WrapAlignment.spaceBetween,
+            alignment: WrapAlignment.spaceBetween,
             children: [
               // Zone
               LabeledWidget(
