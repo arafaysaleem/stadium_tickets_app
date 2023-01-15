@@ -127,7 +127,7 @@ class Regexes {
 
   /// The regular expression for validating ids in the app.
   static RegExp idRegex =
-      RegExp(r'^([1-9]-\d{4}-\d{4}|[1-9]\d{11})$');
+      RegExp(r'^([1-9]\d{8}|[1-9]\d{11})$');
 
   /// The regular expression for validating names in the app.
   static RegExp nameRegex = RegExp(r'^[a-z A-Z]+$');
