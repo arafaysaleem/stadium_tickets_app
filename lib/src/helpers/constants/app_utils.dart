@@ -162,5 +162,6 @@ class Durations {
   static const normal = Duration(milliseconds: 300);
   static const medium = Duration(milliseconds: 500);
   static const slow = Duration(milliseconds: 700);
-  static const slower = Duration(milliseconds: 1000);
+  static const slower = Duration(milliseconds: 850);
+  static const slowest = Duration(milliseconds: 1000);
 }

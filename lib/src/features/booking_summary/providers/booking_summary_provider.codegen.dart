@@ -6,9 +6,6 @@ import '../models/booking_model.codegen.dart';
 import '../models/booking_parking_model.codegen.dart';
 import '../models/booking_seat_model.codegen.dart';
 
-// Helpers
-import '../../../helpers/extensions/extensions.dart';
-
 // Enums
 import '../enums/booking_status_enum.dart';
 
@@ -78,37 +75,35 @@ final totalAmountProvider = Provider.autoDispose<int>((ref) {
   return total;
 });
 
-final reservedBookingProvider = Provider.autoDispose<int?>((ref) {
-  final bookingSummary = ref.watch(bookingSummaryProvider);
-  return bookingSummary.asData?.value;
-});
-
+/// A provider used to access instance of this service
 @riverpod
-class BookingSummary extends _$BookingSummary {
-  @override
-  FutureOr<int?> build() => null;
+BookingSummaryProvider bookingSummary(BookingSummaryRef ref) {
+  return BookingSummaryProvider(ref);
+}
 
-  Future<void> reserveBooking() async {
+class BookingSummaryProvider {
+  final Ref ref;
+
+  BookingSummaryProvider(this.ref);
+
+  Future<int> reserveBooking() async {
     final bookingsRepository = ref.read(bookingsRepositoryProvider);
-    state = const AsyncLoading();
 
-    state = await state.makeGuardedRequest(() {
-      final seatTickets = ref.read(seatTicketsProvider);
-      final data = BookingModel(
-        personName: seatTickets.first.personName!,
-        personEmail: ref.read(buyerEmailProvider)!,
-        amountPayable: ref.read(totalAmountProvider),
-        zoneId: ref.read(currentZoneProvider)!.zoneId,
-        eventId: ref.read(currentEventProvider)!.eventId,
-        bookingSeats: seatTickets,
-        bookingParkingSpaces: ref.read(parkingTicketsProvider),
-        datetime: DateTime.now(),
-        status: BookingStatus.RESERVED,
-      );
+    final seatTickets = ref.read(seatTicketsProvider);
+    final data = BookingModel(
+      personName: seatTickets.first.personName!,
+      personEmail: ref.read(buyerEmailProvider)!,
+      amountPayable: ref.read(totalAmountProvider),
+      zoneId: ref.read(currentZoneProvider)!.zoneId,
+      eventId: ref.read(currentEventProvider)!.eventId,
+      bookingSeats: seatTickets,
+      bookingParkingSpaces: ref.read(parkingTicketsProvider),
+      datetime: DateTime.now(),
+      status: BookingStatus.RESERVED,
+    );
 
-      final bookingId = bookingsRepository.create(data: data.toJson());
+    final bookingId = bookingsRepository.create(data: data.toJson());
 
-      return bookingId;
-    });
+    return bookingId;
   }
 }

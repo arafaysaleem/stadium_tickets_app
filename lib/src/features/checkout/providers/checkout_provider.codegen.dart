@@ -36,12 +36,16 @@ class Checkout extends _$Checkout {
 
   Future<CheckoutState> makeCheckoutPayment() async {
     final checkoutRepository = ref.read(checkoutRepositoryProvider);
-    state = const AsyncData(CheckoutState.PROCESSING_PAYMENT);
+    state = const AsyncData(CheckoutState.CONFIRMING_BOOKING);
 
     state = await state.makeGuardedRequest(() async {
+      final bookingRepo = ref.read(bookingSummaryProvider);
+      final bookingId = await bookingRepo.reserveBooking();
+
+      state = const AsyncData(CheckoutState.PROCESSING_PAYMENT);
+
       final card = ref.read(savedCardDetailsProvider);
       final event = ref.read(currentEventProvider)!;
-      final bookingId = ref.read(reservedBookingProvider)!;
       final seatPrice = ref.read(currentZoneProvider)!.type.price;
       final seatTickets = ref.read(seatTicketsProvider).length;
       final parkingTickets = ref.read(parkingTicketsProvider);
@@ -57,11 +61,13 @@ class Checkout extends _$Checkout {
           qty: seatTickets,
           total: seatTickets * seatPrice,
         ),
-        parking: PaymentParkingModel(
-          price: parkingTickets.first.price!,
-          qty: parkingTickets.length,
-          total: parkingTickets.length * parkingTickets.first.price!,
-        ),
+        parking: parkingTickets.isEmpty
+            ? null
+            : PaymentParkingModel(
+                price: parkingTickets.first.price!,
+                qty: parkingTickets.length,
+                total: parkingTickets.length * parkingTickets.first.price!,
+              ),
         orderAmount: ref.read(totalAmountProvider),
         orderDate: DateTime.now(),
       );
@@ -70,10 +76,6 @@ class Checkout extends _$Checkout {
         bookingId: bookingId,
         data: data.toJson(),
       );
-
-      state = const AsyncData(CheckoutState.CONFIRMING_BOOKING);
-
-      await Future<void>.delayed(2.seconds);
 
       return CheckoutState.SUCCESS;
     });

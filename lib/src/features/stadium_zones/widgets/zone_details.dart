@@ -64,7 +64,7 @@ class ZoneDetails extends ConsumerWidget {
                   children: [
                     CustomText(
                       zone.name,
-                      fontSize: 30,
+                      fontSize: 25,
                       maxLines: 2,
                       textAlign: TextAlign.center,
                       fontWeight: FontWeight.bold,

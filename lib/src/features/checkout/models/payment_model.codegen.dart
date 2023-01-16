@@ -16,7 +16,7 @@ class PaymentModel with _$PaymentModel {
     required int orderAmount,
     required PaymentEventModel event,
     required PaymentSeatsModel seats,
-    required PaymentParkingModel parking,
+    @JsonKey(toJson: AppUtils.toNull, includeIfNull: false) PaymentParkingModel? parking,
     @JsonKey(toJson: AppUtils.toNull, includeIfNull: false) CardDetailsModel? card,
   }) = _PaymentModel;
 

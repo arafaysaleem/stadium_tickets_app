@@ -20,7 +20,7 @@ class CustomBackIcon extends StatelessWidget {
           shape: BoxShape.circle,
         ),
         child: const Padding(
-          padding: EdgeInsets.all(5),
+          padding: EdgeInsets.all(10),
           child: Icon(Icons.arrow_back_rounded, size: 23),
         ),
       ),

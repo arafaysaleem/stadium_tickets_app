@@ -8,6 +8,7 @@ import '../../../helpers/constants/constants.dart';
 import '../../../config/routing/routing.dart';
 
 // Providers
+import '../../../helpers/extensions/extensions.dart';
 import '../providers/zones_provider.codegen.dart';
 
 // Widgets
@@ -34,7 +35,7 @@ class StadiumZonesScreen extends ConsumerWidget {
     final isSelected = selectedZoneNo != null;
     final slideRight = isLeftZone(selectedZoneNo);
     const stadiumOffset = 20.0;
-    const stadiumHeight = 550.0;
+    final stadiumHeight = context.screenHeight * 0.7;
     return Scaffold(
       body: SafeArea(
         child: Stack(
@@ -56,12 +57,15 @@ class StadiumZonesScreen extends ConsumerWidget {
 
                   // Event Name
                   Expanded(
-                    child: CustomText(
-                      event?.name ?? '',
-                      fontSize: 19,
-                      textAlign: TextAlign.center,
-                      fontWeight: FontWeight.bold,
-                      maxLines: 2,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: CustomText(
+                        event?.name ?? '',
+                        fontSize: 19,
+                        textAlign: TextAlign.center,
+                        fontWeight: FontWeight.bold,
+                        maxLines: 2,
+                      ),
                     ),
                   ),
                 ],
@@ -90,12 +94,12 @@ class StadiumZonesScreen extends ConsumerWidget {
             ),
 
             // Red line
-            const Positioned(
-              bottom: 435,
+            Positioned(
+              bottom: stadiumOffset + stadiumHeight - 135,
               left: 0,
               right: 0,
               height: 3,
-              child: ColoredBox(
+              child: const ColoredBox(
                 color: AppColors.redColor,
               ),
             ),

@@ -44,7 +44,10 @@ class ValidateButton extends ConsumerWidget {
               width: 70,
               height: 35,
               gradient: AppColors.buttonGradientPrimary,
-              onPressed: onValidate,
+              onPressed: () {
+                FocusScope.of(context).unfocus(); // Hide keyboard
+                onValidate();
+              },
               child: Center(
                 child: CustomText.subtitle(
                   'Validate',

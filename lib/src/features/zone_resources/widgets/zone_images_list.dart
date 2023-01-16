@@ -20,6 +20,8 @@ class ZoneImagesList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
+      physics: const BouncingScrollPhysics(),
+      padding: const EdgeInsets.only(bottom: 15),
       itemCount: imageUrls.length,
       separatorBuilder: (_, __) => Insets.gapH15,
       itemBuilder: (context, index) => CustomNetworkImage(
