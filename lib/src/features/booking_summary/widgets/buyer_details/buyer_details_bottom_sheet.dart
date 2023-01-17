@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -6,6 +7,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../providers/booking_summary_provider.codegen.dart';
 
 // Helpers
+import '../../../../config/config.dart';
 import '../../../../helpers/form_validator.dart';
 import '../../../../helpers/constants/constants.dart';
 
@@ -102,11 +104,15 @@ class BuyerDetailsBottomSheet extends HookConsumerWidget {
                     validator: FormValidator.emailValidator,
                   ),
 
-                  Insets.gapH15, 
+                  Insets.gapH15,
 
                   // Contact Input
                   CustomTextField(
                     controller: contactController,
+                    inputFormatters: [
+                      LengthLimitingTextInputFormatter(8),
+                      FilteringTextInputFormatter.digitsOnly,
+                    ],
                     floatingText: 'Buyer Contact',
                     floatingStyle: const TextStyle(
                       fontSize: 15,
@@ -116,6 +122,28 @@ class BuyerDetailsBottomSheet extends HookConsumerWidget {
                     keyboardType: TextInputType.phone,
                     textInputAction: TextInputAction.done,
                     validator: FormValidator.contactValidator,
+                    prefix: Padding(
+                      padding: const EdgeInsets.only(left: 17),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: const [
+                          Text(
+                            Config.countryCode,
+                            style: TextStyle(
+                              fontSize: 18,
+                              color: AppColors.textWhite80Color,
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(vertical: 10),
+                            child: VerticalDivider(
+                              thickness: 1.1,
+                              color: Colors.white,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
                   ),
                 ],
               ),

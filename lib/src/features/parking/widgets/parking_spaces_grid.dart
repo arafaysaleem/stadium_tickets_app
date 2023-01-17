@@ -114,7 +114,7 @@ class ParkingSpacesGrid extends HookWidget {
                       }
                       return child ??
                           SpaceWidget(
-                            key: UniqueKey(),
+                            key: ValueKey('F$floorNumber ${space.spaceRow}-${space.spaceNumber}'),
                             space: space,
                           );
                     },

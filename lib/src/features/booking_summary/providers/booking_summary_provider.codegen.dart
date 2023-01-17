@@ -1,6 +1,9 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+// Helpers
+import '../../../config/config.dart';
+
 // Models
 import '../models/booking_model.codegen.dart';
 import '../models/booking_parking_model.codegen.dart';
@@ -94,7 +97,7 @@ class BookingSummaryProvider {
     final data = BookingModel(
       personName: seatTickets.first.personName!,
       personEmail: ref.read(buyerEmailProvider)!,
-      personContact: ref.read(buyerContactProvider)!,
+      personContact: Config.countryCode + ref.read(buyerContactProvider)!,
       amountPayable: ref.read(totalAmountProvider),
       zoneId: ref.read(currentZoneProvider)!.zoneId,
       eventId: ref.read(currentEventProvider)!.eventId,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -14,11 +15,18 @@ import '../../../global/widgets/custom_circular_loader.dart';
 import '../widgets/confirmation/more_bookings_button.dart';
 import '../widgets/confirmation/retry_payment_button.dart';
 
-class ConfirmationScreen extends StatelessWidget {
+class ConfirmationScreen extends HookConsumerWidget {
   const ConfirmationScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    useEffect(
+      () {
+        ref.read(checkoutProvider.notifier).makeCheckoutPayment();
+        return;
+      },
+      const [],
+    );
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SafeArea(
@@ -60,19 +68,20 @@ class ConfirmationScreen extends StatelessWidget {
                         const SizedBox(height: 10),
 
                         // Text
-                        Expanded(
-                          child: Text(
-                            status == CheckoutState.SUCCESS
-                                ? 'Your tickets have been booked!'
-                                : status == CheckoutState.CONFIRMING_BOOKING
-                                    ? 'Confirming booking'
-                                    : 'Processing payment',
-                            style: const TextStyle(
-                              fontSize: 22,
-                              color: Colors.white,
+                        if (status != null)
+                          Expanded(
+                            child: Text(
+                              status == CheckoutState.SUCCESS
+                                  ? 'Your tickets have been booked!'
+                                  : status == CheckoutState.CONFIRMING_BOOKING
+                                      ? 'Confirming booking'
+                                      : 'Processing payment',
+                              style: const TextStyle(
+                                fontSize: 22,
+                                color: Colors.white,
+                              ),
                             ),
                           ),
-                        ),
 
                         if (status == CheckoutState.SUCCESS)
                           const MoreBookingsButton(),

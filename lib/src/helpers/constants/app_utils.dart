@@ -123,7 +123,7 @@ class Regexes {
   );
 
   /// The regular expression for validating contacts in the app.
-  static RegExp contactRegex = RegExp(r'^\+506(4|[6-8])\d{7}$');
+  static RegExp contactRegex = RegExp(r'^(4|[6-8])\d{7}$');
 
   /// The regular expression for validating ids in the app.
   static RegExp idRegex =

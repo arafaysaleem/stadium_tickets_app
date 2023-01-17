@@ -52,4 +52,9 @@ class Config {
     'API_KEY',
     defaultValue: 'invalid',
   );
+
+  static const countryCode = String.fromEnvironment(
+    'COUNTRY_CODE',
+    defaultValue: '+506',
+  );
 }

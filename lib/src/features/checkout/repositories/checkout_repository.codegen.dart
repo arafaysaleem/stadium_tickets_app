@@ -34,7 +34,7 @@ class CheckoutRepository {
     return _apiService.setData<bool>(
       endpoint: BookingsEndpoint.PROCESS_PAYMENT.route(id: bookingId),
       data: data,
-      converter: (response) => true,
+      converter: (response) => response.body['error'] == '0',
     );
   }
 }
