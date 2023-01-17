@@ -24,19 +24,23 @@ class BuyerDetailsBottomSheet extends HookConsumerWidget {
     required WidgetRef ref,
     required BuildContext context,
     required String? email,
+    required String? contact,
     required GlobalKey<FormState> formKey,
   }) {
     if (!formKey.currentState!.validate()) return;
     FocusScope.of(context).unfocus(); // Close keyboard
     formKey.currentState!.save();
     ref.read(buyerEmailProvider.notifier).state = email;
+    ref.read(buyerContactProvider.notifier).state = contact;
     AppRouter.pop();
   }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final buyerEmail = ref.watch(buyerEmailProvider);
+    final buyerContact = ref.watch(buyerContactProvider);
     final emailController = useTextEditingController(text: buyerEmail);
+    final contactController = useTextEditingController(text: buyerContact);
     final formKey = useMemoized(GlobalKey<FormState>.new);
     return SafeArea(
       child: GestureDetector(
@@ -68,6 +72,7 @@ class BuyerDetailsBottomSheet extends HookConsumerWidget {
               formKey: formKey,
               ref: ref,
               email: emailController.text,
+              contact: contactController.text,
             ),
             child: Center(
               child: CustomText.subtitle(
@@ -80,18 +85,39 @@ class BuyerDetailsBottomSheet extends HookConsumerWidget {
             key: formKey,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: CustomTextField(
-                controller: emailController,
-                autofocus: true,
-                floatingText: 'Buyer Email',
-                floatingStyle: const TextStyle(
-                  fontSize: 15,
-                  color: AppColors.textGreyColor,
-                ),
-                hintText: "Type the ticket booker's email",
-                keyboardType: TextInputType.emailAddress,
-                textInputAction: TextInputAction.next,
-                validator: FormValidator.emailValidator,
+              child: Column(
+                children: [
+                  // Email input
+                  CustomTextField(
+                    controller: emailController,
+                    autofocus: true,
+                    floatingText: 'Buyer Email',
+                    floatingStyle: const TextStyle(
+                      fontSize: 15,
+                      color: AppColors.textGreyColor,
+                    ),
+                    hintText: "Type the ticket booker's email",
+                    keyboardType: TextInputType.emailAddress,
+                    textInputAction: TextInputAction.next,
+                    validator: FormValidator.emailValidator,
+                  ),
+
+                  Insets.gapH15, 
+
+                  // Contact Input
+                  CustomTextField(
+                    controller: contactController,
+                    floatingText: 'Buyer Contact',
+                    floatingStyle: const TextStyle(
+                      fontSize: 15,
+                      color: AppColors.textGreyColor,
+                    ),
+                    hintText: "Type the ticket booker's contact",
+                    keyboardType: TextInputType.phone,
+                    textInputAction: TextInputAction.done,
+                    validator: FormValidator.contactValidator,
+                  ),
+                ],
               ),
             ),
           ),

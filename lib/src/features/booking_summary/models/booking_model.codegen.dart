@@ -17,6 +17,7 @@ class BookingModel with _$BookingModel {
   const factory BookingModel({
     required String personName,
     required String personEmail,
+    required String personContact,
     required int amountPayable,
     @JsonKey(toJson: AppUtils.dateTimeToJson) required DateTime datetime,
     required BookingStatus status,

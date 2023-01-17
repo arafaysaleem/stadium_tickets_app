@@ -63,6 +63,7 @@ final seatTicketsProvider =
 });
 
 final buyerEmailProvider = StateProvider.autoDispose<String?>((ref) => null);
+final buyerContactProvider = StateProvider.autoDispose<String?>((ref) => null);
 
 final totalAmountProvider = Provider.autoDispose<int>((ref) {
   final ticketPrice = ref.watch(
@@ -93,6 +94,7 @@ class BookingSummaryProvider {
     final data = BookingModel(
       personName: seatTickets.first.personName!,
       personEmail: ref.read(buyerEmailProvider)!,
+      personContact: ref.read(buyerContactProvider)!,
       amountPayable: ref.read(totalAmountProvider),
       zoneId: ref.read(currentZoneProvider)!.zoneId,
       eventId: ref.read(currentEventProvider)!.eventId,
