@@ -123,22 +123,22 @@ class BuyerDetailsBottomSheet extends HookConsumerWidget {
                     textInputAction: TextInputAction.done,
                     validator: FormValidator.contactValidator,
                     prefix: Padding(
-                      padding: const EdgeInsets.only(left: 17),
+                      padding: const EdgeInsets.only(left: 10),
                       child: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: const [
                           Text(
                             Config.countryCode,
                             style: TextStyle(
-                              fontSize: 18,
-                              color: AppColors.textWhite80Color,
+                              fontSize: 16,
+                              color: AppColors.textLightGreyColor,
                             ),
                           ),
                           Padding(
                             padding: EdgeInsets.symmetric(vertical: 10),
                             child: VerticalDivider(
                               thickness: 1.1,
-                              color: Colors.white,
+                              color: AppColors.textLightGreyColor,
                             ),
                           )
                         ],

@@ -10,6 +10,9 @@ import '../../../../config/routing/routing.dart';
 // Widgets
 import '../../../../global/widgets/widgets.dart';
 
+// Providers
+import '../../providers/checkout_provider.codegen.dart';
+
 class MoreBookingsButton extends ConsumerWidget {
   const MoreBookingsButton({super.key});
 
@@ -21,6 +24,7 @@ class MoreBookingsButton extends ConsumerWidget {
         width: double.infinity,
         onPressed: () {
           AppRouter.popUntil(Routes.EventsScreenRoute);
+          ref.invalidate(checkoutProvider);
         },
         color: AppColors.textWhite80Color,
         child: const Center(

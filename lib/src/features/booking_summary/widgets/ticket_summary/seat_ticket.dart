@@ -24,8 +24,8 @@ class SeatTicket extends StatelessWidget {
   Widget build(BuildContext context) {
     final isDetailAdded = seatTicketModel.identificationNumber != null;
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 8),
-      height: 105,
+      padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 5),
+      height: 95,
       color: isDetailAdded ? Colors.white : AppColors.greyOutlineColor,
       child: Row(
         children: [
@@ -53,7 +53,7 @@ class SeatTicket extends StatelessWidget {
                   ),
                   child: CustomText(
                     '${seatTicketModel.seatRow}-${seatTicketModel.seatNumber}',
-                    fontSize: 15,
+                    fontSize: 14,
                     color: isDetailAdded
                         ? AppColors.textBlackColor
                         : AppColors.darkSkeletonColor,
@@ -80,7 +80,7 @@ class SeatTicket extends StatelessWidget {
                 ),
                 child: CustomText(
                   seatTicketModel.personName ?? 'To Be Added',
-                  fontSize: 15,
+                  fontSize: 14,
                   color: isDetailAdded
                       ? AppColors.textBlackColor
                       : AppColors.darkSkeletonColor,
@@ -97,7 +97,7 @@ class SeatTicket extends StatelessWidget {
                 ),
                 child: CustomText(
                   seatTicketModel.identificationNumber ?? 'To Be Added',
-                  fontSize: 15,
+                  fontSize: 14,
                   color: isDetailAdded
                       ? AppColors.textBlackColor
                       : AppColors.darkSkeletonColor,

@@ -21,7 +21,7 @@ class ShowDetailsSection extends ConsumerWidget {
     final zoneName =
         ref.watch(currentZoneProvider.select((value) => value!.name));
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -34,57 +34,63 @@ class ShowDetailsSection extends ConsumerWidget {
             maxLines: 2,
           ),
 
-          Insets.gapH20,
+          Insets.gapH15,
 
           // Event datetime
-          Wrap(
-            runSpacing: 5,
-            spacing: 20,
-            runAlignment: WrapAlignment.spaceBetween,
-            alignment: WrapAlignment.spaceBetween,
+          Row(
             children: [
-              // Zone
-              LabeledWidget(
-                label: 'Zone',
-                labelStyle: const TextStyle(
-                  fontSize: 13,
-                  color: AppColors.textGreyColor,
-                ),
-                child: CustomText(
-                  zoneName,
-                  color: AppColors.textBlackColor,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14,
-                ),
-              ),
+              Expanded(
+                child: Wrap(
+                  runSpacing: 10,
+                  spacing: 20,
+                  runAlignment: WrapAlignment.spaceBetween,
+                  alignment: WrapAlignment.spaceBetween,
+                  children: [
+                    // Zone
+                    LabeledWidget(
+                      label: 'Zone',
+                      labelStyle: const TextStyle(
+                        fontSize: 13,
+                        color: AppColors.textGreyColor,
+                      ),
+                      child: CustomText(
+                        zoneName,
+                        color: AppColors.textBlackColor,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14,
+                      ),
+                    ),
 
-              // Date
-              LabeledWidget(
-                label: 'Date',
-                labelStyle: const TextStyle(
-                  fontSize: 13,
-                  color: AppColors.textGreyColor,
-                ),
-                child: CustomText(
-                  selectedEvent.date.toDateString('E, d MMM, yy'),
-                  color: AppColors.textBlackColor,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14,
-                ),
-              ),
+                    // Date
+                    LabeledWidget(
+                      label: 'Date',
+                      labelStyle: const TextStyle(
+                        fontSize: 13,
+                        color: AppColors.textGreyColor,
+                      ),
+                      child: CustomText(
+                        selectedEvent.date.toDateString('E, d MMM, yy'),
+                        color: AppColors.textBlackColor,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14,
+                      ),
+                    ),
 
-              // Time
-              LabeledWidget(
-                label: 'Time',
-                labelStyle: const TextStyle(
-                  fontSize: 13,
-                  color: AppColors.textGreyColor,
-                ),
-                child: CustomText(
-                  selectedEvent.startTime.format(context),
-                  color: AppColors.textBlackColor,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14,
+                    // Time
+                    LabeledWidget(
+                      label: 'Time',
+                      labelStyle: const TextStyle(
+                        fontSize: 13,
+                        color: AppColors.textGreyColor,
+                      ),
+                      child: CustomText(
+                        selectedEvent.startTime.format(context),
+                        color: AppColors.textBlackColor,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 14,
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],

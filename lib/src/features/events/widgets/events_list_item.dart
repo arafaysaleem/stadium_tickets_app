@@ -38,7 +38,7 @@ class EventsListItem extends ConsumerWidget {
       child: ClipRRect(
         borderRadius: Corners.rounded9,
         child: SizedBox(
-          height: 220,
+          height: 230,
           child: Stack(
             children: [
               // Event Poster

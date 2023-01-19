@@ -48,36 +48,83 @@ class TicketSummaryScreen extends StatelessWidget {
               ),
             ),
 
-            Insets.gapH20,
+            Insets.gapH15,
 
             // Tickets Box
             const Expanded(
-              child: TicketsSummaryBox(),
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                child: TicketsSummaryBox(),
+              ),
             ),
 
             Insets.gapH15,
 
-            // Parking Extra
-            InkResponse(
-              onTap: () {
-                AppRouter.pushNamed(Routes.ParkingsScreenRoute);
-              },
-              child: Consumer(
-                builder: (_, ref, __) {
-                  final hasParking =
-                      ref.watch(parkingSpacesProvider).isNotEmpty;
-                  return CustomText.body(
-                    hasParking
-                        ? 'Edit parking spaces'
-                        : 'Want to book a parking spot? Click here.',
-                    color: AppColors.primaryColor,
-                  );
-                },
+            // Extras
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  // Parking Add on
+                  InkResponse(
+                    onTap: () {
+                      AppRouter.pushNamed(Routes.ParkingsScreenRoute);
+                    },
+                    child: Consumer(
+                      builder: (_, ref, __) {
+                        final hasParking =
+                            ref.watch(parkingSpacesProvider).isNotEmpty;
+                        return Row(
+                          children: [
+                            // Parking Icon
+                            const Icon(
+                              Icons.local_parking_rounded,
+                              color: AppColors.primaryColor,
+                            ),
+
+                            Insets.gapW10,
+
+                            // Add on label
+                            CustomText.body(
+                              hasParking ? 'Edit parking' : 'Buy parking',
+                              color: AppColors.primaryColor,
+                            ),
+                          ],
+                        );
+                      },
+                    ),
+                  ),
+
+                  // Food Add On
+                  Row(
+                    children: [
+                      // Food Icon
+                      const Icon(
+                        Icons.fastfood_rounded,
+                        color: AppColors.primaryColor,
+                      ),
+
+                      Insets.gapW10,
+
+                      // Add on label
+                      CustomText.body(
+                        'Buy food',
+                        color: AppColors.primaryColor,
+                      ),
+                    ],
+                  )
+                ],
               ),
             ),
 
+            Insets.gapH15,
+
             // Confirm Button
-            const ConfirmBookingsButton(),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: ConfirmBookingsButton(),
+            ),
 
             Insets.gapH15,
           ],

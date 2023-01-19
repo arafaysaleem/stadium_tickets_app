@@ -20,15 +20,16 @@ class SpaceTicket extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 8),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          // Seat
+          // Space
           const Icon(
             Icons.local_parking_rounded,
             color: AppColors.primaryColor,
           ),
+
+          Insets.gapW(40),
 
           // Floor
           LabeledWidget(
@@ -39,11 +40,13 @@ class SpaceTicket extends StatelessWidget {
             ),
             child: CustomText(
               'Level ${parkingTicketModel.floorNo}',
-              fontSize: 15,
+              fontSize: 14,
               color: AppColors.textBlackColor,
               fontWeight: FontWeight.bold,
             ),
           ),
+
+          Insets.gapW(80),
 
           // Seat/Space
           LabeledWidget(
@@ -54,7 +57,7 @@ class SpaceTicket extends StatelessWidget {
             ),
             child: CustomText(
               '${parkingTicketModel.spaceRow}-${parkingTicketModel.spaceNumber}',
-              fontSize: 15,
+              fontSize: 14,
               color: AppColors.textBlackColor,
               fontWeight: FontWeight.bold,
             ),

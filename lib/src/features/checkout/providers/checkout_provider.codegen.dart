@@ -29,7 +29,7 @@ final editedCardDetailsProvider =
   return null;
 });
 
-@riverpod
+@Riverpod(keepAlive: true)
 class Checkout extends _$Checkout {
   @override
   FutureOr<CheckoutState?> build() => null;
@@ -38,12 +38,15 @@ class Checkout extends _$Checkout {
     final checkoutRepository = ref.read(checkoutRepositoryProvider);
     state = const AsyncData(CheckoutState.CONFIRMING_BOOKING);
 
+    int? bookingId;
     state = await state.makeGuardedRequest(() async {
       final bookingRepo = ref.read(bookingSummaryProvider);
-      final bookingId = await bookingRepo.reserveBooking();
+      bookingId = await bookingRepo.reserveBooking();
 
-      state = const AsyncData(CheckoutState.PROCESSING_PAYMENT);
+      return CheckoutState.PROCESSING_PAYMENT;
+    });
 
+    state = await state.makeGuardedRequest(() async {
       final card = ref.read(savedCardDetailsProvider);
       final event = ref.read(currentEventProvider)!;
       final seatPrice = ref.read(currentZoneProvider)!.type.price;
@@ -73,7 +76,7 @@ class Checkout extends _$Checkout {
       );
 
       await checkoutRepository.create(
-        bookingId: bookingId,
+        bookingId: bookingId!,
         data: data.toJson(),
       );
 

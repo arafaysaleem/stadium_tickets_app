@@ -17,25 +17,48 @@ class BuyerDetailsSection extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final buyerEmail = ref.watch(buyerEmailProvider);
-    final isDetailAdded = buyerEmail != null;
+    final buyerContact = ref.watch(buyerContactProvider);
+    final isDetailAdded = buyerEmail != null && buyerContact != null;
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 8),
       color: isDetailAdded ? Colors.white : AppColors.greyOutlineColor,
       child: Row(
         children: [
-          // Email
-          LabeledWidget(
-            label: 'Email',
-            labelStyle: const TextStyle(
-              fontSize: 13,
-              color: AppColors.textGreyColor,
-            ),
-            child: CustomText(
-              buyerEmail ?? 'Not added',
-              color: AppColors.textBlackColor,
-              fontWeight: FontWeight.bold,
-              fontSize: 14,
-            ),
+          // Email & Phone
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              LabeledWidget(
+                label: 'Email',
+                labelStyle: const TextStyle(
+                  fontSize: 13,
+                  color: AppColors.textGreyColor,
+                ),
+                child: CustomText(
+                  buyerEmail ?? 'Not added',
+                  color: AppColors.textBlackColor,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                ),
+              ),
+
+              Insets.gapH10,
+
+              // Phone
+              LabeledWidget(
+                label: 'Contact',
+                labelStyle: const TextStyle(
+                  fontSize: 13,
+                  color: AppColors.textGreyColor,
+                ),
+                child: CustomText(
+                  buyerContact ?? 'Not added',
+                  color: AppColors.textBlackColor,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 14,
+                ),
+              ),
+            ],
           ),
 
           Insets.expand,

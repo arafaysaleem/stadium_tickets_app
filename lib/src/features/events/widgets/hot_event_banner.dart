@@ -14,7 +14,7 @@ class HotEventBanner extends StatelessWidget {
     return const Padding(
       padding: EdgeInsets.symmetric(horizontal: 15),
       child: CustomNetworkImage(
-        height: 210,
+        height: 220,
         fit: BoxFit.fill,
         borderRadius: Corners.rounded10,
         imageUrl: 'https://img.freepik.com/free-vector/music-event-poster-template-with-colorful-shapes_1361-1591.jpg',

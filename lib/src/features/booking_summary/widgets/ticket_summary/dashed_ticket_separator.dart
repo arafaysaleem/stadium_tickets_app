@@ -9,7 +9,7 @@ class DashedTicketSeparator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 20,
+      height: 15,
       child: Stack(
         alignment: Alignment.center,
         children: const [
@@ -28,7 +28,7 @@ class DashedTicketSeparator extends StatelessWidget {
           Positioned(
             left: -25,
             child: SizedBox(
-              height: 20,
+              height: 15,
               width: 50,
               child: DecoratedBox(
                 decoration: BoxDecoration(
@@ -43,7 +43,7 @@ class DashedTicketSeparator extends StatelessWidget {
           Positioned(
             right: -25,
             child: SizedBox(
-              height: 20,
+              height: 15,
               width: 50,
               child: DecoratedBox(
                 decoration: BoxDecoration(

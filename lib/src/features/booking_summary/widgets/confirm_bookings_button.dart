@@ -29,24 +29,21 @@ class ConfirmBookingsButton extends ConsumerWidget {
       buyerEmailProvider.select((value) => value != null && value.isNotEmpty),
     );
 
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
-      child: CustomTextButton.gradient(
-        width: double.infinity,
-        disabled: !ticketDetailsAdded || !buyerDetailsAdded,
-        onPressed: () {
-          AppRouter.pushNamed(Routes.CheckoutScreenRoute);
-        },
-        gradient: AppColors.buttonGradientPrimary,
-        child: const Center(
-          child: Text(
-            'CONFIRM',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 15,
-              letterSpacing: 0.7,
-              fontWeight: FontWeight.w600,
-            ),
+    return CustomTextButton.gradient(
+      width: double.infinity,
+      disabled: !ticketDetailsAdded || !buyerDetailsAdded,
+      onPressed: () {
+        AppRouter.pushNamed(Routes.CheckoutScreenRoute);
+      },
+      gradient: AppColors.buttonGradientPrimary,
+      child: const Center(
+        child: Text(
+          'CONFIRM',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 15,
+            letterSpacing: 0.7,
+            fontWeight: FontWeight.w600,
           ),
         ),
       ),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -15,18 +14,11 @@ import '../../../global/widgets/custom_circular_loader.dart';
 import '../widgets/confirmation/more_bookings_button.dart';
 import '../widgets/confirmation/retry_payment_button.dart';
 
-class ConfirmationScreen extends HookConsumerWidget {
+class ConfirmationScreen extends StatelessWidget {
   const ConfirmationScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    useEffect(
-      () {
-        ref.read(checkoutProvider.notifier).makeCheckoutPayment();
-        return;
-      },
-      const [],
-    );
+  Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SafeArea(

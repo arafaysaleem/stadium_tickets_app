@@ -5,6 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../providers/booking_summary_provider.codegen.dart';
 
 // Widgets
+import 'buyer_details_section.dart';
 import 'dashed_ticket_separator.dart';
 import 'seat_ticket.dart';
 import 'space_ticket.dart';
@@ -16,7 +17,7 @@ class TicketDetailsList extends ConsumerWidget {
     return const LinearGradient(
       begin: Alignment.topCenter,
       end: Alignment.bottomCenter,
-      stops: [0.8, 1],
+      stops: [0.82, 1],
       colors: [Colors.transparent, Colors.black87],
     ).createShader(bounds);
   }
@@ -32,12 +33,12 @@ class TicketDetailsList extends ConsumerWidget {
         blendMode: BlendMode.dstOut,
         child: ListView.separated(
           itemCount: selectedSeats.length + selectedSpaces.length,
-          padding: const EdgeInsets.only(bottom: 20),
+          padding: const EdgeInsets.only(bottom: 25),
           separatorBuilder: (_, i) => const DashedTicketSeparator(),
           itemBuilder: (_, i) {
             final isSeatTicket = i < selectedSeats.length;
             final index = isSeatTicket ? i : i - selectedSeats.length;
-            return isSeatTicket
+            Widget child = isSeatTicket
                 ? SeatTicket(
                     index: index,
                     seatTicketModel: selectedSeats[index],
@@ -45,6 +46,23 @@ class TicketDetailsList extends ConsumerWidget {
                 : SpaceTicket(
                     parkingTicketModel: selectedSpaces[index],
                   );
+
+            if (i == 0) {
+              child = Column(
+                children: [
+                  // Event details
+                  const BuyerDetailsSection(),
+
+                  // Separator
+                  const DashedTicketSeparator(),
+
+                  // Ticket details
+                  child,
+                ],
+              );
+            }
+
+            return child;
           },
         ),
       ),
