@@ -8,7 +8,6 @@ import '../../../../helpers/constants/constants.dart';
 import '../../../../global/widgets/widgets.dart';
 
 // Features
-import '../../../../helpers/extensions/extensions.dart';
 import '../../../events/events.dart';
 import '../../../stadium_zones/stadium_zones.dart';
 import '../../../booking_summary/booking_summary.dart';
@@ -92,9 +91,9 @@ class BillingDetails extends ConsumerWidget {
                     fontWeight: FontWeight.bold,
                     color: AppColors.textBlackColor,
                   ),
-          
+
                   Insets.gapH10,
-          
+
                   // Billing Summary Labels
                   Row(
                     children: const [
@@ -124,9 +123,9 @@ class BillingDetails extends ConsumerWidget {
                       )
                     ],
                   ),
-          
+
                   Insets.gapH10,
-          
+
                   Expanded(
                     child: RawScrollbar(
                       thumbVisibility: true,
@@ -146,9 +145,9 @@ class BillingDetails extends ConsumerWidget {
                                 fontSize: 15,
                                 color: AppColors.textGreyColor,
                               ),
-                                      
+
                               Insets.expand,
-                                      
+
                               // Num of tickets
                               SizedBox(
                                 width: 40,
@@ -159,9 +158,9 @@ class BillingDetails extends ConsumerWidget {
                                   color: AppColors.textGreyColor,
                                 ),
                               ),
-                                      
+
                               Insets.gapW10,
-                                      
+
                               // Price
                               SizedBox(
                                 width: 35,
@@ -174,7 +173,7 @@ class BillingDetails extends ConsumerWidget {
                               )
                             ],
                           ),
-                                      
+
                           // Parking Summary Data
                           if (selectedSpaces.isNotEmpty)
                             Padding(
@@ -187,9 +186,9 @@ class BillingDetails extends ConsumerWidget {
                                     fontSize: 15,
                                     color: AppColors.textGreyColor,
                                   ),
-                                      
+
                                   Insets.expand,
-                                      
+
                                   // Num of tickets
                                   SizedBox(
                                     width: 40,
@@ -200,9 +199,9 @@ class BillingDetails extends ConsumerWidget {
                                       color: AppColors.textGreyColor,
                                     ),
                                   ),
-                                      
+
                                   Insets.gapW10,
-                                      
+
                                   // Price
                                   SizedBox(
                                     width: 35,
@@ -216,7 +215,7 @@ class BillingDetails extends ConsumerWidget {
                                 ],
                               ),
                             ),
-                                      
+
                           // Food Summary Data
                           if (selectedSnacks.isNotEmpty)
                             for (var snackBooking in selectedSnacks)
@@ -230,9 +229,9 @@ class BillingDetails extends ConsumerWidget {
                                       fontSize: 15,
                                       color: AppColors.textGreyColor,
                                     ),
-                                      
+
                                     Insets.expand,
-                                      
+
                                     // Num of snacks
                                     SizedBox(
                                       width: 40,
@@ -243,9 +242,9 @@ class BillingDetails extends ConsumerWidget {
                                         color: AppColors.textGreyColor,
                                       ),
                                     ),
-                                      
+
                                     Insets.gapW10,
-                                      
+
                                     // Price
                                     SizedBox(
                                       width: 35,
@@ -263,9 +262,9 @@ class BillingDetails extends ConsumerWidget {
                       ),
                     ),
                   ),
-          
+
                   const Divider(color: Colors.black, thickness: 0.8),
-          
+
                   // Billing Total
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
