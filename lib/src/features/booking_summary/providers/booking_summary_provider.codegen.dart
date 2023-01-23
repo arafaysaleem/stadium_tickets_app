@@ -5,6 +5,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../../config/config.dart';
 
 // Models
+import '../models/booking_snack_model.codegen.dart';
 import '../models/booking_model.codegen.dart';
 import '../models/booking_parking_model.codegen.dart';
 import '../models/booking_seat_model.codegen.dart';
@@ -16,6 +17,7 @@ import '../enums/booking_status_enum.dart';
 import '../repositories/bookings_repository.codegen.dart';
 
 // Features
+import '../../food/food.dart';
 import '../../parking/parking.dart';
 import '../../zone_seats/zone_seats.dart';
 import '../../events/events.dart';
@@ -52,6 +54,29 @@ final parkingTicketsProvider =
   return parkingTickets;
 });
 
+final snackBookingsProvider =
+    StateProvider.autoDispose<List<BookingSnackModel>>((ref) {
+  final categorySnacksMap = ref.watch(confirmedCategorySnacksProvider);
+  final snackBookings = categorySnacksMap.entries.map(
+    (e) {
+      final snackMap = e.value;
+
+      return snackMap.entries.map(
+        (k) {
+          return BookingSnackModel(
+            snack: k.key,
+            quantity: k.value,
+          );
+        },
+      );
+    },
+  ).fold(
+    <BookingSnackModel>[],
+    (prev, element) => [...prev, ...element],
+  );
+  return snackBookings;
+});
+
 final seatTicketsProvider =
     StateProvider.autoDispose<List<BookingSeatModel>>((ref) {
   final seats = ref.watch(selectedSeatsProvider);
@@ -73,10 +98,18 @@ final totalAmountProvider = Provider.autoDispose<int>((ref) {
     currentZoneProvider.select((value) => value!.type.price),
   );
   final selectedSeats = ref.watch(seatTicketsProvider);
+  final seatsTotal = selectedSeats.length * ticketPrice;
+
   final selectedSpaces = ref.watch(parkingTicketsProvider);
-  final total =
-      selectedSeats.length * ticketPrice + selectedSpaces.length * ticketPrice;
-  return total;
+  final parkingPrice = selectedSpaces.isEmpty ? 0 : selectedSpaces.first.price!;
+  final parkingTotal = selectedSpaces.length * parkingPrice;
+
+  final selectedSnacks = ref.watch(snackBookingsProvider);
+  final snackTotal = selectedSnacks.fold(
+    0,
+    (prev, element) => prev + (element.quantity * element.snack.price),
+  );
+  return seatsTotal + parkingTotal + snackTotal;
 });
 
 /// A provider used to access instance of this service
