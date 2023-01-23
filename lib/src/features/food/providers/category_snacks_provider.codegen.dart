@@ -19,14 +19,16 @@ Future<List<SnackModel>?> categorySnacksFuture(
 }
 
 @riverpod
-List<SnackModel> currentCategorySelectedSnacks(CurrentCategorySelectedSnacksRef ref) {
+Map<int, int> currentCategorySelectedSnacks(
+  CurrentCategorySelectedSnacksRef ref,
+) {
   final snacksMap = ref.watch(categorySnacksProvider);
   final activeCategoryId = ref.watch(currentCategoryProvider)!.categoryId;
-  return snacksMap[activeCategoryId] ?? [];
+  return snacksMap[activeCategoryId] ?? {};
 }
 
 final confirmedCategorySnacksProvider =
-    StateProvider.autoDispose<Map<int, List<SnackModel>>>(
+    StateProvider.autoDispose<Map<int, Map<int, int>>>(
   (ref) {
     return {};
   },
@@ -34,34 +36,63 @@ final confirmedCategorySnacksProvider =
 
 @riverpod
 class CategorySnacks extends _$CategorySnacks {
+  /// Stores the selected snacks for each category
+  /// The outer map is the category id
+  /// The inner map is the snack id and the quantity
   @override
-  Map<int, List<SnackModel>> build() {
+  Map<int, Map<int, int>> build() {
     final categorySnacks = ref
         .watch(confirmedCategorySnacksProvider)
-        .map((key, value) => MapEntry(key, [...value]));
+        .map((key, value) => MapEntry(key, {...value}));
     return {...categorySnacks};
   }
 
-  void selectSnack(SnackModel snack) {
+  /// Increases the quantity of the snack having snackId by 1
+  /// If the snack is not in the map, it is added with quantity 1
+  void selectSnack(int snackId) {
     final category = ref.read(currentCategoryProvider)!;
     state.update(
       category.categoryId,
-      (value) => [...value, snack],
-      ifAbsent: () => [snack],
+      (value) {
+        value.update(
+          snackId,
+          (value) => value + 1,
+          ifAbsent: () => 1,
+        );
+        return {...value};
+      },
+      ifAbsent: () => {snackId: 1},
     );
     state = {...state};
+    print(state);
   }
 
-  void removeSnack(SnackModel snack) {
+  /// Decreases the quantity of the snack having snackId by 1
+  /// If the quantity is 1, the snack is removed from the map
+  /// If the snack is not in the map, nothing happens
+  /// If the snack's category is not in the map, nothing happens
+  void removeSnack(int snackId) {
     final categoryId = ref.read(currentCategoryProvider)!.categoryId;
+    if (!state.containsKey(categoryId) ||
+        !state[categoryId]!.containsKey(snackId)) return;
+
     state.update(
       categoryId,
       (value) {
-        value.remove(snack);
-        return [...value];
+        final qty = value[snackId]!;
+
+        if (qty > 1) {
+          value.update(
+            snackId,
+            (value) => value - 1,
+          );
+        } else {
+          value.remove(snackId);
+        }
+        return {...value};
       },
-      ifAbsent: () => [snack],
     );
+    if (state[categoryId]!.isEmpty) state.remove(categoryId);
     state = {...state};
   }
 }

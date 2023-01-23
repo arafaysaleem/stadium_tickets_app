@@ -7,6 +7,9 @@ import '../../../helpers/constants/constants.dart';
 // Routing
 import '../../../config/routing/routing.dart';
 
+// Providers
+import '../../food/providers/category_snacks_provider.codegen.dart';
+
 // Widgets
 import '../../../global/widgets/widgets.dart';
 import '../widgets/confirm_bookings_button.dart';
@@ -96,24 +99,35 @@ class TicketSummaryScreen extends StatelessWidget {
                     ),
                   ),
 
-                  // Food Add On
-                  Row(
-                    children: [
-                      // Food Icon
-                      const Icon(
-                        Icons.fastfood_rounded,
-                        color: AppColors.primaryColor,
-                      ),
+                  // Food Add on
+                  InkResponse(
+                    onTap: () {
+                      AppRouter.pushNamed(Routes.FoodScreenRoute);
+                    },
+                    child: Consumer(
+                      builder: (_, ref, __) {
+                        final hasFood =
+                            ref.watch(categorySnacksProvider).isNotEmpty;
+                        return Row(
+                          children: [
+                            // Food Icon
+                            const Icon(
+                              Icons.fastfood_rounded,
+                              color: AppColors.primaryColor,
+                            ),
 
-                      Insets.gapW10,
+                            Insets.gapW10,
 
-                      // Add on label
-                      CustomText.body(
-                        'Buy food',
-                        color: AppColors.primaryColor,
-                      ),
-                    ],
-                  )
+                            // Add on label
+                            CustomText.body(
+                              hasFood ? 'Edit food' : 'Buy food',
+                              color: AppColors.primaryColor,
+                            ),
+                          ],
+                        );
+                      },
+                    ),
+                  ),
                 ],
               ),
             ),

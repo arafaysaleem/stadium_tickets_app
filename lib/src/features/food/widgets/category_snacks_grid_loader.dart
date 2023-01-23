@@ -45,33 +45,6 @@ class CategorySnacksGridLoader extends ConsumerWidget {
               ),
 
               if (!extendBottom) Insets.expand,
-
-              // Selected Snacks Chips
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 22, 0, 22),
-                child: Consumer(
-                  builder: (ctx, ref, child) {
-                    final snackNames = ref.watch(
-                      currentCategorySelectedSnacksProvider.select(
-                        (value) => value.map((e) => e.name).toList(),
-                      ),
-                    );
-                    return CustomChipsList(
-                      chipContents: snackNames,
-                      chipHeight: 27,
-                      chipGap: 10,
-                      fontSize: 14,
-                      chipWidth: 60,
-                      borderColor: AppColors.primaryColor,
-                      contentColor: AppColors.primaryColor,
-                      borderWidth: 1.5,
-                      fontWeight: FontWeight.bold,
-                      backgroundColor: AppColors.primaryColor.withOpacity(0.3),
-                      isScrollable: true,
-                    );
-                  },
-                ),
-              ),
             ],
           );
         },

@@ -12,6 +12,7 @@ import '../../features/zone_resources/zone_resources.dart';
 import '../../features/zone_seats/zone_seats.dart';
 import '../../features/booking_summary/booking_summary.dart';
 import '../../features/parking/parking.dart';
+import '../../features/food/food.dart';
 
 /// A utility class that holds screen names for named navigation.
 /// This class has no constructor and all variables are `static`.
@@ -55,6 +56,9 @@ class Routes {
   /// The name of the route for parkings screen
   static const String ParkingsScreenRoute = '/parkings-screen';
 
+  /// The name of the route for food screen
+  static const String FoodScreenRoute = '/food-screen';
+
   static final Map<String, RouteBuilder> _routesMap = {
     EventsScreenRoute: (_) => const EventsScreen(),
     StadiumZonesScreenRoute: (_) => const StadiumZonesScreen(),
@@ -65,6 +69,7 @@ class Routes {
     CardSetupScreenRoute: (_) => const CardSetupScreen(),
     ConfirmationScreenRoute: (_) => const ConfirmationScreen(),
     TicketsSummaryScreenRoute: (_) => const TicketSummaryScreen(),
+    FoodScreenRoute: (_) => const FoodScreen(),
     NotFoundScreenRoute: (_) => const SizedBox.shrink(),
   };
 

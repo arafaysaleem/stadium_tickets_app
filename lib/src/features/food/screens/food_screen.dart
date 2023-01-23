@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:collection/collection.dart';
 
 // Helpers
 import '../../../helpers/constants/constants.dart';
@@ -12,6 +13,7 @@ import '../providers/category_snacks_provider.codegen.dart';
 
 // Widgets
 import '../../../global/widgets/widgets.dart';
+import '../widgets/cart_button.dart';
 import '../widgets/categories_list.dart';
 import '../widgets/category_snacks_grid_loader.dart';
 import '../widgets/select_snacks_button.dart';
@@ -69,55 +71,74 @@ class FoodScreen extends ConsumerWidget {
             ),
 
             // Purchase & Cart Button
-            Row(
-              children: const [
-                // Select
-                SelectSnacksButton(),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(15, 0, 10, 0),
+              child: Row(
+                children: [
+                  // Select
+                  const Expanded(
+                    child: Padding(
+                      padding: EdgeInsets.only(top: 5),
+                      child: SelectSnacksButton(),
+                    ),
+                  ),
 
-                // Cart Button
-                CartButton(),
-              ],
+                  Insets.gapW15,
+
+                  // Cart Button
+                  Stack(
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.only(top: 5, right: 5),
+                        child: CartButton(),
+                      ),
+
+                      // Snacks count
+                      Consumer(
+                        builder: (context, ref, child) {
+                          final snacks = ref.watch(
+                            categorySnacksProvider.select(
+                              (catMap) => catMap.values.fold(
+                                0,
+                                (prev, snackMap) => prev + snackMap.values.sum,
+                              ),
+                            ),
+                          );
+
+                          return snacks <= 0
+                              ? Insets.shrink
+                              : Positioned(
+                                  top: 0,
+                                  right: 0,
+                                  child: Container(
+                                    decoration: const BoxDecoration(
+                                      color: AppColors.textWhite80Color,
+                                      shape: BoxShape.circle,
+                                    ),
+                                    constraints: const BoxConstraints(
+                                      minWidth: 19,
+                                      minHeight: 19,
+                                    ),
+                                    child: Center(
+                                      child: CustomText(
+                                        '$snacks',
+                                        fontSize: 11,
+                                        color: AppColors.textBlackColor,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                );
+                        },
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
 
             Insets.gapH20,
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class CartButton extends StatelessWidget {
-  const CartButton({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {
-        showModalBottomSheet<dynamic>(
-          isScrollControlled: true,
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(
-              top: Radius.circular(20),
-            ),
-          ),
-          context: context,
-          builder: (context) {
-            return Insets.shrink;
-            // return const FiltersBottomSheet();
-          },
-        );
-      },
-      child: Container(
-        height: 47,
-        width: 47,
-        decoration: const BoxDecoration(
-          gradient: AppColors.buttonGradientPrimary,
-          borderRadius: Corners.rounded7,
-        ),
-        child: const Icon(
-          Icons.shopping_cart_outlined,
-          color: AppColors.textWhite80Color,
         ),
       ),
     );

@@ -14,40 +14,19 @@ import '../providers/category_snacks_provider.codegen.dart';
 // Widgets
 import '../../../global/widgets/widgets.dart';
 
-class SnackWidget extends StatefulHookConsumerWidget {
+// Features
+import '../../events/events.dart';
+
+class SnackWidget extends HookConsumerWidget {
   final SnackModel snack;
 
   const SnackWidget({required this.snack, super.key});
 
   @override
-  _SnackWidgetState createState() => _SnackWidgetState();
-}
-
-class _SnackWidgetState extends ConsumerState<SnackWidget> {
-  bool isSelected = false;
-
-  void _onTap() {
-    setState(() {
-      isSelected = !isSelected;
-    });
-    final prov = ref.read(categorySnacksProvider.notifier);
-
-    if (isSelected) {
-      prov.selectSnack(widget.snack);
-    } else {
-      prov.removeSnack(widget.snack);
-    }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    isSelected =
-        ref.read(currentCategorySelectedSnacksProvider).contains(widget.snack);
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final catSelectedSnacksProv =
+        ref.watch(currentCategorySelectedSnacksProvider);
+    final qty = catSelectedSnacksProv[snack.snackId] ?? 0;
     final animController = useAnimationController(
       duration: const Duration(milliseconds: 90),
     );
@@ -66,31 +45,136 @@ class _SnackWidgetState extends ConsumerState<SnackWidget> {
       },
       const [],
     );
-    return GestureDetector(
-      onTap: _onTap,
-      onTapDown: (_) => animController.forward(),
-      child: AnimatedBuilder(
-        animation: bounceAnimation,
-        builder: (ctx, child) => Transform.scale(
-          scale: bounceAnimation.value,
-          child: child,
-        ),
-        child: DecoratedBox(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // Snack image
+        DecoratedBox(
           decoration: BoxDecoration(
-            border: isSelected
-                ? Border.all(
-                    color: AppColors.primaryColor,
-                  )
-                : null,
-            borderRadius: Corners.rounded10,
+            color: AppColors.surfaceColor.withOpacity(0.2),
+            borderRadius: Corners.rounded15,
           ),
-          child: Center(
-            child: CustomText.subtitle(
-              widget.snack.name,
+          child: Stack(
+            children: [
+              // Image
+              Padding(
+                padding: const EdgeInsets.fromLTRB(10, 21, 10, 10),
+                child: CustomNetworkImage(
+                  height: 90,
+                  radius: 15,
+                  imageUrl: snack.imageUrl,
+                  fit: BoxFit.contain,
+                  placeholder: const EventPosterPlaceholder(),
+                  errorWidget: const EventPosterPlaceholder(),
+                ),
+              ),
+
+              // Decrease
+              Positioned(
+                top: 0,
+                left: 0,
+                child: InkWell(
+                  onTap: () {
+                    if (qty > 1) animController.forward();
+                    ref
+                        .read(categorySnacksProvider.notifier)
+                        .removeSnack(snack.snackId);
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(color: AppColors.primaryColor),
+                      shape: BoxShape.circle,
+                    ),
+                    padding: const EdgeInsets.all(3),
+                    margin: const EdgeInsets.all(7),
+                    child: const Icon(
+                      Icons.remove,
+                      size: 15,
+                    ),
+                  ),
+                ),
+              ),
+
+              // Increase
+              Positioned(
+                top: 0,
+                right: 0,
+                child: InkWell(
+                  onTap: () {
+                    animController.forward();
+                    ref
+                        .read(categorySnacksProvider.notifier)
+                        .selectSnack(snack.snackId);
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(color: AppColors.primaryColor),
+                      shape: BoxShape.circle,
+                    ),
+                    padding: const EdgeInsets.all(3),
+                    margin: const EdgeInsets.all(7),
+                    child: const Icon(
+                      Icons.add,
+                      size: 15,
+                    ),
+                  ),
+                ),
+              ),
+
+              // Quantity
+              AnimatedPositioned(
+                bottom: 0,
+                right: qty > 0 ? 0 : -35,
+                duration: const Duration(milliseconds: 90),
+                child: AnimatedBuilder(
+                  animation: bounceAnimation,
+                  builder: (ctx, child) => Transform.scale(
+                    scale: bounceAnimation.value,
+                    child: child,
+                  ),
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      color: AppColors.primaryColor,
+                      shape: BoxShape.circle,
+                    ),
+                    padding: const EdgeInsets.all(8),
+                    margin: const EdgeInsets.fromLTRB(0, 0, 7, 3),
+                    child: CustomText.label('$qty'),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+
+        Insets.expand,
+
+        // Snack price
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: CustomText.subtitle(
+            '\$ ${snack.price.toDouble()}',
+            fontWeight: FontWeight.bold,
+            color: AppColors.textWhite80Color,
+          ),
+        ),
+
+        Insets.gapH3,
+
+        // Snack name
+        Padding(
+          padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
+          child: Text(
+            snack.name,
+            style: TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w300,
+              fontFamily: AppTypography.secondaryFontFamily,
+              color: AppColors.textLightGreyColor,
             ),
           ),
         ),
-      ),
+      ],
     );
   }
 }

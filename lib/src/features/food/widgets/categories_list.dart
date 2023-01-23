@@ -42,7 +42,7 @@ class CategoriesList extends ConsumerWidget {
       emptyOrNull: () => const EmptyStateWidget(
         height: 395,
         width: double.infinity,
-        margin: EdgeInsets.only(top: 20),
+        margin: EdgeInsets.only(top: 15),
         title: 'No Parkings found',
         subtitle: 'Try checking back later',
       ),

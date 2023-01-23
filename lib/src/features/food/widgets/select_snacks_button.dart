@@ -30,27 +30,24 @@ class SelectSnacksButton extends ConsumerWidget {
             value.values.fold(0, (prev, element) => prev + element.length),
       ),
     );
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: CustomTextButton.gradient(
-        width: double.infinity,
-        onPressed: () {
-          ref.read(confirmedCategorySnacksProvider.notifier).state = {
-            ...ref.read(categorySnacksProvider)
-          };
-          AppRouter.pop();
-        },
-        disabled: snacks == 0 && confirmedSnacks == 0,
-        gradient: AppColors.buttonGradientPrimary,
-        child: Center(
-          child: Text(
-            'Select - $snacks SNACKS',
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 15,
-              letterSpacing: 0.7,
-              fontWeight: FontWeight.w600,
-            ),
+    return CustomTextButton.gradient(
+      width: double.infinity,
+      onPressed: () {
+        ref.read(confirmedCategorySnacksProvider.notifier).state = {
+          ...ref.read(categorySnacksProvider)
+        };
+        AppRouter.pop();
+      },
+      disabled: snacks == 0 && confirmedSnacks == 0,
+      gradient: AppColors.buttonGradientPrimary,
+      child: const Center(
+        child: Text(
+          'Select Snacks',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 15,
+            letterSpacing: 0.7,
+            fontWeight: FontWeight.w600,
           ),
         ),
       ),

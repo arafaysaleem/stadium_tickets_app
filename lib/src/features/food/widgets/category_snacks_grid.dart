@@ -16,9 +16,10 @@ class CategorySnacksGrid extends HookWidget {
   final bool extendBottom;
   final List<SnackModel> snacks;
 
-  static const _snackHeight = 38;
-  static const _snackWidth = 68.0;
-  static const _snackGap = 11.0;
+  static const _snackHeight = 98;
+  static const _snackWidth = 88.0;
+  static const _snackGap = 15.0;
+  static const _snacksPerRow = 2;
 
   const CategorySnacksGrid({
     super.key,
@@ -27,8 +28,8 @@ class CategorySnacksGrid extends HookWidget {
   });
 
   double getMaxGridHeight() {
-    final height = snacks.length * (_snackHeight + _snackGap) - _snackGap + 12;
-    return max(height, 350);
+    final height = (snacks.length/_snacksPerRow) * (_snackHeight + _snackGap) - _snackGap + 12;
+    return max(height, 435);
   }
 
   bool _onGlowNotification(OverscrollIndicatorNotification overScroll) {
@@ -67,14 +68,13 @@ class CategorySnacksGrid extends HookWidget {
                 child: NotificationListener<OverscrollIndicatorNotification>(
                   onNotification: _onGlowNotification,
                   child: GridView.builder(
-                    padding: const EdgeInsets.fromLTRB(20, 0, 15, 15),
+                    padding: const EdgeInsets.fromLTRB(15, 0, 15, 15),
                     itemCount: snacks.length,
-                    scrollDirection: Axis.horizontal,
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
+                      crossAxisCount: _snacksPerRow,
                       crossAxisSpacing: _snackGap,
-                      mainAxisExtent: _snackWidth,
+                      childAspectRatio: _snackWidth / _snackHeight,
                       mainAxisSpacing: _snackGap,
                     ),
                     itemBuilder: (ctx, i) => SnackWidget(snack: snacks[i]),
