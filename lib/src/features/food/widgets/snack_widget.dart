@@ -26,7 +26,7 @@ class SnackWidget extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final catSelectedSnacksProv =
         ref.watch(currentCategorySelectedSnacksProvider);
-    final qty = catSelectedSnacksProv[snack.snackId] ?? 0;
+    final qty = catSelectedSnacksProv[snack] ?? 0;
     final animController = useAnimationController(
       duration: const Duration(milliseconds: 90),
     );
@@ -104,7 +104,7 @@ class SnackWidget extends HookConsumerWidget {
                     animController.forward();
                     ref
                         .read(categorySnacksProvider.notifier)
-                        .selectSnack(snack);
+                        .addSnack(snack);
                   },
                   child: Container(
                     decoration: BoxDecoration(

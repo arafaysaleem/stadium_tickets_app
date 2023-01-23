@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 // Helpers
@@ -7,7 +8,7 @@ part 'snack_model.codegen.freezed.dart';
 part 'snack_model.codegen.g.dart';
 
 @freezed
-class SnackModel with _$SnackModel {
+class SnackModel extends Equatable with _$SnackModel {
   const factory SnackModel({
     required int snackId,
     required int categoryId,
@@ -16,5 +17,10 @@ class SnackModel with _$SnackModel {
     required String imageUrl,
   }) = _SnackModel;
 
+  const SnackModel._();
+
   factory SnackModel.fromJson(JSON json) => _$SnackModelFromJson(json);
+
+  @override
+  List<Object?> get props => [snackId];
 }

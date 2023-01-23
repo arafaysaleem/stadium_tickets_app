@@ -37,12 +37,23 @@ class CartDetailsBottomSheet extends ConsumerWidget {
           child: GestureDetector(
             onTap: () => _onResetTap(ref),
             child: const Padding(
-              padding: EdgeInsets.all(15),
+              padding: EdgeInsets.all(10),
               child: CustomText(
                 'Empty',
                 fontSize: 16,
                 color: AppColors.primaryColor,
               ),
+            ),
+          ),
+        ),
+        trailing: GestureDetector(
+          onTap: AppRouter.pop,
+          child: const Padding(
+            padding: EdgeInsets.all(10),
+            child: CustomText(
+              'Back',
+              fontSize: 16,
+              color: AppColors.textGreyColor,
             ),
           ),
         ),

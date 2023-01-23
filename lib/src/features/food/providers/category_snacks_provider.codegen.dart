@@ -2,7 +2,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 // Models
-import '../models/category_model.codegen.dart';
 import '../models/snack_model.codegen.dart';
 
 // Providers
@@ -25,11 +24,11 @@ Map<SnackModel, int> currentCategorySelectedSnacks(
 ) {
   final snacksMap = ref.watch(categorySnacksProvider);
   final activeCategory = ref.watch(currentCategoryProvider)!;
-  return snacksMap[activeCategory] ?? {};
+  return snacksMap[activeCategory.categoryId] ?? {};
 }
 
 final confirmedCategorySnacksProvider =
-    StateProvider.autoDispose<Map<CategoryModel, Map<SnackModel, int>>>(
+    StateProvider.autoDispose<Map<int, Map<SnackModel, int>>>(
   (ref) {
     return {};
   },
@@ -41,7 +40,7 @@ class CategorySnacks extends _$CategorySnacks {
   /// The outer map is the category id
   /// The inner map is the snack id and the quantity
   @override
-  Map<CategoryModel, Map<SnackModel, int>> build() {
+  Map<int, Map<SnackModel, int>> build() {
     final categorySnacks = ref
         .watch(confirmedCategorySnacksProvider)
         .map((key, value) => MapEntry(key, {...value}));
@@ -50,10 +49,9 @@ class CategorySnacks extends _$CategorySnacks {
 
   /// Increases the quantity of the snack having snackId by 1
   /// If the snack is not in the map, it is added with quantity 1
-  void selectSnack(SnackModel snack) {
-    final category = ref.read(currentCategoryProvider)!;
+  void addSnack(SnackModel snack) {
     state.update(
-      category,
+      snack.categoryId,
       (value) {
         value.update(
           snack,
@@ -72,12 +70,12 @@ class CategorySnacks extends _$CategorySnacks {
   /// If the snack is not in the map, nothing happens
   /// If the snack's category is not in the map, nothing happens
   void removeSnack(SnackModel snack) {
-    final category = ref.read(currentCategoryProvider)!;
-    if (!state.containsKey(category) ||
-        !state[category]!.containsKey(snack)) return;
+    final categoryId = snack.categoryId;
+    if (!state.containsKey(categoryId) ||
+        !state[categoryId]!.containsKey(snack)) return;
 
     state.update(
-      category,
+      categoryId,
       (value) {
         final qty = value[snack]!;
 
@@ -92,7 +90,17 @@ class CategorySnacks extends _$CategorySnacks {
         return {...value};
       },
     );
-    if (state[category]!.isEmpty) state.remove(category);
+    if (state[categoryId]!.isEmpty) state.remove(categoryId);
+    state = {...state};
+  }
+
+  /// Delete snack from category
+  void deleteSnackFromCategory(SnackModel snack) {
+    final categoryId = snack.categoryId;
+    if (!state.containsKey(categoryId) ||
+        !state[categoryId]!.containsKey(snack)) return;
+    state[categoryId]!.remove(snack);
+    if (state[categoryId]!.isEmpty) state.remove(categoryId);
     state = {...state};
   }
 

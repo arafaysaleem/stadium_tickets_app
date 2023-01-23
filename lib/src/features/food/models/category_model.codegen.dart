@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 // Helpers
@@ -10,12 +11,17 @@ part 'category_model.codegen.freezed.dart';
 part 'category_model.codegen.g.dart';
 
 @freezed
-class CategoryModel with _$CategoryModel {
+class CategoryModel extends Equatable with _$CategoryModel {
   const factory CategoryModel({
     required int categoryId,
     required String name,
     required BrandModel sellerBrand,
   }) = _CategoryModel;
+  
+  const CategoryModel._();
 
   factory CategoryModel.fromJson(JSON json) => _$CategoryModelFromJson(json);
+  
+  @override
+  List<Object?> get props => [categoryId, name];
 }

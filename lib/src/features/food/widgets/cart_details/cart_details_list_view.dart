@@ -9,6 +9,7 @@ import '../../models/snack_model.codegen.dart';
 
 // Providers
 import '../../providers/category_snacks_provider.codegen.dart';
+import '../../providers/food_provider.codegen.dart';
 
 // Widgets
 import '../../../../global/widgets/widgets.dart';
@@ -24,25 +25,38 @@ class CartDetailsListView extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final categoryMap = ref.watch(categorySnacksProvider);
-    return ListView.separated(
+    return ListView.builder(
       itemCount: categoryMap.length,
       controller: scrollController,
+      physics: const BouncingScrollPhysics(),
       padding: const EdgeInsets.symmetric(horizontal: 15),
-      separatorBuilder: (context, index) {
-        final category = categoryMap.keys.elementAt(index);
-        return Padding(
-          padding: const EdgeInsets.all(15),
-          child: CustomText.title(
-            category.name,
-            color: AppColors.textWhite80Color,
-            fontSize: 18,
-          ),
-        );
-      },
       itemBuilder: (context, index) {
-        final category = categoryMap.keys.elementAt(index);
-        final snacks = categoryMap[category]!;
-        return CartDetailsListItem(snacks: snacks);
+        final categoryId = categoryMap.keys.elementAt(index);
+        final category = ref
+            .watch(categoriesFutureProvider)
+            .asData
+            ?.value
+            .firstWhere((c) => c.categoryId == categoryId);
+        final snacks = categoryMap[categoryId]!;
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Category name
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 5),
+              child: CustomText.body(
+                category!.name,
+                color: AppColors.textWhite80Color,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+
+            // Category Items
+            CartDetailsListItem(snacks: snacks),
+
+            Insets.gapH10,
+          ],
+        );
       },
     );
   }
@@ -58,17 +72,14 @@ class CartDetailsListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15),
-      child: Column(
-        children: [
-          for (var snack in snacks.keys)
-            CartDetailSnackItem(
-              snack: snack,
-              quantity: snacks[snack]!,
-            )
-        ],
-      ),
+    return Column(
+      children: [
+        for (var snack in snacks.keys)
+          CartDetailSnackItem(
+            snack: snack,
+            quantity: snacks[snack]!,
+          )
+      ],
     );
   }
 }
@@ -86,98 +97,120 @@ class CartDetailSnackItem extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10),
-      child: Row(
-        children: [
-          // Snack image
-          DecoratedBox(
-            decoration: BoxDecoration(
-              color: AppColors.surfaceColor.withOpacity(0.2),
-              borderRadius: Corners.rounded15,
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(10),
-              child: CustomNetworkImage(
+      padding: const EdgeInsets.symmetric(vertical: 6),
+      child: DecoratedBox(
+        decoration: const BoxDecoration(
+          color: AppColors.surfaceColor,
+          borderRadius: Corners.rounded15,
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(10),
+          child: Row(
+            children: [
+              // Snack image
+              CustomNetworkImage(
                 height: 50,
                 width: 50,
-                radius: 15,
+                radius: 0,
                 imageUrl: snack.imageUrl,
                 fit: BoxFit.contain,
                 placeholder: const EventPosterPlaceholder(),
                 errorWidget: const EventPosterPlaceholder(),
               ),
-            ),
-          ),
 
-          // Snack name
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Snack name
-                Text(
-                  snack.name,
-                  style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w300,
-                    fontFamily: AppTypography.secondaryFontFamily,
-                    color: AppColors.textLightGreyColor,
+              Insets.gapW10,
+
+              // Snack name
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Snack name
+                    Text(
+                      snack.name,
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w300,
+                        fontFamily: AppTypography.secondaryFontFamily,
+                        color: AppColors.textLightGreyColor,
+                      ),
+                    ),
+
+                    Insets.gapH5,
+
+                    // Snack price
+                    CustomText.subtitle(
+                      '\$ ${snack.price.toDouble()}',
+                      fontWeight: FontWeight.bold,
+                      color: AppColors.textWhite80Color,
+                    ),
+                  ],
+                ),
+              ),
+
+              // Snack Qty Decrease
+              InkWell(
+                onTap: () {
+                  if (quantity > 1) {
+                    ref
+                        .read(categorySnacksProvider.notifier)
+                        .removeSnack(snack);
+                  }
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: AppColors.primaryColor),
+                    shape: BoxShape.circle,
+                  ),
+                  padding: const EdgeInsets.all(3),
+                  margin: const EdgeInsets.all(9),
+                  child: const Icon(
+                    Icons.remove,
+                    size: 15,
                   ),
                 ),
+              ),
 
-                Insets.gapH5,
+              // Snack Qty
+              CustomText.subtitle('$quantity'),
 
-                // Snack price
-                CustomText.subtitle(
-                  '\$ ${snack.price.toDouble()}',
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.textWhite80Color,
+              // Snack Qty Increase
+              InkWell(
+                onTap: () {
+                  ref.read(categorySnacksProvider.notifier).addSnack(snack);
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: AppColors.primaryColor),
+                    shape: BoxShape.circle,
+                  ),
+                  padding: const EdgeInsets.all(3),
+                  margin: const EdgeInsets.all(9),
+                  child: const Icon(
+                    Icons.add,
+                    size: 15,
+                  ),
                 ),
-              ],
-            ),
+              ),
+
+              Insets.gapW5,
+
+              // Delete icon
+              InkWell(
+                onTap: () {
+                  ref
+                      .read(categorySnacksProvider.notifier)
+                      .deleteSnackFromCategory(snack);
+                },
+                child: const Icon(
+                  Icons.delete,
+                  color: AppColors.textLightGreyColor,
+                  size: 20,
+                ),
+              ),
+            ],
           ),
-
-          // Snack Qty Decrease
-          InkWell(
-            onTap: () {
-              ref.read(categorySnacksProvider.notifier).removeSnack(snack);
-            },
-            child: Container(
-              decoration: BoxDecoration(
-                border: Border.all(color: AppColors.primaryColor),
-                shape: BoxShape.circle,
-              ),
-              padding: const EdgeInsets.all(3),
-              margin: const EdgeInsets.all(7),
-              child: const Icon(
-                Icons.remove,
-                size: 15,
-              ),
-            ),
-          ),
-
-          // Snack Qty
-          CustomText.label('$quantity'),
-
-          // Snack Qty Increase
-          InkWell(
-            onTap: () {
-              ref.read(categorySnacksProvider.notifier).selectSnack(snack);
-            },
-            child: Container(
-              decoration: BoxDecoration(
-                border: Border.all(color: AppColors.primaryColor),
-                shape: BoxShape.circle,
-              ),
-              padding: const EdgeInsets.all(3),
-              margin: const EdgeInsets.all(7),
-              child: const Icon(
-                Icons.add,
-                size: 15,
-              ),
-            ),
-          )
-        ],
+        ),
       ),
     );
   }
