@@ -64,7 +64,6 @@ class CategorySnacks extends _$CategorySnacks {
       ifAbsent: () => {snackId: 1},
     );
     state = {...state};
-    print(state);
   }
 
   /// Decreases the quantity of the snack having snackId by 1

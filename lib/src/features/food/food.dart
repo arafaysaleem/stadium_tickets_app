@@ -6,6 +6,7 @@ export 'providers/category_snacks_provider.codegen.dart';
 export 'providers/food_provider.codegen.dart';
 export 'repositories/food_repository.codegen.dart';
 export 'screens/food_screen.dart';
+export 'widgets/cart_button.dart';
 export 'widgets/categories_list.dart';
 export 'widgets/categories_list_item.dart';
 export 'widgets/category_snacks_grid.dart';
