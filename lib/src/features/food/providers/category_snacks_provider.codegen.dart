@@ -2,6 +2,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 // Models
+import '../models/category_model.codegen.dart';
 import '../models/snack_model.codegen.dart';
 
 // Providers
@@ -19,16 +20,16 @@ Future<List<SnackModel>?> categorySnacksFuture(
 }
 
 @riverpod
-Map<int, int> currentCategorySelectedSnacks(
+Map<SnackModel, int> currentCategorySelectedSnacks(
   CurrentCategorySelectedSnacksRef ref,
 ) {
   final snacksMap = ref.watch(categorySnacksProvider);
-  final activeCategoryId = ref.watch(currentCategoryProvider)!.categoryId;
-  return snacksMap[activeCategoryId] ?? {};
+  final activeCategory = ref.watch(currentCategoryProvider)!;
+  return snacksMap[activeCategory] ?? {};
 }
 
 final confirmedCategorySnacksProvider =
-    StateProvider.autoDispose<Map<int, Map<int, int>>>(
+    StateProvider.autoDispose<Map<CategoryModel, Map<SnackModel, int>>>(
   (ref) {
     return {};
   },
@@ -40,7 +41,7 @@ class CategorySnacks extends _$CategorySnacks {
   /// The outer map is the category id
   /// The inner map is the snack id and the quantity
   @override
-  Map<int, Map<int, int>> build() {
+  Map<CategoryModel, Map<SnackModel, int>> build() {
     final categorySnacks = ref
         .watch(confirmedCategorySnacksProvider)
         .map((key, value) => MapEntry(key, {...value}));
@@ -49,19 +50,19 @@ class CategorySnacks extends _$CategorySnacks {
 
   /// Increases the quantity of the snack having snackId by 1
   /// If the snack is not in the map, it is added with quantity 1
-  void selectSnack(int snackId) {
+  void selectSnack(SnackModel snack) {
     final category = ref.read(currentCategoryProvider)!;
     state.update(
-      category.categoryId,
+      category,
       (value) {
         value.update(
-          snackId,
+          snack,
           (value) => value + 1,
           ifAbsent: () => 1,
         );
         return {...value};
       },
-      ifAbsent: () => {snackId: 1},
+      ifAbsent: () => {snack: 1},
     );
     state = {...state};
   }
@@ -70,28 +71,32 @@ class CategorySnacks extends _$CategorySnacks {
   /// If the quantity is 1, the snack is removed from the map
   /// If the snack is not in the map, nothing happens
   /// If the snack's category is not in the map, nothing happens
-  void removeSnack(int snackId) {
-    final categoryId = ref.read(currentCategoryProvider)!.categoryId;
-    if (!state.containsKey(categoryId) ||
-        !state[categoryId]!.containsKey(snackId)) return;
+  void removeSnack(SnackModel snack) {
+    final category = ref.read(currentCategoryProvider)!;
+    if (!state.containsKey(category) ||
+        !state[category]!.containsKey(snack)) return;
 
     state.update(
-      categoryId,
+      category,
       (value) {
-        final qty = value[snackId]!;
+        final qty = value[snack]!;
 
         if (qty > 1) {
           value.update(
-            snackId,
+            snack,
             (value) => value - 1,
           );
         } else {
-          value.remove(snackId);
+          value.remove(snack);
         }
         return {...value};
       },
     );
-    if (state[categoryId]!.isEmpty) state.remove(categoryId);
+    if (state[category]!.isEmpty) state.remove(category);
     state = {...state};
+  }
+
+  void empty() {
+    state = {};
   }
 }

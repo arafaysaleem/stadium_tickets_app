@@ -9,6 +9,7 @@ import '../../../helpers/constants/constants.dart';
 
 // Widgets
 import '../../../global/widgets/widgets.dart';
+import 'cart_details/cart_details_bottom_sheet.dart';
 
 class CartButton extends ConsumerWidget {
   const CartButton({super.key});
@@ -37,8 +38,7 @@ class CartButton extends ConsumerWidget {
           ),
           context: context,
           builder: (context) {
-            return Insets.shrink;
-            // return const FiltersBottomSheet();
+            return const CartDetailsBottomSheet();
           },
         );
       },

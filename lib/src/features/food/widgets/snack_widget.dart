@@ -78,7 +78,7 @@ class SnackWidget extends HookConsumerWidget {
                     if (qty > 1) animController.forward();
                     ref
                         .read(categorySnacksProvider.notifier)
-                        .removeSnack(snack.snackId);
+                        .removeSnack(snack);
                   },
                   child: Container(
                     decoration: BoxDecoration(
@@ -104,7 +104,7 @@ class SnackWidget extends HookConsumerWidget {
                     animController.forward();
                     ref
                         .read(categorySnacksProvider.notifier)
-                        .selectSnack(snack.snackId);
+                        .selectSnack(snack);
                   },
                   child: Container(
                     decoration: BoxDecoration(
