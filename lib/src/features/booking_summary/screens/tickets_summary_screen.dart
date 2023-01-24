@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -61,72 +62,122 @@ class TicketSummaryScreen extends StatelessWidget {
               ),
             ),
 
-            Insets.gapH15,
+            Insets.gapH10,
 
             // Extras
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.fromLTRB(20, 0, 15, 0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   // Parking Add on
-                  InkResponse(
-                    onTap: () {
-                      AppRouter.pushNamed(Routes.ParkingsScreenRoute);
-                    },
-                    child: Consumer(
-                      builder: (_, ref, __) {
-                        final hasParking =
-                            ref.watch(parkingSpacesProvider).isNotEmpty;
-                        return Row(
-                          children: [
-                            // Parking Icon
-                            const Icon(
-                              Icons.local_parking_rounded,
-                              color: AppColors.primaryColor,
-                            ),
-
-                            Insets.gapW10,
-
-                            // Add on label
-                            CustomText.body(
-                              hasParking ? 'Edit parking' : 'Buy parking',
-                              color: AppColors.primaryColor,
-                            ),
-                          ],
-                        );
+                  Padding(
+                    padding: const EdgeInsets.only(top: 5),
+                    child: InkResponse(
+                      onTap: () {
+                        AppRouter.pushNamed(Routes.ParkingsScreenRoute);
                       },
+                      child: Consumer(
+                        builder: (_, ref, __) {
+                          final hasParking =
+                              ref.watch(parkingSpacesProvider).isNotEmpty;
+                          return Row(
+                            children: [
+                              // Parking Icon
+                              const Icon(
+                                Icons.local_parking_rounded,
+                                color: AppColors.primaryColor,
+                              ),
+
+                              Insets.gapW10,
+
+                              // Add on label
+                              CustomText.body(
+                                hasParking ? 'Edit parking' : 'Buy parking',
+                                color: AppColors.primaryColor,
+                              ),
+                            ],
+                          );
+                        },
+                      ),
                     ),
                   ),
 
                   // Food Add on
-                  InkResponse(
-                    onTap: () {
-                      AppRouter.pushNamed(Routes.FoodScreenRoute);
-                    },
-                    child: Consumer(
-                      builder: (_, ref, __) {
-                        final hasFood =
-                            ref.watch(categorySnacksProvider).isNotEmpty;
-                        return Row(
-                          children: [
-                            // Food Icon
-                            const Icon(
-                              Icons.fastfood_rounded,
-                              color: AppColors.primaryColor,
-                            ),
+                  Stack(
+                    children: [
+                      // Food button
+                      Padding(
+                        padding: const EdgeInsets.only(top: 5, right: 5),
+                        child: InkResponse(
+                          onTap: () {
+                            AppRouter.pushNamed(Routes.FoodScreenRoute);
+                          },
+                          child: Consumer(
+                            builder: (_, ref, __) {
+                              final hasFood =
+                                  ref.watch(categorySnacksProvider).isNotEmpty;
+                              return Row(
+                                children: [
+                                  // Food Icon
+                                  const Icon(
+                                    Icons.fastfood_rounded,
+                                    color: AppColors.primaryColor,
+                                  ),
+                      
+                                  Insets.gapW10,
+                      
+                                  // Add on label
+                                  CustomText.body(
+                                    hasFood ? 'Edit food' : 'Buy food',
+                                    color: AppColors.primaryColor,
+                                  ),
+                                ],
+                              );
+                            },
+                          ),
+                        ),
+                      ),
 
-                            Insets.gapW10,
-
-                            // Add on label
-                            CustomText.body(
-                              hasFood ? 'Edit food' : 'Buy food',
-                              color: AppColors.primaryColor,
-                            ),
-                          ],
-                        );
-                      },
-                    ),
+                      // Food cart quantity
+                      Positioned(
+                        top: 0,
+                        right: 0,
+                        child: Consumer(
+                          builder: (_, ref, __) {
+                            final totalSnacks = ref.watch(
+                              categorySnacksProvider.select(
+                                (catMap) => catMap.values.fold(
+                                  0,
+                                  (prev, snackMap) =>
+                                      prev + snackMap.values.sum,
+                                ),
+                              ),
+                            );
+                            return totalSnacks > 0
+                                ? Container(
+                                    decoration: const BoxDecoration(
+                                      color: AppColors.textWhite80Color,
+                                      shape: BoxShape.circle,
+                                    ),
+                                    constraints: const BoxConstraints(
+                                      minWidth: 19,
+                                      minHeight: 19,
+                                    ),
+                                    child: Center(
+                                      child: CustomText(
+                                        '$totalSnacks',
+                                        fontSize: 11,
+                                        color: AppColors.textBlackColor,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  )
+                                : Insets.shrink;
+                          },
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
