@@ -3,6 +3,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 // Helpers
 import '../../../../helpers/constants/constants.dart';
+import '../../../../helpers/extensions/extensions.dart';
 
 // Widgets
 import '../../../../global/widgets/widgets.dart';
@@ -30,8 +31,8 @@ class BillingDetails extends ConsumerWidget {
         color: Colors.white,
         borderRadius: Corners.rounded10,
       ),
-      constraints: const BoxConstraints(
-        maxHeight: 470,
+      constraints: BoxConstraints(
+        maxHeight: context.screenHeight * 0.63,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
