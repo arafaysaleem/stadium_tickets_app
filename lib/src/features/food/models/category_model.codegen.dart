@@ -15,7 +15,7 @@ class CategoryModel extends Equatable with _$CategoryModel {
   const factory CategoryModel({
     required int categoryId,
     required String name,
-    required BrandModel sellerBrand,
+    required List<BrandModel> brands,
   }) = _CategoryModel;
   
   const CategoryModel._();

@@ -5,6 +5,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import '../../../helpers/typedefs.dart';
 
 // Models
+import '../models/brand_model.codegen.dart';
 import '../models/category_model.codegen.dart';
 import '../models/snack_model.codegen.dart';
 
@@ -16,6 +17,12 @@ part 'food_provider.codegen.g.dart';
 final currentCategoryProvider = StateProvider.autoDispose<CategoryModel?>(
   (ref) {
     return ref.watch(categoriesFutureProvider).asData?.value.first;
+  },
+);
+
+final currentCategoryBrandProvider = StateProvider.autoDispose<BrandModel?>(
+  (ref) {
+    return ref.watch(currentCategoryProvider)?.brands.first;
   },
 );
 
@@ -41,7 +48,13 @@ class FoodProvider {
     return _foodRepository.fetchAllCategories(queryParameters: queryParams);
   }
 
-  Future<List<SnackModel>> getAllCategorySnacks(int id) async {
-    return _foodRepository.fetchAllCategorySnacks(categoryId: id);
+  Future<List<SnackModel>> getAllBrandSnacks({
+    required int brandId,
+    required int categoryId,
+  }) async {
+    return _foodRepository.fetchAllBrandSnacks(
+      brandId: brandId,
+      categoryId: categoryId,
+    );
   }
 }

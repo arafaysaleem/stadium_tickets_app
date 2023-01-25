@@ -5,6 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../../helpers/constants/constants.dart';
 
 // Models
+import '../../models/brand_model.codegen.dart';
 import '../../models/snack_model.codegen.dart';
 
 // Providers
@@ -52,7 +53,10 @@ class CartDetailsListView extends ConsumerWidget {
             ),
 
             // Category Items
-            CartDetailsListItem(snacks: snacks),
+            CartDetailsListItem(
+              snacks: snacks,
+              brands: category.brands,
+            ),
 
             Insets.gapH10,
           ],
@@ -66,9 +70,11 @@ class CartDetailsListItem extends StatelessWidget {
   const CartDetailsListItem({
     super.key,
     required this.snacks,
+    required this.brands,
   });
 
   final Map<SnackModel, int> snacks;
+  final List<BrandModel> brands;
 
   @override
   Widget build(BuildContext context) {
@@ -77,6 +83,8 @@ class CartDetailsListItem extends StatelessWidget {
         for (var snack in snacks.keys)
           CartDetailSnackItem(
             snack: snack,
+            brand: brands
+                .firstWhere((element) => element.brandId == snack.brandId),
             quantity: snacks[snack]!,
           )
       ],
@@ -88,11 +96,13 @@ class CartDetailSnackItem extends ConsumerWidget {
   const CartDetailSnackItem({
     super.key,
     required this.snack,
+    required this.brand,
     required this.quantity,
   });
 
   final SnackModel snack;
   final int quantity;
+  final BrandModel brand;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -148,13 +158,41 @@ class CartDetailSnackItem extends ConsumerWidget {
                 ),
               ),
 
+              // Brand Details Column
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  // Brand name
+                  Text(
+                    brand.name,
+                    style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w300,
+                      fontFamily: AppTypography.secondaryFontFamily,
+                      color: AppColors.textWhite80Color,
+                    ),
+                  ),
+
+                  // Brand image
+                  CustomNetworkImage(
+                    height: 25,
+                    width: 50,
+                    radius: 0,
+                    imageUrl: brand.logoUrl,
+                    fit: BoxFit.contain,
+                    placeholder: const EventPosterPlaceholder(),
+                    errorWidget: const EventPosterPlaceholder(),
+                  ),
+                ],
+              ),
+
               // Snack Qty Decrease
               InkWell(
                 onTap: () {
                   if (quantity > 1) {
                     ref
                         .read(categorySnacksProvider.notifier)
-                        .removeSnack(snack);
+                        .removeSnack(snack, brand.categoryId);
                   }
                 },
                 child: Container(
@@ -172,12 +210,21 @@ class CartDetailSnackItem extends ConsumerWidget {
               ),
 
               // Snack Qty
-              CustomText.subtitle('$quantity'),
+              Container(
+                decoration: const BoxDecoration(
+                  color: AppColors.primaryColor,
+                  shape: BoxShape.circle,
+                ),
+                padding: const EdgeInsets.all(5),
+                child: CustomText.subtitle('$quantity'),
+              ),
 
               // Snack Qty Increase
               InkWell(
                 onTap: () {
-                  ref.read(categorySnacksProvider.notifier).addSnack(snack);
+                  ref
+                      .read(categorySnacksProvider.notifier)
+                      .addSnack(snack, brand.categoryId);
                 },
                 child: Container(
                   decoration: BoxDecoration(
@@ -200,7 +247,7 @@ class CartDetailSnackItem extends ConsumerWidget {
                 onTap: () {
                   ref
                       .read(categorySnacksProvider.notifier)
-                      .deleteSnackFromCategory(snack);
+                      .deleteSnackFromCategory(snack, brand.categoryId);
                 },
                 child: const Icon(
                   Icons.delete,

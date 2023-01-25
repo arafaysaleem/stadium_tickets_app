@@ -10,12 +10,16 @@ import 'food_provider.codegen.dart';
 part 'category_snacks_provider.codegen.g.dart';
 
 @Riverpod(keepAlive: true)
-Future<List<SnackModel>?> categorySnacksFuture(
-  CategorySnacksFutureRef ref,
-  int? categoryId,
-) {
-  if (categoryId == null) return Future.value();
-  return ref.watch(foodProvider).getAllCategorySnacks(categoryId);
+Future<List<SnackModel>?> brandSnacksFuture(
+  BrandSnacksFutureRef ref, {
+  required int? brandId,
+  required int? categoryId,
+}) {
+  if (brandId == null || categoryId == null) return Future.value();
+  return ref.watch(foodProvider).getAllBrandSnacks(
+    brandId: brandId,
+    categoryId: categoryId,
+  );
 }
 
 @riverpod
@@ -38,7 +42,7 @@ final confirmedCategorySnacksProvider =
 class CategorySnacks extends _$CategorySnacks {
   /// Stores the selected snacks for each category
   /// The outer map is the category id
-  /// The inner map is the snack id and the quantity
+  /// The inner map is the snack and the quantity
   @override
   Map<int, Map<SnackModel, int>> build() {
     final categorySnacks = ref
@@ -49,9 +53,9 @@ class CategorySnacks extends _$CategorySnacks {
 
   /// Increases the quantity of the snack having snackId by 1
   /// If the snack is not in the map, it is added with quantity 1
-  void addSnack(SnackModel snack) {
+  void addSnack(SnackModel snack, int categoryId) {
     state.update(
-      snack.categoryId,
+      categoryId,
       (value) {
         value.update(
           snack,
@@ -69,8 +73,7 @@ class CategorySnacks extends _$CategorySnacks {
   /// If the quantity is 1, the snack is removed from the map
   /// If the snack is not in the map, nothing happens
   /// If the snack's category is not in the map, nothing happens
-  void removeSnack(SnackModel snack) {
-    final categoryId = snack.categoryId;
+  void removeSnack(SnackModel snack, int categoryId) {
     if (!state.containsKey(categoryId) ||
         !state[categoryId]!.containsKey(snack)) return;
 
@@ -95,8 +98,7 @@ class CategorySnacks extends _$CategorySnacks {
   }
 
   /// Delete snack from category
-  void deleteSnackFromCategory(SnackModel snack) {
-    final categoryId = snack.categoryId;
+  void deleteSnackFromCategory(SnackModel snack, int categoryId) {
     if (!state.containsKey(categoryId) ||
         !state[categoryId]!.containsKey(snack)) return;
     state[categoryId]!.remove(snack);

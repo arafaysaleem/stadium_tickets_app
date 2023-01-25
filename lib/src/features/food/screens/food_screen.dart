@@ -13,9 +13,10 @@ import '../providers/category_snacks_provider.codegen.dart';
 
 // Widgets
 import '../../../global/widgets/widgets.dart';
+import '../widgets/brands_list.dart';
 import '../widgets/cart_button.dart';
 import '../widgets/categories_list.dart';
-import '../widgets/category_snacks_grid_loader.dart';
+import '../widgets/brand_snacks_grid_loader.dart';
 import '../widgets/select_snacks_button.dart';
 
 class FoodScreen extends ConsumerWidget {
@@ -38,12 +39,12 @@ class FoodScreen extends ConsumerWidget {
                     onTap: () {
                       AppRouter.pop();
                       ref
-                        ..invalidate(categorySnacksFutureProvider)
+                        ..invalidate(brandSnacksFutureProvider)
                         ..invalidate(categorySnacksProvider);
                     },
                   ),
 
-                  // Parking Floor
+                  // Food title
                   const Expanded(
                     child: CustomText(
                       'Pick Food Items',
@@ -60,14 +61,19 @@ class FoodScreen extends ConsumerWidget {
 
             Insets.gapH20,
 
-            // Floors List
+            // Categories List
             const CategoriesList(),
 
             Insets.gapH25,
 
-            // Spots
+            // Brands List
+            const BrandsList(),
+
+            Insets.gapH25,
+
+            // Snacks
             const Expanded(
-              child: CategorySnacksGridLoader(),
+              child: BrandSnacksGridLoader(),
             ),
 
             // Purchase & Cart Button

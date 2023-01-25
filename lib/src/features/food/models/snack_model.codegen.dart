@@ -11,7 +11,7 @@ part 'snack_model.codegen.g.dart';
 class SnackModel extends Equatable with _$SnackModel {
   const factory SnackModel({
     required int snackId,
-    required int categoryId,
+    required int brandId,
     required String name,
     required int price,
     required String imageUrl,

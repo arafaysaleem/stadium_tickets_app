@@ -10,6 +10,7 @@ part 'brand_model.codegen.g.dart';
 class BrandModel with _$BrandModel {
   const factory BrandModel({
     required int brandId,
+    required int categoryId,
     required String name,
     required String logoUrl,
   }) = _BrandModel;

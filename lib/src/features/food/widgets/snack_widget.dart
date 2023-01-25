@@ -9,6 +9,7 @@ import '../../../helpers/constants/constants.dart';
 import '../models/snack_model.codegen.dart';
 
 // Providers
+import '../providers/food_provider.codegen.dart';
 import '../providers/category_snacks_provider.codegen.dart';
 
 // Widgets
@@ -76,9 +77,11 @@ class SnackWidget extends HookConsumerWidget {
                 child: InkWell(
                   onTap: () {
                     if (qty > 1) animController.forward();
+                    final categoryId =
+                        ref.read(currentCategoryProvider)!.categoryId;
                     ref
                         .read(categorySnacksProvider.notifier)
-                        .removeSnack(snack);
+                        .removeSnack(snack, categoryId);
                   },
                   child: Container(
                     decoration: BoxDecoration(
@@ -102,9 +105,11 @@ class SnackWidget extends HookConsumerWidget {
                 child: InkWell(
                   onTap: () {
                     animController.forward();
+                    final categoryId =
+                        ref.read(currentCategoryProvider)!.categoryId;
                     ref
                         .read(categorySnacksProvider.notifier)
-                        .addSnack(snack);
+                        .addSnack(snack, categoryId);
                   },
                   child: Container(
                     decoration: BoxDecoration(

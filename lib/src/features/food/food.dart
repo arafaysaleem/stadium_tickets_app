@@ -10,6 +10,6 @@ export 'widgets/cart_button.dart';
 export 'widgets/categories_list.dart';
 export 'widgets/categories_list_item.dart';
 export 'widgets/category_snacks_grid.dart';
-export 'widgets/category_snacks_grid_loader.dart';
+export 'widgets/brand_snacks_grid_loader.dart';
 export 'widgets/select_snacks_button.dart';
 export 'widgets/snack_widget.dart';
