@@ -5,6 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../helpers/constants/constants.dart';
 
 // Models
+import '../../events/events.dart';
 import '../models/snack_model.codegen.dart';
 
 // Providers
@@ -38,6 +39,39 @@ class CategorySnacksGridLoader extends ConsumerWidget {
           final extendBottom = categorySnacks!.length > 7;
           return Column(
             children: [
+              // Brand Details
+              Container(
+                decoration: BoxDecoration(
+                  color: AppColors.surfaceColor.withOpacity(0.4),
+                  borderRadius: Corners.rounded15,
+                ),
+                padding: const EdgeInsets.all(10),
+                margin: const EdgeInsets.all(15),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    // Brand Name
+                    CustomText(
+                      category!.sellerBrand.name,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                    ),
+
+                    // Brand Logo
+                    CustomNetworkImage(
+                      height: 50,
+                      radius: 15,
+                      imageUrl: category.sellerBrand.logoUrl,
+                      fit: BoxFit.contain,
+                      placeholder: const EventPosterPlaceholder(),
+                      errorWidget: const EventPosterPlaceholder(),
+                    )
+                  ],
+                ),
+              ),
+
+              Insets.gapH10,
+
               // Snacks Area
               CategorySnacksGrid(
                 extendBottom: extendBottom,
