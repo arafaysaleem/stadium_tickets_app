@@ -17,6 +17,7 @@ class PaymentModel with _$PaymentModel {
     required PaymentEventModel event,
     required PaymentSeatsModel seats,
     @JsonKey(toJson: AppUtils.toNull, includeIfNull: false) PaymentParkingModel? parking,
+    @JsonKey(toJson: AppUtils.toNull, includeIfNull: false) List<PaymentSnacksModel>? snacks,
     @JsonKey(toJson: AppUtils.toNull, includeIfNull: false) CardDetailsModel? card,
   }) = _PaymentModel;
 
@@ -54,4 +55,15 @@ class PaymentParkingModel with _$PaymentParkingModel {
   }) = _PaymentParkingModel;
 
   factory PaymentParkingModel.fromJson(JSON json) => _$PaymentParkingModelFromJson(json);
+}
+
+@freezed
+class PaymentSnacksModel with _$PaymentSnacksModel {
+  const factory PaymentSnacksModel({
+    required int price,
+    required int qty,
+    required int total,
+  }) = _PaymentSnacksModel;
+
+  factory PaymentSnacksModel.fromJson(JSON json) => _$PaymentSnacksModelFromJson(json);
 }

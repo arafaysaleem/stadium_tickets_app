@@ -52,6 +52,16 @@ class Checkout extends _$Checkout {
       final seatPrice = ref.read(currentZoneProvider)!.type.price;
       final seatTickets = ref.read(seatTicketsProvider).length;
       final parkingTickets = ref.read(parkingTicketsProvider);
+      final snackBookings = ref
+          .read(snackBookingsProvider)
+          .map(
+            (e) => PaymentSnacksModel(
+              price: e.snack.price,
+              qty: e.quantity,
+              total: e.snack.price * e.quantity,
+            ),
+          )
+          .toList();
       final data = PaymentModel(
         card: card,
         event: PaymentEventModel(
@@ -71,6 +81,7 @@ class Checkout extends _$Checkout {
                 qty: parkingTickets.length,
                 total: parkingTickets.length * parkingTickets.first.price!,
               ),
+        snacks: snackBookings.isEmpty ? null : snackBookings,
         orderAmount: ref.read(totalAmountProvider),
         orderDate: DateTime.now(),
       );
