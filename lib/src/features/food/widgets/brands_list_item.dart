@@ -5,6 +5,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../../helpers/constants/constants.dart';
 
 // Models
+import '../../events/events.dart';
 import '../models/brand_model.codegen.dart';
 
 // Providers
@@ -35,18 +36,37 @@ class BrandsListItem extends ConsumerWidget {
       child: AnimatedContainer(
         duration: Durations.medium,
         curve: Curves.fastOutSlowIn,
-        width: 67,
+        width: 100,
+        padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
-          gradient: isSelected ? AppColors.buttonGradientPrimary : null,
-          border: isSelected
-              ? null
-              : Border.all(
-                  color: AppColors.primaryColor,
-                ),
-          borderRadius: Corners.rounded10,
+          border: Border.all(
+            color: isSelected ? AppColors.primaryColor : Colors.transparent,
+            width: 2,
+          ),
+          color: AppColors.surfaceColor,
+          borderRadius: Corners.rounded15,
         ),
-        child: Center(
-          child: CustomText.subtitle(brand.name),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            // Brand logo
+            CustomNetworkImage(
+              height: 45,
+              radius: 15,
+              imageUrl: brand.logoUrl,
+              fit: BoxFit.contain,
+              placeholder: const EventPosterPlaceholder(iconSize: 25),
+              errorWidget: const EventPosterPlaceholder(iconSize: 25),
+            ),
+
+            // Brand name
+            CustomText(
+              brand.name,
+              maxLines: 1,
+              fontWeight: FontWeight.w400,
+              fontSize: 13,
+            ),
+          ],
         ),
       ),
     );

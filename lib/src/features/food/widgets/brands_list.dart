@@ -23,17 +23,8 @@ class BrandsList extends ConsumerWidget {
     final brands = ref.watch(currentCategoryProvider)?.brands;
     return brands == null
         ? Insets.shrink
-        : Container(
-            decoration: const BoxDecoration(
-              color: AppColors.surfaceColor,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20),
-                bottomLeft: Radius.circular(20),
-              ),
-            ),
-            height: 60,
-            margin: const EdgeInsets.only(left: 15),
-            padding: const EdgeInsets.fromLTRB(15, 15, 0, 15),
+        : SizedBox(
+            height: 100,
             child: ShaderMask(
               shaderCallback: getShader,
               blendMode: BlendMode.dstOut,
@@ -41,7 +32,7 @@ class BrandsList extends ConsumerWidget {
                 physics: const BouncingScrollPhysics(
                   parent: AlwaysScrollableScrollPhysics(),
                 ),
-                padding: const EdgeInsets.only(left: 15),
+                padding: const EdgeInsets.symmetric(horizontal: 15),
                 scrollDirection: Axis.horizontal,
                 itemCount: brands.length,
                 separatorBuilder: (_, __) => Insets.gapW15,

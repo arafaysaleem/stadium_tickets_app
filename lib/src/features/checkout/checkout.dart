@@ -1,6 +1,7 @@
 export 'enums/card_provider_enum.dart';
 export 'enums/checkout_state_enum.dart';
 export 'models/card_details_model.codegen.dart';
+export 'models/payment_model.codegen.dart';
 export 'providers/checkout_provider.codegen.dart';
 export 'repositories/checkout_repository.codegen.dart';
 export 'screens/card_setup_screen.dart';

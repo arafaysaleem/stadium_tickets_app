@@ -12,16 +12,16 @@ import '../models/snack_model.codegen.dart';
 // Widgets
 import 'snack_widget.dart';
 
-class CategorySnacksGrid extends HookWidget {
+class BrandSnacksGrid extends HookWidget {
   final bool extendBottom;
   final List<SnackModel> snacks;
 
-  static const _snackHeight = 98;
+  static const _snackHeight = 85;
   static const _snackWidth = 88.0;
   static const _snackGap = 15.0;
   static const _snacksPerRow = 2;
 
-  const CategorySnacksGrid({
+  const BrandSnacksGrid({
     super.key,
     required this.extendBottom,
     required this.snacks,
@@ -29,7 +29,7 @@ class CategorySnacksGrid extends HookWidget {
 
   double getMaxGridHeight() {
     final height = (snacks.length/_snacksPerRow) * (_snackHeight + _snackGap) - _snackGap + 12;
-    return max(height, 435);
+    return max(height, 345);
   }
 
   bool _onGlowNotification(OverscrollIndicatorNotification overScroll) {
@@ -75,7 +75,7 @@ class CategorySnacksGrid extends HookWidget {
                       crossAxisCount: _snacksPerRow,
                       crossAxisSpacing: _snackGap,
                       childAspectRatio: _snackWidth / _snackHeight,
-                      mainAxisSpacing: _snackGap,
+                      mainAxisSpacing: 5,
                     ),
                     itemBuilder: (ctx, i) => SnackWidget(snack: snacks[i]),
                   ),

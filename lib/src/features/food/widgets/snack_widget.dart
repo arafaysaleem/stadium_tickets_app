@@ -59,9 +59,9 @@ class SnackWidget extends HookConsumerWidget {
             children: [
               // Image
               Padding(
-                padding: const EdgeInsets.fromLTRB(10, 21, 10, 10),
+                padding: const EdgeInsets.fromLTRB(10, 25, 10, 10),
                 child: CustomNetworkImage(
-                  height: 90,
+                  height: 60,
                   radius: 15,
                   imageUrl: snack.imageUrl,
                   fit: BoxFit.contain,

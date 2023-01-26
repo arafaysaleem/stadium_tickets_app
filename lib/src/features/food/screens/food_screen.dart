@@ -64,12 +64,12 @@ class FoodScreen extends ConsumerWidget {
             // Categories List
             const CategoriesList(),
 
-            Insets.gapH25,
+            Insets.gapH20,
 
             // Brands List
             const BrandsList(),
 
-            Insets.gapH25,
+            Insets.gapH20,
 
             // Snacks
             const Expanded(
@@ -78,7 +78,7 @@ class FoodScreen extends ConsumerWidget {
 
             // Purchase & Cart Button
             Padding(
-              padding: const EdgeInsets.fromLTRB(15, 0, 10, 0),
+              padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
               child: Row(
                 children: [
                   // Select
@@ -95,7 +95,7 @@ class FoodScreen extends ConsumerWidget {
                   Stack(
                     children: [
                       const Padding(
-                        padding: EdgeInsets.only(top: 5, right: 5),
+                        padding: EdgeInsets.only(top: 5),
                         child: CartButton(),
                       ),
 
@@ -115,7 +115,7 @@ class FoodScreen extends ConsumerWidget {
                               ? Insets.shrink
                               : Positioned(
                                   top: 0,
-                                  right: 0,
+                                  left: 30,
                                   child: Container(
                                     decoration: const BoxDecoration(
                                       color: AppColors.textWhite80Color,

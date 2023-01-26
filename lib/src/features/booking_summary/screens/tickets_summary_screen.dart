@@ -62,17 +62,17 @@ class TicketSummaryScreen extends StatelessWidget {
               ),
             ),
 
-            Insets.gapH10,
+            Insets.gapH5,
 
             // Extras
             Padding(
-              padding: const EdgeInsets.fromLTRB(20, 0, 15, 0),
+              padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   // Parking Add on
                   Padding(
-                    padding: const EdgeInsets.only(top: 5),
+                    padding: const EdgeInsets.only(top: 10),
                     child: InkResponse(
                       onTap: () {
                         AppRouter.pushNamed(Routes.ParkingsScreenRoute);
@@ -108,7 +108,7 @@ class TicketSummaryScreen extends StatelessWidget {
                     children: [
                       // Food button
                       Padding(
-                        padding: const EdgeInsets.only(top: 5, right: 5),
+                        padding: const EdgeInsets.only(top: 10),
                         child: InkResponse(
                           onTap: () {
                             AppRouter.pushNamed(Routes.FoodScreenRoute);
@@ -142,7 +142,7 @@ class TicketSummaryScreen extends StatelessWidget {
                       // Food cart quantity
                       Positioned(
                         top: 0,
-                        right: 0,
+                        left: 13,
                         child: Consumer(
                           builder: (_, ref, __) {
                             final totalSnacks = ref.watch(
@@ -160,14 +160,10 @@ class TicketSummaryScreen extends StatelessWidget {
                                       color: AppColors.textWhite80Color,
                                       shape: BoxShape.circle,
                                     ),
-                                    constraints: const BoxConstraints(
-                                      minWidth: 19,
-                                      minHeight: 19,
-                                    ),
+                                    padding: const EdgeInsets.all(6),
                                     child: Center(
-                                      child: CustomText(
+                                      child: CustomText.label(
                                         '$totalSnacks',
-                                        fontSize: 11,
                                         color: AppColors.textBlackColor,
                                         fontWeight: FontWeight.bold,
                                       ),

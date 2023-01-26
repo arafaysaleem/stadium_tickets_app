@@ -119,13 +119,13 @@ class CartDetailSnackItem extends ConsumerWidget {
             children: [
               // Snack image
               CustomNetworkImage(
-                height: 50,
-                width: 50,
+                height: 60,
+                width: 55,
                 radius: 0,
                 imageUrl: snack.imageUrl,
                 fit: BoxFit.contain,
-                placeholder: const EventPosterPlaceholder(),
-                errorWidget: const EventPosterPlaceholder(),
+                placeholder: const EventPosterPlaceholder(iconSize: 30),
+                errorWidget: const EventPosterPlaceholder(iconSize: 30),
               ),
 
               Insets.gapW10,
@@ -158,86 +158,66 @@ class CartDetailSnackItem extends ConsumerWidget {
                 ),
               ),
 
-              // Brand Details Column
+              // Brand Logo
+              CustomNetworkImage(
+                height: 30,
+                width: 50,
+                radius: 0,
+                imageUrl: brand.logoUrl,
+                fit: BoxFit.contain,
+                placeholder: const EventPosterPlaceholder(),
+                errorWidget: const EventPosterPlaceholder(),
+              ),
+
+              Insets.gapW10,
+
+              // Snack Qty Counter
               Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  // Brand name
-                  Text(
-                    brand.name,
-                    style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w300,
-                      fontFamily: AppTypography.secondaryFontFamily,
-                      color: AppColors.textWhite80Color,
+                  // Snack Qty Increase
+                  InkWell(
+                    onTap: () {
+                      ref
+                          .read(categorySnacksProvider.notifier)
+                          .addSnack(snack, brand.categoryId);
+                    },
+                    child: const Padding(
+                      padding: EdgeInsets.all(3),
+                      child: Icon(
+                        Icons.keyboard_arrow_up_rounded,
+                        size: 15,
+                      ),
                     ),
                   ),
 
-                  // Brand image
-                  CustomNetworkImage(
-                    height: 25,
-                    width: 50,
-                    radius: 0,
-                    imageUrl: brand.logoUrl,
-                    fit: BoxFit.contain,
-                    placeholder: const EventPosterPlaceholder(),
-                    errorWidget: const EventPosterPlaceholder(),
+                  // Snack Qty
+                  Container(
+                    decoration: const BoxDecoration(
+                      color: AppColors.primaryColor,
+                      shape: BoxShape.circle,
+                    ),
+                    padding: const EdgeInsets.all(7),
+                    child: CustomText.label('$quantity'),
+                  ),
+
+                  // Snack Qty Decrease
+                  InkWell(
+                    onTap: () {
+                      if (quantity > 1) {
+                        ref
+                            .read(categorySnacksProvider.notifier)
+                            .removeSnack(snack, brand.categoryId);
+                      }
+                    },
+                    child: const Padding(
+                      padding: EdgeInsets.all(3),
+                      child: Icon(
+                        Icons.keyboard_arrow_down_rounded,
+                        size: 15,
+                      ),
+                    ),
                   ),
                 ],
-              ),
-
-              // Snack Qty Decrease
-              InkWell(
-                onTap: () {
-                  if (quantity > 1) {
-                    ref
-                        .read(categorySnacksProvider.notifier)
-                        .removeSnack(snack, brand.categoryId);
-                  }
-                },
-                child: Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(color: AppColors.primaryColor),
-                    shape: BoxShape.circle,
-                  ),
-                  padding: const EdgeInsets.all(3),
-                  margin: const EdgeInsets.all(9),
-                  child: const Icon(
-                    Icons.remove,
-                    size: 15,
-                  ),
-                ),
-              ),
-
-              // Snack Qty
-              Container(
-                decoration: const BoxDecoration(
-                  color: AppColors.primaryColor,
-                  shape: BoxShape.circle,
-                ),
-                padding: const EdgeInsets.all(5),
-                child: CustomText.subtitle('$quantity'),
-              ),
-
-              // Snack Qty Increase
-              InkWell(
-                onTap: () {
-                  ref
-                      .read(categorySnacksProvider.notifier)
-                      .addSnack(snack, brand.categoryId);
-                },
-                child: Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(color: AppColors.primaryColor),
-                    shape: BoxShape.circle,
-                  ),
-                  padding: const EdgeInsets.all(3),
-                  margin: const EdgeInsets.all(9),
-                  child: const Icon(
-                    Icons.add,
-                    size: 15,
-                  ),
-                ),
               ),
 
               Insets.gapW5,

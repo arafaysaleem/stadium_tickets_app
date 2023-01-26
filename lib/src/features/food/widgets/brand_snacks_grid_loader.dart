@@ -13,7 +13,7 @@ import '../providers/food_provider.codegen.dart';
 
 // Widgets
 import '../../../global/widgets/widgets.dart';
-import 'category_snacks_grid.dart';
+import 'brand_snacks_grid.dart';
 
 class BrandSnacksGridLoader extends ConsumerWidget {
   const BrandSnacksGridLoader({super.key});
@@ -43,14 +43,14 @@ class BrandSnacksGridLoader extends ConsumerWidget {
             ),
           ),
         ),
-        data: (categorySnacks) {
-          final extendBottom = categorySnacks!.length > 7;
+        data: (brandSnacks) {
+          final extendBottom = brandSnacks!.length > 4;
           return Column(
             children: [
               // Snacks Area
-              CategorySnacksGrid(
+              BrandSnacksGrid(
                 extendBottom: extendBottom,
-                snacks: categorySnacks,
+                snacks: brandSnacks,
               ),
 
               if (!extendBottom) Insets.expand,

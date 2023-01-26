@@ -135,6 +135,7 @@ class BillingDetails extends ConsumerWidget {
                       radius: const Radius.circular(20),
                       child: ListView(
                         padding: EdgeInsets.zero,
+                        primary: true,
                         physics: const BouncingScrollPhysics(),
                         children: [
                           // Seat Summary Data

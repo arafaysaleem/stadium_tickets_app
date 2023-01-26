@@ -74,10 +74,17 @@ class MockFoodRepository implements FoodRepository {
             'https://seeklogo.com/images/C/coca-cola-circle-logo-A9EBD3B00A-seeklogo.com.png',
         'category_id': 1,
       },
+      <String, dynamic>{
+        'brand_id': 2,
+        'name': 'Nestle',
+        'logo_url':
+            'https://www.waleedshah.ae/wp-content/uploads/2018/04/Nestle-Logo.png',
+        'category_id': 1,
+      },
     ],
     2: [
       <String, dynamic>{
-        'brand_id': 2,
+        'brand_id': 3,
         'name': 'Lays',
         'logo_url':
             'https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Lays_brand_logo.png/300px-Lays_brand_logo.png',
@@ -86,7 +93,7 @@ class MockFoodRepository implements FoodRepository {
     ],
     3: [
       <String, dynamic>{
-        'brand_id': 3,
+        'brand_id': 4,
         'name': 'Pizza Hut',
         'logo_url':
             'https://www.freepnglogos.com/uploads/pizza-hut-png-logo/does-the-new-logo-flavors-pizza-hut-png-13.png',
@@ -95,7 +102,7 @@ class MockFoodRepository implements FoodRepository {
     ],
     4: [
       <String, dynamic>{
-        'brand_id': 4,
+        'brand_id': 5,
         'name': 'Burger King',
         'logo_url':
             'https://assets.stickpng.com/images/5842996fa6515b1e0ad75add.png',
@@ -104,7 +111,7 @@ class MockFoodRepository implements FoodRepository {
     ],
     5: [
       <String, dynamic>{
-        'brand_id': 5,
+        'brand_id': 6,
         'name': 'KFC',
         'logo_url':
             'https://www.freepnglogos.com/uploads/kfc-png-logo/camera-kfc-png-logo-0.png',
@@ -123,16 +130,26 @@ class MockFoodRepository implements FoodRepository {
         imageUrl:
             'https://www.seekpng.com/png/detail/56-561367_banner-royalty-free-library-png-transparent-images-can.png',
       ),
+    ],
+    2: [
       SnackModel(
-        snackId: 2,
-        brandId: 1,
+        snackId: 12,
+        brandId: 2,
         name: 'Mineral Water',
         price: 5,
         imageUrl:
             'https://banner2.cleanpng.com/20171220/bqw/water-bottle-png-image-5a3ab38d99d457.62425636151379649363014217.jpg',
       ),
+      SnackModel(
+        snackId: 13,
+        brandId: 2,
+        name: 'Orange Iced Tea',
+        price: 8,
+        imageUrl:
+            'https://www.nestleprofessional.com.au/sites/default/files/styles/np_product_detail/public/2022-03/Nestea%20Lemon.png?itok=YSkH9R6o',
+      ),
     ],
-    2: [
+    3: [
       SnackModel(
         snackId: 3,
         brandId: 2,
@@ -158,10 +175,10 @@ class MockFoodRepository implements FoodRepository {
             'https://e7.pngegg.com/pngimages/595/1022/png-clipart-lay-s-wavy-chip-plastic-pack-french-fries-lays-wow-chips-chocolate-covered-potato-chips-lays-classic-potato-chips-packet-food-dipping-sauce-thumbnail.png',
       ),
     ],
-    3: [
+    4: [
       SnackModel(
         snackId: 6,
-        brandId: 3,
+        brandId: 4,
         name: 'Cheese Burst',
         price: 20,
         imageUrl:
@@ -169,7 +186,7 @@ class MockFoodRepository implements FoodRepository {
       ),
       SnackModel(
         snackId: 7,
-        brandId: 3,
+        brandId: 4,
         name: 'Veggie',
         price: 20,
         imageUrl:
@@ -177,17 +194,17 @@ class MockFoodRepository implements FoodRepository {
       ),
       SnackModel(
         snackId: 8,
-        brandId: 3,
+        brandId: 4,
         name: 'Peppy Paneer',
         price: 20,
         imageUrl:
             'https://www.nicepng.com/png/detail/811-8114767_welcome-to-pizza-hut-middle-east-pizza-hut.png',
       ),
     ],
-    4: [
+    5: [
       SnackModel(
         snackId: 9,
-        brandId: 4,
+        brandId: 5,
         name: 'Whopper',
         price: 16,
         imageUrl:
@@ -195,17 +212,17 @@ class MockFoodRepository implements FoodRepository {
       ),
       SnackModel(
         snackId: 10,
-        brandId: 4,
+        brandId: 5,
         name: 'Chicken Royale',
         price: 16,
         imageUrl:
             'https://www.pngitem.com/pimgs/m/523-5236317_double-whopper-burger-king-hd-png-download.png',
       ),
     ],
-    5: [
+    6: [
       SnackModel(
         snackId: 12,
-        brandId: 5,
+        brandId: 6,
         name: 'Family Bucket',
         price: 40,
         imageUrl:
@@ -213,7 +230,7 @@ class MockFoodRepository implements FoodRepository {
       ),
       SnackModel(
         snackId: 13,
-        brandId: 5,
+        brandId: 6,
         name: 'Zinger Stacker',
         price: 16,
         imageUrl:
@@ -221,7 +238,7 @@ class MockFoodRepository implements FoodRepository {
       ),
       SnackModel(
         snackId: 15,
-        brandId: 5,
+        brandId: 6,
         name: 'Chicken Wings',
         price: 15,
         imageUrl:
