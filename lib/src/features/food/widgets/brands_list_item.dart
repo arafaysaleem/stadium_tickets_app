@@ -36,7 +36,7 @@ class BrandsListItem extends ConsumerWidget {
       child: AnimatedContainer(
         duration: Durations.medium,
         curve: Curves.fastOutSlowIn,
-        width: 100,
+        width: 110,
         padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
           border: Border.all(
@@ -51,7 +51,7 @@ class BrandsListItem extends ConsumerWidget {
           children: [
             // Brand logo
             CustomNetworkImage(
-              height: 45,
+              height: 55,
               radius: 15,
               imageUrl: brand.logoUrl,
               fit: BoxFit.contain,

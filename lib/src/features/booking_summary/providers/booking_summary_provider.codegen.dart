@@ -136,6 +136,7 @@ class BookingSummaryProvider {
       eventId: ref.read(currentEventProvider)!.eventId,
       bookingSeats: seatTickets,
       bookingParkingSpaces: ref.read(parkingTicketsProvider),
+      bookingSnacks: ref.read(snackBookingsProvider),
       datetime: DateTime.now(),
       status: BookingStatus.RESERVED,
     );

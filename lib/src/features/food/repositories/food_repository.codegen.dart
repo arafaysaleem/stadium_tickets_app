@@ -20,8 +20,8 @@ part 'food_repository.codegen.g.dart';
 @Riverpod(keepAlive: true)
 FoodRepository foodRepository(FoodRepositoryRef ref) {
   final _apiService = ref.watch(apiServiceProvider);
-  return MockFoodRepository(apiService: _apiService);
-  // return FoodRepository(apiService: _apiService);
+  // return MockFoodRepository(apiService: _apiService);
+  return FoodRepository(apiService: _apiService);
 }
 
 class FoodRepository {

@@ -32,7 +32,7 @@ class BillingDetails extends ConsumerWidget {
         borderRadius: Corners.rounded10,
       ),
       constraints: BoxConstraints(
-        maxHeight: context.screenHeight * 0.63,
+        maxHeight: context.screenHeight * 0.62,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

@@ -16,7 +16,15 @@ class BookingSnackModel with _$BookingSnackModel {
     required SnackModel snack,
     required int quantity,
   }) = _BookingSnackModel;
+  const BookingSnackModel._();
 
   factory BookingSnackModel.fromJson(JSON json) =>
       _$BookingSnackModelFromJson(json);
+
+  JSON toCustomJson() {
+    return <String, dynamic>{
+      'snack_id': snack.snackId,
+      'quantity': quantity,
+    };
+  }
 }
