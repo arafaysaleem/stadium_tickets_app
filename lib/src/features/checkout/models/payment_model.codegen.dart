@@ -60,6 +60,7 @@ class PaymentParkingModel with _$PaymentParkingModel {
 @freezed
 class PaymentSnacksModel with _$PaymentSnacksModel {
   const factory PaymentSnacksModel({
+    required String name,
     required int price,
     required int qty,
     required int total,

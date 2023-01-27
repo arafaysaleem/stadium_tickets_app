@@ -56,6 +56,7 @@ class Checkout extends _$Checkout {
           .read(snackBookingsProvider)
           .map(
             (e) => PaymentSnacksModel(
+              name: e.snack.name,
               price: e.snack.price,
               qty: e.quantity,
               total: e.snack.price * e.quantity,
