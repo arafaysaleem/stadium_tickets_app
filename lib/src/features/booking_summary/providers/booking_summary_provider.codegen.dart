@@ -64,15 +64,21 @@ final snackBookingsProvider =
       return snackMap.entries.map(
         (k) {
           final categories = ref.watch(categoriesFutureProvider).asData!.value;
-          var brandName = '';
-          for (final category in categories) {
-            for (final brand in category.brands) {
-              if (brand.brandId == k.key.brandId) brandName = brand.name;
+
+          String findBrandName(int brandId) {
+            for (final category in categories) {
+              for (final brand in category.brands) {
+                if (brand.brandId == brandId) {
+                  return brand.name;
+                }
+              }
             }
+            return '';
           }
+
           return BookingSnackModel(
             snack: k.key,
-            brand: brandName,
+            brand: findBrandName(k.key.brandId),
             quantity: k.value,
           );
         },
