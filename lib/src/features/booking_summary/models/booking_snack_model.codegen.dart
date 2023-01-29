@@ -14,6 +14,7 @@ part 'booking_snack_model.codegen.g.dart';
 class BookingSnackModel with _$BookingSnackModel {
   const factory BookingSnackModel({
     required SnackModel snack,
+    required String brand,
     required int quantity,
   }) = _BookingSnackModel;
   const BookingSnackModel._();
@@ -24,6 +25,7 @@ class BookingSnackModel with _$BookingSnackModel {
   JSON toCustomJson() {
     return <String, dynamic>{
       'snack_id': snack.snackId,
+      'brand': brand,
       'quantity': quantity,
     };
   }

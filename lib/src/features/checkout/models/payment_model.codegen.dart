@@ -61,6 +61,7 @@ class PaymentParkingModel with _$PaymentParkingModel {
 class PaymentSnacksModel with _$PaymentSnacksModel {
   const factory PaymentSnacksModel({
     required String name,
+    required String brand,
     required int price,
     required int qty,
     required int total,

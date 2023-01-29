@@ -63,8 +63,16 @@ final snackBookingsProvider =
 
       return snackMap.entries.map(
         (k) {
+          final categories = ref.watch(categoriesFutureProvider).asData!.value;
+          var brandName = '';
+          for (final category in categories) {
+            for (final brand in category.brands) {
+              if (brand.brandId == k.key.brandId) brandName = brand.name;
+            }
+          }
           return BookingSnackModel(
             snack: k.key,
+            brand: brandName,
             quantity: k.value,
           );
         },

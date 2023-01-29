@@ -58,6 +58,7 @@ class Checkout extends _$Checkout {
             (e) => PaymentSnacksModel(
               name: e.snack.name,
               price: e.snack.price,
+              brand: e.brand,
               qty: e.quantity,
               total: e.snack.price * e.quantity,
             ),
