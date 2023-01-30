@@ -145,7 +145,7 @@ class BillingDetails extends ConsumerWidget {
                               const CustomText(
                                 'Seat Ticket',
                                 fontSize: 15,
-                                color: AppColors.textGreyColor,
+                                color: AppColors.textBlackColor,
                               ),
 
                               Insets.expand,
@@ -186,7 +186,7 @@ class BillingDetails extends ConsumerWidget {
                                   const CustomText(
                                     'Parking Ticket',
                                     fontSize: 15,
-                                    color: AppColors.textGreyColor,
+                                    color: AppColors.textBlackColor,
                                   ),
 
                                   Insets.expand,
@@ -226,10 +226,23 @@ class BillingDetails extends ConsumerWidget {
                                 child: Row(
                                   children: [
                                     // Name
-                                    CustomText(
-                                      snackBooking.snack.name,
-                                      fontSize: 15,
-                                      color: AppColors.textGreyColor,
+                                    Text.rich(
+                                      TextSpan(
+                                        text: snackBooking.snack.name,
+                                        style: const TextStyle(
+                                          fontSize: 14,
+                                          color: AppColors.textBlackColor,
+                                        ),
+                                        children: [
+                                          TextSpan(
+                                            text: ' (${snackBooking.brand})',
+                                            style: const TextStyle(
+                                              fontSize: 13,
+                                              color: AppColors.textGreyColor,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
 
                                     Insets.expand,
